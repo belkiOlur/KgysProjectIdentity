@@ -1,0 +1,182 @@
+﻿@{
+    ViewData["Title"] = "Add";
+}
+
+
+@model ParkAndRecreationsViewModel
+<html>
+<head>
+    <style type="text/css">
+        #menu {
+            display: inline-block;
+            width: 40%;
+        }
+
+        #content {
+            display: inline-block;
+            width: 40%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="col-md-4 offset-md-4">
+        <h1 class="mb-3">Park ve Rekreasyon Ekleme Sayfası</h1>
+    </div>
+    <div class="container mt-3">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="ParkAndRecreations" asp-action="Add" method="post">
+            <div id="menu">
+                <div class="mb-2">
+                    <label asp-for="ParkDistrict" class="form-label">İlçe :</label>
+                    <select class="form-select" asp-for="ParkDistrict" asp-items="@ViewBag.DistrictSelect" id="District">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ParkDistrict"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="ParkNeighboor" class="form-label">Mahalle / Semt :</label>
+                    <select class="form-select" asp-for="ParkNeighboor" asp-items="@Enumerable.Empty<SelectListItem>()" id="DistrictArea">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ParkNeighboor"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ParkName" class="form-label">Park ve Rekreasyon Adı :</label>
+                    <input type="text" class="form-control" asp-for="ParkName">
+                    <span class="text-danger" asp-validation-for="ParkName"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ParkAdress" class="form-label">Park ve Rekreasyon Adresi :</label>
+                    <input type="text" class="form-control" asp-for="ParkAdress">
+                    <span class="text-danger" asp-validation-for="ParkAdress"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ParkCoordinate" class="form-label">Koordinatı :</label>
+                    <input type="text" class="form-control" asp-for="ParkCoordinate">
+                    <span class="text-danger" asp-validation-for="ParkCoordinate"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ParkCamerasSetup" class="form-label">Kurulum :</label>
+                    <select class="form-select" asp-for="ParkCamerasSetup" asp-items="@ViewBag.ParksSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ParkCamerasSetup"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ParkCamerasActiveDate" class="form-label">Aktif Olduğu Tarih :</label>
+                    <input type="date" class="form-control" asp-for="ParkCamerasActiveDate">
+                    <span class="text-danger" asp-validation-for="ParkCamerasActiveDate"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ParkPoleCount" class="form-label">Direk Sayısı :</label>
+                    <input type="number" class="form-control" asp-for="ParkPoleCount">
+                    <span class="text-danger" asp-validation-for="ParkPoleCount"></span>
+                </div>
+               
+            </div>
+
+            <div id="content" class="offset-1">
+                <div class="mb-2">
+                    <label asp-for="ParkTotalCameraCount" class="form-label">Toplam Kamera Sayısı :</label>
+                    <input type="number" class="form-control" asp-for="ParkTotalCameraCount">
+                    <span class="text-danger" asp-validation-for="ParkTotalCameraCount"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ParkFixedCameraCount" class="form-label">Sabit Kamera Sayısı  :</label>
+                    <input type="number" class="form-control" asp-for="ParkFixedCameraCount">
+                    <span class="text-danger" asp-validation-for="ParkFixedCameraCount"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ParkDomeCameraCount" class="form-label">Hareketli Kamera Sayısı :</label>
+                    <input type="number" class="form-control" asp-for="ParkDomeCameraCount">
+                    <span class="text-danger" asp-validation-for="ParkDomeCameraCount"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ParkNvrAdress" class="form-label">Kayıt NVR Tutulduğu Yer :</label>
+                    <input type="text" class="form-control" asp-for="ParkNvrAdress">
+                    <span class="text-danger" asp-validation-for="ParkNvrAdress"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ParkLiveMonitoring" class="form-label">Canlı İzleme Yeri:</label>
+                    <input type="text" class="form-control" asp-for="ParkLiveMonitoring">
+                    <span class="text-danger" asp-validation-for="ParkLiveMonitoring"></span>
+                </div>
+                <div class="form-floating">
+                    <textarea asp-for="ParkExplain" class="form-control" style="height: 100px"></textarea>
+                    <label asp-for="ParkExplain">Açıklama</label>
+                    <span class="text-danger" asp-validation-for="ParkExplain"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ParkSupervisor" class="form-label">Park Sorumlusu :</label>
+                    <input type="text" class="form-control" asp-for="ParkSupervisor">
+                    <span class="text-danger" asp-validation-for="ParkSupervisor"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ParkSupervisorTel" class="form-label">Park Sorumlusu Tel :</label>
+                    <input type="text" class="form-control" asp-for="ParkSupervisorTel">
+                    <span class="text-danger" asp-validation-for="ParkSupervisorTel"></span>
+                </div>
+                               
+               
+
+
+            </div>
+            <div class="mb-5">
+                <label class="form-label"> </label>
+                <button type="submit" class="btn btn-outline-primary d-md-block">Kaydet</button>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+</html>
+@*İlçe seçince mahalle gelmesi için konuldu*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        // İlçe seçildiğinde bu fonksiyon çalışmaya başlayacak.
+        $('#District').change(function () {
+            // Seçilen İlçenin ID sini alıyoruz.
+            var districtID = $(this).val();
+            /*Seçilen districtID sini kullanarak
+            KgysRequested(Controller) sınıfı içerisindeki GetNeighbour
+            Action metodunu çağırıyoruz.
+            Bu metoddan dönen liste sayesinde .each fonksiyonu ile
+            DistrictArea idli SelectList nesnesini dolduruluyor.*/
+            if (districtID != null && districtID != '') {
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("GetNeighbour", "KgysRequested")',
+                    data: { districtID: districtID },
+                    success: function (getNeighbour) {
+                        $('#DistrictArea').empty();
+                        $.each(getNeighbour, function (index, neighbour) {
+                            $('#DistrictArea').append($('<option/>', {
+                                value: neighbour.Id,
+                                text: neighbour.neighbourName
+                            }));
+                        });
+                    },
+                    error: function () {
+                        /*Bu metod ile Ajax işlemi başarısız
+                        olursa eğer hata mesajı verebiliyoruz.*/
+                        alert("Hata");
+                    },
+                    beforeSend: function () {
+                        /*Burada ise Form Post edilmeden önce
+                        işlemler yapılabilir.Örnek olarak Loading, yükleniyor vs..*/
+                    },
+                    complete: function () {
+                        /*Burada ise Form Post edildikten sonra
+                        işlemler yapılabilir.Örnek olarak yükleme tamamlandı vs..*/
+                    }
+                });
+            }
+        });
+    });
+</script>
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
+

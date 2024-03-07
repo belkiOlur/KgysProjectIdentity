@@ -1,0 +1,277 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    int i = 0;
+    int count = 0;
+    int planned = 0;
+    int request = 0;
+}
+
+@model List<KgysRequestViewModel>
+
+<style>
+
+
+    a:link {
+        text-decoration: none;
+    }
+
+    a:visited {
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    a:active {
+        text-decoration: none;
+    }
+
+    
+</style>
+<div class="row">
+    <div class="col-md-5 offset-md-4">
+        <h1>KGYS Talepleri Sayfası</h1>
+    </div>
+</div>
+
+@if (TempData["status"] != null)
+{
+    <div class="row">
+        <div class="col-md-3 offset-md-4 alert alert-success text-center" role="alert">
+            @TempData["status"]
+        </div>
+    </div>
+
+}
+
+<a class="btn btn-secondary" role="button" asp-controller="KgysRequested" asp-action="add">Yeni Gelen Talep Ekle</a>
+
+<a class="btn btn-secondary" role="button" asp-controller="KgysRequested" asp-action="CreateExcel">Excele Aktar</a>
+
+<a class="btn btn-secondary" role="button" asp-controller="KgysRequested" asp-action="BeforeKgysRequestIndex">01.04.2023 Öncesi Talepler</a>
+
+<a class="btn btn-secondary" role="button" asp-controller="KgysRequested" asp-action="KgysRequestIndex">İzmir İli Talepleri</a>
+
+
+<div class="offset-10 form-group pull-right mb-3">
+    <input type="text" class="search form-control" placeholder="Aranılacak Kelimeyi Giriniz" style="width:300px">
+    <span class="counter pull-right"></span>
+</div>
+
+
+<table class="table table-striped table-hover text-center table-bordered results" id="dataTable">
+    <thead>
+        <tr class="table-light">
+            <th style=" max-width:1px">Sıra No</th>
+            <th>İl Adı</th>
+            <th>İlçe Adı</th>
+            <th>KGYS Nokta Adeti</th>
+            <th>PTS Nokta Adeti</th>
+            <th>Planlanan Nokta Sayısı</th>
+            <th>Planlanan PTS Sayısı</th>
+            <th>Talep Edilen Nokta Sayısı</th>
+            <th>Talep Edilen PTS Sayısı</th>
+        </tr>
+        <tr class="warning no-result">
+            <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in ViewBag.District)
+        {
+            count = 0;
+            planned = 0;
+            request = 0;
+            i++;
+            <tr>
+                <th scope="row">@i</th>
+                <td>İzmir</td>
+                <td><a role="button" asp-controller="KgysRequested" asp-action="Neighbourhood" asp-route-id="@item.Id">@item.districtName</a></td>
+                <td>
+                    @foreach (var modell in ViewBag.KgysPlanned)
+                    {
+
+                        if (item.districtName == modell.District && modell.LastStatus == "Mevcut" && modell.RequestType == "KGYS")
+                        {
+                            count++;
+                        }
+
+                    }
+                    @count
+                </td>
+                @{
+                    count = 0;
+                }
+                <td>
+                    @foreach (var modell in ViewBag.KgysPlanned)
+                    {
+                        if (item.districtName == modell.District && modell.LastStatus == "Mevcut" && modell.RequestType == "PTS")
+                        {
+                            count++;
+                        }
+
+                    }
+                    @count
+                    @{
+                        count = 0;
+                    }
+                </td>
+                <td>
+                    @foreach (var modell in ViewBag.KgysPlanned)
+                    {
+                        if (item.districtName == modell.District && modell.LastStatus == "Planlanan" && modell.RequestType == "KGYS")
+                        {
+                            planned++;
+                        }
+
+                    }
+                    @planned
+                    @{
+                        planned = 0;
+                    }
+                </td>
+                <td>
+                    @foreach (var modell in ViewBag.KgysPlanned)
+                    {
+                        if (item.districtName == modell.District && modell.LastStatus == "Planlanan" && modell.RequestType == "PTS")
+                        {
+                            planned++;
+                        }
+
+                    }
+                    @planned
+                    @{
+                        planned = 0;
+                    }
+                </td>
+                <td>
+                    @foreach (var modell in Model)
+                    {
+                        if (item.districtName == modell.District && modell.LastStatus == "Talep" && modell.RequestType == "KGYS")
+                        {
+                            request++;
+                        }
+
+                    }
+                    @request
+                    @{
+                        request = 0;
+                    }
+                </td>
+                <td>
+                    @foreach (var modell in Model)
+                    {
+                        if (item.districtName == modell.District && modell.LastStatus == "Talep" && modell.RequestType == "PTS")
+                        {
+                            request++;
+                        }
+
+                    }
+                    @request
+                    @{
+                        request = 0;
+                    }
+                </td>
+
+            </tr>
+        }
+        <tr style="font-size:large; text-align:center;">
+
+            <td colspan="3"><b>Toplam</b></td>
+          
+            <td>
+                <b>
+                    @foreach (var modell in ViewBag.KgysPlanned)
+                    {
+                        if (modell.LastStatus == "Mevcut" && modell.RequestType == "KGYS")
+                        {
+                            count++;
+                        }
+
+                    }
+                    @count
+                </b>
+                @{
+                    count = 0;
+                }
+            </td>
+            <td>
+                <b>
+                    @foreach (var modell in ViewBag.KgysPlanned)
+                    {
+                        if (modell.LastStatus == "Mevcut" && modell.RequestType == "PTS")
+                        {
+                            count++;
+                        }
+
+                    }
+                    @count
+
+                </b>
+            </td>
+            <td>
+                <b>
+                    @foreach (var modell in ViewBag.KgysPlanned)
+                    {
+                        if (modell.LastStatus == "Planlanan" && modell.RequestType == "KGYS")
+                        {
+                            planned++;
+                        }
+
+                    }
+                    @planned
+                </b>
+                @{
+                    planned = 0;
+                }
+            </td>
+            <td>
+                <b>
+                    @foreach (var modell in ViewBag.KgysPlanned)
+                    {
+                        if (modell.LastStatus == "Planlanan" && modell.RequestType == "PTS")
+                        {
+                            planned++;
+                        }
+
+                    }
+                    @planned
+                </b>
+            </td>
+            <td>
+                <b>
+                    @foreach (var modell in Model)
+                    {
+                        if (modell.LastStatus == "Talep" && modell.RequestType == "KGYS")
+                        {
+                            request++;
+                        }
+
+                    }
+                    @request
+                </b>
+                @{
+                    request = 0;
+                }
+            </td>
+            <td>
+                <b>
+                    @foreach (var modell in Model)
+                    {
+                        if (modell.LastStatus == "Talep" && modell.RequestType == "PTS")
+                        {
+                            request++;
+                        }
+
+                    }
+                    @request
+                </b>
+
+            </td>
+        </tr>
+        
+    </tbody>
+</table>
+

@@ -1,0 +1,192 @@
+﻿@using GridMvc;
+@{
+    ViewData["Title"] = "ProjectIndex";
+    string responseOfficial = "";
+}
+@inject GetProject project
+@model TenderProjectsViewModel
+<div class="col-md-4 offset-md-4 text-center">
+    <h1>@ViewBag.TenderName Aşama Durumları</h1>
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert">
+            @TempData["status"]
+        </div>
+    }
+</div>
+<div class="container mt-lg-5">
+    <table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style="vertical-align:middle">
+        <thead>
+            <tr class="table-light">
+                <th>Talep EBYS No</th>
+                <th>Talep Eden</th>
+                <th>Değerlendirme</th>
+                <th>Cevap EBYS No</th>
+                <th>İşin Adı</th>
+                <th>İşin Açıklaması </th>
+                <th>Şartname Komisyon Oluru Alındı Mı?</th>
+                <th>Şartname Komisyon Oluşturma Yazısı</th>
+            </tr>
+            <tr class="warning no-result">
+                <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.TenderProjects)
+            {
+
+                string seom = TableRowsColor.RowsColor(item.CommissionerConfirmation!);
+
+                <tr>
+                    <td>@item.RequestEbysNo</td>
+                    <td>@item.WhoRequested</td>
+                    <td>@item.Evaluation</td>
+                    <td>@item.AnswerEbysNo</td>
+                    <td>@item.ProjectName</td>
+                    <td>@item.ProjectDescription</td>
+                    <td>@item.CommissionerConfirmation</td>
+                    <td>@item.SpecificationEbys</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style=" vertical-align:middle">
+        <thead>
+            <tr class="table-light">
+                <th>Şartname Geldi Mi?</th>
+                <th>Şartname Komisyon Üyeleri</th>
+                <th>Şartname Onayı Alındı Mı?</th>
+                <th>İhale Birimi</th>
+                <th>İhale Birimine Yazıldı Mı?</th>
+                <th>İhale Tarihi</th>
+                <th>İhaleyi Kazanan Kim?</th>
+                <th>İhale Bedeli</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.TenderProjects)
+            {
+
+
+                string schm = TableRowsColor.RowsColor(item.SendOfTender!);
+                string smplsn = TableRowsColor.RowsColor(item.Specification);
+                string schl = TableRowsColor.RowsColor(item.SpecificationApproval!);
+                <tr>
+                    <td class="@smplsn">@item.Specification</td>
+                    <td>
+                        <ul>
+                            @if (ViewBag.SpecificationOfficials != null && ViewBag.SpecificationOfficials.Count !=0)
+                            {
+                                @foreach (var name in ViewBag.SpecificationOfficials)
+                                {
+                                    string nameOfficial = project.GetUserName(name);
+                                    <li style="list-style-type:none">
+                                        @nameOfficial
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </td>
+                    <td class="@schl">@item.SpecificationApproval</td>
+                    <td>@item.UnitOfTender</td>
+                    <td class="@schm">@item.SendOfTender</td>
+
+                    <td>
+                        @if (item.TenderTime != null)
+                        {
+                            @item.TenderTime.ToString("dd/MM/yyyy")
+                        }
+                    </td>
+                    <td>@item.WhoHasJob</td>
+                    <td>@item.PriceOfWork</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+    <table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style="vertical-align:middle">
+        <thead>
+            <tr class="table-light">
+                <th>İşin Başlama Tarihi</th>
+                <th>İşin Süresi</th>
+                <th>Sorumlu Personelinin Adı</th>
+                <th>İşin Bitiş Tarihi</th>
+                <th>Kabul Komisyon Oluru Alındı Mı?</th>
+                <th>Kabul Komisyon Oluşturma Yazısı</th>
+                <th>Kabul Komisyon Üyeleri</th>
+                <th>Hakediş Yazıldı Mı?</th>
+                <th>Hakediş EBYS No</th>
+                <th>İşin Aşaması</th>
+
+            </tr>
+        </thead>
+
+
+
+        <tbody>
+
+            @foreach (var item in ViewBag.TenderProjects)
+            {
+
+                string sdstc = TableRowsColor.RowsColor(item.PriceStatus!);
+                string sdstd = TableRowsColor.RowsColor(item.Status!);
+                <tr>
+                    <td>
+                        @if (item.DateOfStart != null)
+                        {
+                            @item.DateOfStart.ToString("dd/MM/yyyy")
+                        }
+                    </td>
+                    <td>@item.TimeOfWork</td>
+                    <td>
+                        @{
+                            if (item.WhoResponse != null)
+                            {
+                                responseOfficial = project.GetUserName(item.WhoResponse);
+                            }
+                            else
+                            {
+                                responseOfficial = "";
+                            }
+                        }
+                        @responseOfficial
+                    </td>
+                    <td>
+                        @if (item.DateOfEnd != null)
+                        {
+                            @item.DateOfEnd.ToString("dd/MM/yyyy")
+                        }
+                    </td>
+                    <td>@item.AdmissionCommissionEstablished</td>
+                    <td>@item.AdmissionCommissionEbys</td>
+                    <td>
+                        <ul>
+                            @if (ViewBag.CommisionOfficials != null && ViewBag.CommisionOfficials.Count != 0)
+                            {
+                                @foreach (var name in ViewBag.CommisionOfficials)
+                                {
+                                    string nameOfficial = project.GetUserName(name);
+                                    <li style="list-style-type:none">
+                                        @nameOfficial
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </td>
+                    <td class="@sdstc">@item.PriceStatus</td>
+                    <td>@item.PriceEbysNo</td>
+                    <td class="@sdstd">@item.Status</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+</div>
+
+
+

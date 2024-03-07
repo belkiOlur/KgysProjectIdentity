@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "RepetitiveUpdate";
+}
+
+@model RepetitiveRequestModel
+
+<body>
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h1>Mükerrer Talep Güncelleme Sayfası</h1>
+
+        </div>
+    </div>
+    <div class="container" style="height:fit-content">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form asp-area="" asp-controller="KgysRequested" asp-action="RepetitiveUpdate" method="post">
+            <div class="mb-2">
+                <label asp-for="RequestArraviedDate" class="form-label">Geldiği Tarih :</label>
+                <input type="date" class="form-control" asp-for="RequestArraviedDate">
+                <span class="text-danger" asp-validation-for="RequestArraviedDate"></span>
+            </div>
+            <div class="mb-2">
+                <label asp-for="RequestedByWho" class="form-label">Talep Kimden Geldi :</label>
+                <input type="text" class="form-control" asp-for="RequestedByWho">
+                <span class="text-danger" asp-validation-for="RequestedByWho"></span>
+            </div>
+            <div class="mb-2">
+                <label asp-for="RequestedByWhoDetail" class="form-label">Talep Eden Detay :</label>
+                <input type="text" class="form-control" asp-for="RequestedByWhoDetail">
+                <span class="text-danger" asp-validation-for="RequestedByWhoDetail"></span>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="RequestedTelephoneNumber" class="form-label">Talep Edenin Numarası :</label>
+                <input type="text" class="form-control" asp-for="RequestedTelephoneNumber">
+                <span class="text-danger" asp-validation-for="RequestedTelephoneNumber"></span>
+            </div>
+            <div class="mb-2">
+                <label asp-for="RequestType" class="form-label">Talep Türü</label>
+                <select asp-items="@ViewBag.KgysPtsSelect" class="form-select" asp-for="RequestType">
+                </select>
+                <span class="text-danger" asp-validation-for="RequestType"></span>
+            </div>
+            <div class="mb-1">
+                <label asp-for="Explanation" class="form-label">Açıklama :</label>
+            </div>
+            <div class="form-floating mb-2">
+                <textarea asp-for="Explanation" class="form-control" style="height: 100px"></textarea>
+                <span class="text-danger" asp-validation-for="Explanation"></span>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="CallBack" class="form-label">Geri Bildirim Yapıldı Mı?</label>
+                <select class="form-select" asp-for="CallBack" asp-items="@ViewBag.ReportSelect">
+                </select>
+                <span class="text-danger" asp-validation-for="CallBack"></span>
+            </div>
+            <div class="mb-2">
+                <label asp-for="AnswerEbysNo" class="form-label">Cevap No :</label>
+                <input type="text" class="form-control" asp-for="AnswerEbysNo">
+                <span class="text-danger" asp-validation-for="AnswerEbysNo"></span>
+            </div>
+            <input type="hidden" class="form-control" asp-for="Id">
+            <input type="hidden" class="form-control" asp-for="RequestId">
+            <div class="modal-footer">
+
+                <button type="submit" class="btn btn-danger d-md-block">Güncelle</button>
+            </div>
+        </form>
+    </div>
+
+</body>

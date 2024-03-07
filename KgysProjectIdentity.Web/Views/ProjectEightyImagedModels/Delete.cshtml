@@ -1,0 +1,37 @@
+﻿@model KgysProjectIdentity.Repository.Models.ProjectEightyImagedModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+<style>
+    .foto {
+        width: 250px;
+        height: 250px;
+    }
+
+    .mini {
+        width: 100px;
+        height: 100px
+    }
+</style>
+
+
+<h3>Bu Fotoğrafı Silmek İstediğinize Emin Misiniz?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        @*<dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.PictureUrl)
+        </dt>
+        <dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.PictureUrl)
+        </dd>*@
+        <img src="~/uploads/@ViewBag.path" class="foto hover-shadow">
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Sil" class="btn btn-danger" /> |
+        <a asp-controller="ProjectEighty" asp-action="ViewPicture" asp-route-id="@ViewBag.Id">Resim Sayfasına Geri Dön</a>
+    </form>
+</div>

@@ -1,0 +1,107 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    string time = DateTime.Now.ToString("yyyy-MM-dd");
+}
+@model CalenderViewModel
+<head>
+    <script src="~/fullcalendar-6.1.9/dist/index.global.min.js"></script>
+    <script src="~/fullcalendar-6.1.9/dist/index.global.js"></script>
+    <script>
+        
+                document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialDate: '@time', /*new Date().getFullYear() + "-" + (new Date().getMonth() + 1) + "-" + new Date().getDate(),*/ 
+                themeSystem: 'bootstrap5',
+                locale: "tr",
+                editable: true,
+                selectable: true,
+                businessHours: true,
+                dayMaxEvents: true, // allow "more" link when too many events
+                events: "/Calender/GetAllPermissionsToCalender"
+            });
+                    {
+                        today:'Bugün'
+                    }
+            calendar.render();
+        });
+
+    </script>
+</head>
+<body>
+    <style>
+
+        .fc-col-header-cell-cushion {
+            background-color: inherit; /* veya istediğiniz arkaplan rengi */
+            text-decoration: none;
+            color: black; /* veya istediğiniz metin rengi */
+        }
+
+        .fc-daygrid-day-number {
+            background-color: inherit; /* veya istediğiniz arkaplan rengi */
+            text-decoration: none;
+            color: black; /* veya istediğiniz metin rengi */
+        }
+    </style>
+
+    <div class="col-md-4 offset-md-4 text-center">
+        @if (TempData["status"] != null)
+        {
+            <div class="alert alert-success text-center" role="alert">
+                @TempData["status"]
+            </div>
+
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @TempData["Error"]
+            </div>
+
+        }
+    </div>
+
+    <div class="container">
+        <div class="mb-2 mx-10">
+
+            @if (!User.HasClaim(x => x.Value == "PlanlamaAmiri" || x.Value == "Yönetici"))
+            {
+                <a role="button" data-bs-toggle="modal" data-bs-target="#staticBackdroppp" class="btn btn-secondary">İzin Ekle</a>
+            }
+            <a class="btn btn-secondary" role="button" asp-controller="Calender" asp-action="UserPermission" asp-route-year=@DateTime.Now.Year>İzni Düzenle/Kaldır </a>
+        </div>
+        <div id='calendar'></div>
+    </div>
+
+</body>
+@*Modal ana ürün*@
+<div class="modal fade" id="staticBackdroppp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">İzin Ekleme </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <h2>Lütfen İzin Tarihlerini Giriniz</h2>
+                <form asp-area="" asp-controller="Calender" asp-action="AddPermissionsToCalender" method="post">
+                    <div class="mb-2 mt-2">
+                        <label asp-for="start" class="form-label">Başlangıç Tarihi :</label>
+                        <input type="date" class="form-control" asp-for="start" required>
+                        <span class="text-danger" asp-validation-for="start"></span>
+                    </div>
+                    <div class="mb-2">
+                        <label asp-for="end" class="form-label">Bitiş Tarihi :</label>
+                        <input type="date" class="form-control" asp-for="end" required>
+                        <span class="text-danger" asp-validation-for="end"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-primary d-md-block">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

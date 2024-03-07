@@ -1,0 +1,244 @@
+﻿@{
+    ViewData["Title"] = "Add";
+}
+
+@model KgysPlannedViewModel
+
+<html>
+<head>
+    <style type="text/css">
+        #menu {
+            display: inline-block;
+            width: 40%;
+        }
+
+        #content {
+            display: inline-block;
+            width: 40%;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h1>Nokta Ekleme Sayfası</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="Projects" asp-action="Add" method="post">
+            <div id="menu">
+                <div class="mb-3">
+                    <label asp-for="MaximoId" class="form-label">Maximo ID :</label>
+                    <input type="text" class="form-control" asp-for="MaximoId">
+                    <span class="text-danger" asp-validation-for="MaximoId"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="KgysName" class="form-label">Nokta Adı :</label>
+                    <input type="text" class="form-control" asp-for="KgysName">
+                    <span class="text-danger" asp-validation-for="KgysName"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProjectName" class="form-label">Proje Adı :</label>
+                    <select class="form-select" asp-for="ProjectName" asp-items="@ViewBag.ProjectSelect" >
+                        <option>Proje Seçiniz</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectName"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="District" class="form-label">İlçe :</label>
+                    <select class="form-select" asp-for="District" asp-items="@ViewBag.DistrictSelect" id="District">
+                    </select>
+                    <span class="text-danger" asp-validation-for="District"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Neighbourhood" class="form-label">Mahalle / Semt :</label>
+                    <select class="form-select" asp-for="Neighbourhood" asp-items="@Enumerable.Empty<SelectListItem>()" id="DistrictArea">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Neighbourhood"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="CameraCount" class="form-label">Sabit Kamera Sayısı :</label>
+                    <input type="number" class="form-control" asp-for="CameraCount">
+                    <span class="text-danger" asp-validation-for="CameraCount"></span>
+
+                </div>
+                <div class="mb-2">
+                    <label asp-for="DomeCameraCount" class="form-label">Hareketli Kamera Sayısı :</label>
+                    <input type="number" class="form-control" asp-for="DomeCameraCount">
+                    <span class="text-danger" asp-validation-for="DomeCameraCount"></span>
+                    <option value=1 />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PtsCameraCount" class="form-label">PTS Kamera Sayısı :</label>
+                    <input type="number" class="form-control" asp-for="PtsCameraCount">
+                    <span class="text-danger" asp-validation-for="PtsCameraCount"></span>
+                    <option value=0 />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="RequestType" class="form-label">Nokta Tipi  :</label>
+                    <select class="form-select" asp-for="RequestType" asp-items="@ViewBag.KgysPtsSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="RequestType"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProjectCoordinate" class="form-label">Koordinat :</label>
+                    <input type="text" class="form-control" asp-for="ProjectCoordinate">
+                    <span class="text-danger" asp-validation-for="PtsCameraCount"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProjectExcavation" class="form-label">Kazı Tamamlandı mı? :</label>
+                    <select class="form-select" asp-for="ProjectExcavation" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectExcavation"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProjectBasis" class="form-label">Ankaraj Tamamlandı mı? :</label>
+                    <select class="form-select" asp-for="ProjectBasis" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectBasis"></span>
+                </div>
+               
+                
+            </div>
+
+            <div id="content" class="offset-1 flex-start">
+                <div class="mb-3">
+                    <label asp-for="ProjectPole" class="form-label">Direk Montajı Tamamlandı mı? :</label>
+                    <select class="form-select" asp-for="ProjectPole" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-forProjectPole"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProjectCabinet" class="form-label">Saha Dolabı Montajı Tamamlandı mı? :</label>
+                    <select class="form-select" asp-for="ProjectCabinet" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectCabinet"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProjectAssembly" class="form-label">Kamera Montajı Tamamlandı mı? :</label>
+                    <select class="form-select" asp-for="ProjectAssembly" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectAssembly"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProjectEnergyCable" class="form-label">Enerji Kablosu Çekildi Mi? :</label>
+                    <select class="form-select" asp-for="ProjectEnergyCable" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectEnergyCable"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProjectEnergyConnect" class="form-label">Enerji Bağlandı Mı? :</label>
+                    <select class="form-select" asp-for="ProjectEnergyConnect" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectEnergyConnect"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProjectFiberOptic" class="form-label">Fiber Sonlandı Mı? :</label>
+                    <select class="form-select" asp-for="ProjectFiberOptic" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectFiberOptic"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="ProjectConnection" class="form-label">Görüntü Alındı Mı? :</label>
+                    <select class="form-select" asp-for="ProjectConnection" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectConnection"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="ProjectRecording" class="form-label">Kayıt Başladı Mı? :</label>
+                    <select class="form-select" asp-for="ProjectRecording" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectRecording"></span>
+                </div>
+                <div class="form-floating">
+                    <textarea asp-for="ProjectDescription" class="form-control" style="height: 100px"></textarea>
+                    <label asp-for="ProjectDescription">Açıklama</label>
+                    <span class="text-danger" asp-validation-for="ProjectDescription"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProjectTeam" class="form-label">İş Hangi Takımda? :</label>
+                    <input type="text" class="form-control" asp-for="ProjectTeam">
+                    <span class="text-danger" asp-validation-for="ProjectTeam"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProjectStatus" class="form-label">Kurulum Durum :</label>
+                    <select class="form-select" asp-for="ProjectStatus" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectStatus"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="LastStatus" class="form-label">Son Durum :</label>
+                    <select class="form-select" asp-for="LastStatus" asp-items="@ViewBag.RequestSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="LastStatus"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-outline-primary d-md-block">Kaydet</button>
+
+
+
+        </form>
+
+    </div>
+
+</body>
+</html>
+@*İlçe seçince mahalle gelmesi için konuldu*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        // İlçe seçildiğinde bu fonksiyon çalışmaya başlayacak.
+        $('#District').change(function () {
+            // Seçilen İlçenin ID sini alıyoruz.
+            var districtID = $(this).val();
+            /*Seçilen districtID sini kullanarak
+            KgysRequested(Controller) sınıfı içerisindeki GetNeighbour
+            Action metodunu çağırıyoruz.
+            Bu metoddan dönen liste sayesinde .each fonksiyonu ile
+            DistrictArea idli SelectList nesnesini dolduruluyor.*/
+            if (districtID != null && districtID != '') {
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("GetNeighbour", "KgysRequested")',
+                    data: { districtID: districtID },
+                    success: function (getNeighbour) {
+                        $('#DistrictArea').empty();
+                        $.each(getNeighbour, function (index, neighbour) {
+                            $('#DistrictArea').append($('<option/>', {
+                                value: neighbour.Id,
+                                text: neighbour.neighbourName
+                            }));
+                        });
+                    },
+                    error: function () {
+                        /*Bu metod ile Ajax işlemi başarısız
+                        olursa eğer hata mesajı verebiliyoruz.*/
+                        alert("Hata");
+                    },
+                    beforeSend: function () {
+                        /*Burada ise Form Post edilmeden önce
+                        işlemler yapılabilir.Örnek olarak Loading, yükleniyor vs..*/
+                    },
+                    complete: function () {
+                        /*Burada ise Form Post edildikten sonra
+                        işlemler yapılabilir.Örnek olarak yükleme tamamlandı vs..*/
+                    }
+                });
+            }
+        });
+    });
+    </script>
+    @section Scripts
+        {
+            <script src="~/lib/jquery-validation/dist/jquery.validate.min.js" ></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
+

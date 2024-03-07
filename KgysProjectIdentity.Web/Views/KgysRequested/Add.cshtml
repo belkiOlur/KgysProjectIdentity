@@ -1,0 +1,231 @@
+﻿@{
+    ViewData["Title"] = "Add";
+}
+@model KgysRequestViewModel
+<html>
+<head>
+    <style type="text/css">
+        #menu {
+            display: inline-block;
+            width: 40%;
+        }
+
+        #content {
+            display: inline-block;
+            width: 40%;
+        }
+
+        #content1 {
+            display: inline-block;
+            width: 25%;
+        }
+
+        #content2 {
+            display: inline-block;
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h1>Talep Ekleme Sayfası</h1>
+
+        </div>
+    </div>
+    <div class="container" style="height:fit-content">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="KgysRequested" asp-action="Add" method="post">
+            <div id="menu" class="mx-lg-4">
+                <div class="mb-2">
+                    <label asp-for="KgysName" class="form-label">KGYS/PTS Nokta Adı :</label>
+                    <input type="text" class="form-control" asp-for="KgysName">
+                    <span class="text-danger" asp-validation-for="KgysName"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="District" class="form-label">İlçe :</label>
+                    <select class="form-select" asp-for="District" asp-items="@ViewBag.District" id="District">
+                    </select>
+                    <span class="text-danger" asp-validation-for="District"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="Neighbourhood" class="form-label">Mahalle / Semt :</label>
+                    <select class="form-select" asp-for="Neighbourhood" asp-items="@Enumerable.Empty<SelectListItem>()" id="DistrictArea">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Neighbourhood"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="RequestMethod" class="form-label">Talep Yöntemi :</label>
+                    <input type="text" class="form-control" asp-for="RequestMethod">
+                    <span class="text-danger" asp-validation-for="RequestMethod"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="RequestMethodDetail " class="form-label">Talep Yöntem Detayı :</label>
+                    <input type="text" class="form-control" asp-for="RequestMethodDetail ">
+                    <span class="text-danger" asp-validation-for="RequestMethodDetail "></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="RequestArraviedDate" class="form-label">Geldiği Tarih :</label>
+                    <input type="date" class="form-control" asp-for="RequestArraviedDate">
+                    <span class="text-danger" asp-validation-for="RequestArraviedDate"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="RequestedByWho" class="form-label">Talep Kimden Geldi :</label>
+                    <input type="text" class="form-control" asp-for="RequestedByWho">
+                    <span class="text-danger" asp-validation-for="RequestedByWho"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="RequestedByWhoDetail" class="form-label">Talep Eden Detay :</label>
+                    <input type="text" class="form-control" asp-for="RequestedByWhoDetail">
+                    <span class="text-danger" asp-validation-for="RequestedByWhoDetail"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestedTelephoneNumber" class="form-label">Talep Edenin Numarası :</label>
+                    <input type="text" class="form-control" asp-for="RequestedTelephoneNumber">
+                    <span class="text-danger" asp-validation-for="RequestedTelephoneNumber"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestAddress" class="form-label">Talep Adresi :</label>
+                    <input type="text" class="form-control" asp-for="RequestAddress">
+                    <span class="text-danger" asp-validation-for="RequestAddress"></span>
+                </div>
+
+            </div>
+            <div id="content" class="mx-lg-4">
+                <div class="mb-2">
+                    <div id="content">
+                        <label asp-for="ProjectCoordinateX" class="form-label">Koordinat X:</label>
+                        <input type="number" class="form-control" asp-for="ProjectCoordinateX" >
+                    </div>
+                    <div id="menu">
+                        <label asp-for="ProjectCoordinateY" class="form-label">Koordinat Y:</label>
+                        <input type="number" class="form-control" asp-for="ProjectCoordinateY" >
+                    </div>
+                    <div>
+                        <span class="text-danger" asp-validation-for="ProjectCoordinateX"></span>
+                        <span class="text-danger" asp-validation-for="ProjectCoordinateY"></span>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="RequestEvaluation" class="form-label">Değerlendirme :</label>
+                    <input type="text" class="form-control" asp-for="RequestEvaluation">
+                    <span class="text-danger" asp-validation-for="RequestEvaluation"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestEvaluationDetail" class="form-label">Değerlendirme Açıklama :</label>
+                    <input type="text" class="form-control" asp-for="RequestEvaluationDetail">
+                    <span class="text-danger" asp-validation-for="RequestEvaluationDetail"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestGoToDiscovery" class="form-label">Keşif Yapıldı Mı?</label>
+                    <select class="form-select" asp-for="RequestGoToDiscovery" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="RequestGoToDiscovery"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestFirstDiscovery" class="form-label">1.Keşif Sonucu :</label>
+                    <input type="text" class="form-control" asp-for="RequestFirstDiscovery">
+                    <span class="text-danger" asp-validation-for="RequestFirstDiscovery"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="RequestType" class="form-label">Talep Türü</label>
+                    <select class="form-select" asp-for="RequestType" asp-items="@ViewBag.KgysPtsSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="RequestType"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="RequestAskToDistrict" class="form-label">İlçeye Yazıldı Mı?</label>
+                    <select class="form-select" asp-for="RequestAskToDistrict" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="RequestAskToDistrict"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestAskToDistrictEbysNumber" class="form-label">İlçeye Yazılan EBYS No :</label>
+                    <input type="text" class="form-control" asp-for="RequestAskToDistrictEbysNumber">
+                    <span class="text-danger" asp-validation-for="RequestAskToDistrictEbysNumber"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestAnswerFromDisctrictEbysNumber" class="form-label">İlçeden Gelen Cevap EBYS No :</label>
+                    <input type="text" class="form-control" asp-for="RequestAnswerFromDisctrictEbysNumber">
+                    <span class="text-danger" asp-validation-for="RequestAnswerFromDisctrictEbysNumber"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="RequestArrangementNumber" class="form-label">Talebin İlçe Sıralaması :</label>
+                    <input type="number" class="form-control" asp-for="RequestArrangementNumber">
+                    <span class="text-danger" asp-validation-for="RequestArrangementNumber"></span>
+                </div>
+            </div>
+            <div class="mx-4">
+                <button type="submit" class="btn btn-lg btn-outline-primary d-md-block ">Kaydet</button>
+            </div>
+
+
+        </form>
+    </div>
+
+</body>
+</html>
+@*İlçe seçince mahalle gelmesi için konuldu*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        // İlçe seçildiğinde bu fonksiyon çalışmaya başlayacak.
+        $('#District').change(function () {
+            // Seçilen İlçenin ID sini alıyoruz.
+            var districtID = $(this).val();
+            /*Seçilen districtID sini kullanarak
+            KgysRequested(Controller) sınıfı içerisindeki GetNeighbour
+            Action metodunu çağırıyoruz.
+            Bu metoddan dönen liste sayesinde .each fonksiyonu ile
+            DistrictArea idli SelectList nesnesini dolduruluyor.*/
+            if (districtID != null && districtID != '') {
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("GetNeighbour", "KgysRequested")',
+                    data: { districtID: districtID },
+                    success: function (getNeighbour) {
+                        $('#DistrictArea').empty();
+                        $.each(getNeighbour, function (index, neighbour) {
+                            $('#DistrictArea').append($('<option/>', {
+                                value: neighbour.Id,
+                                text: neighbour.neighbourName
+                            }));
+                        });
+                    },
+                    error: function () {
+                        /*Bu metod ile Ajax işlemi başarısız
+                        olursa eğer hata mesajı verebiliyoruz.*/
+                        alert("Hata");
+                    },
+                    beforeSend: function () {
+                        /*Burada ise Form Post edilmeden önce
+                        işlemler yapılabilir.Örnek olarak Loading, yükleniyor vs..*/
+                    },
+                    complete: function () {
+                        /*Burada ise Form Post edildikten sonra
+                        işlemler yapılabilir.Örnek olarak yükleme tamamlandı vs..*/
+                    }
+                });
+            }
+        });
+    });
+</script>
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/messages_tr.js"></script>
+}
+
+
+

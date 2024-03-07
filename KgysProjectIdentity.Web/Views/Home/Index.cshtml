@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    string dt = DateTime.Today.Day.ToString();
+    string day = DateTime.Today.DayOfWeek.ToString();
+}
+<head>
+    <style>
+        body {
+            background-image: url('../images/kgys1.jpg');
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        marquee {
+            font-size: 3em;
+            color: red
+        }
+
+      
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            @if (TempData["SuccessMassage"] != null)
+            {
+                <div class="alert alert-success text-center" role="alert">
+                    @TempData["SuccessMassage"]
+                </div>
+
+            }
+
+            @*  <marquee class="container-fluid" width="100%" direction="left" height="100px" >
+            Günün Nöbetçileri @ViewBag.Name @ViewBag.Number  @ViewBag.Name2 @ViewBag.Number2
+            </marquee>*@
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+
+            @if (day == "Monday")
+            {
+                <div class="alert alert-danger text-center blink" role="alert" style="font-size:25px; color:red">
+                    Brifingin Güncel Hali Büro Amirine Gönderilecek
+                </div>
+            }
+            @foreach (var item in ViewBag.Alert)
+            {
+                string dy = item.Date.Day.ToString();
+                @if (dt == dy)
+                {
+                    <div class="alert alert-danger text-center blink" role="alert" style="font-size:25px; color:red">
+                        @item.Job
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+   
+</body>

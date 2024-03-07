@@ -1,0 +1,297 @@
+﻿@using System.Security.Claims;
+@inject GetProject getProject
+@{
+    List<ProjectsModel> projects = getProject.GettingProjects();
+}
+@if (User.Identity!.IsAuthenticated)
+{
+    <li class="nav-item dropdown" id="myDropdown">
+        <button class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown">  Hat Başvuruları  </button>
+        <ul class="dropdown-menu" style="background-color:black">
+            <li><a class="nav-link text-light " asp-area="" asp-controller="TelecomFo" asp-action="Index">Telekom Başvuruları</a></li>
+
+            <li><a class="nav-link text-light " asp-area="" asp-controller="SecondaryRequest" asp-action="Index">Tali İzleme Noktaları</a></li>
+
+
+            @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "Admin" || x.Value == "Hat"))
+            {
+                @*<div class="btn-group btn-dark">
+        <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Başvuru İşlemleri
+        </button>
+        <ul class="dropdown-menu">
+
+        <li><a class="nav-link text-light " asp-area="" asp-controller="TelecomFo" asp-action="TeamAdd">Telekom Ekibi Ekle</a></li>
+
+
+        </ul>
+        </div>*@
+
+                <li>
+                    <a class="nav-link text-light" href="#">  Başvuru İşlemleri &raquo; </a>
+                    <ul class="submenu dropdown-menu" style="background-color:black">
+
+                        <li><a class="nav-link text-light " asp-area="" asp-controller="TelecomFo" asp-action="TeamAdd">Telekom Ekibi Ekle</a></li>
+                         <li><a class="nav-link text-light " asp-area="" asp-controller="TelecomFo" asp-action="KuppaMultiplier">Kuppa Çarpanı Düzenle</a></li>
+
+
+                        @*<li><a class="dropdown-item nav-link text-light" href="#">Submenu item 1</a></li>
+                <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
+                <li>
+                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                <ul class="submenu dropdown-menu">
+                <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                </ul>
+                </li>
+                @*<li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                <li><a class="dropdown-item" href="#">Submenu item 5</a><*/li>*@
+                    </ul>
+                </li>
+                @* <li><a class="dropdown-item" href="#"> Dropdown item 3 </a></li>
+        <li><a class="dropdown-item" href="#"> Dropdown item 4 </a></li>*@
+
+
+            }
+
+
+
+
+        </ul>
+    </li>
+
+    <li class="nav-item dropdown" id="myDropdown">
+        <button class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown">   Proje Durumları  </button>
+        <ul class="dropdown-menu" style="background-color:black">
+            <li>
+                <a class="nav-link text-light" href="#">  2020 Yılı Sonrası Projeler &raquo; </a>
+                <ul class="submenu dropdown-menu" style="background-color:black">
+                    @foreach (var project in projects)
+                    {
+                        if (project.Year >= 2020)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light " asp-area="" asp-controller="Projects" asp-action="Index" asp-route-id="@project.Id" method="post">@project.Project</a>
+                            </li>
+                        }
+                    }
+
+                </ul>
+            </li>
+            <li>
+                <a class="nav-link text-light" href="#">  2016 - 2020 Yılları Arası Projeler &raquo; </a>
+                <ul class="submenu dropdown-menu" style="background-color:black">
+                    @foreach (var project in projects)
+                    {
+                        if (project.Year >= 2016 && project.Year < 2020)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light " asp-area="" asp-controller="Projects" asp-action="Index" asp-route-id="@project.Id" method="post">@project.Project</a>
+                            </li>
+                        }
+                    }
+
+                </ul>
+            </li>
+            <li>
+                <a class="nav-link text-light" href="#">  2016 Yılı Öncesi Projeler &raquo; </a>
+                <ul class="submenu dropdown-menu" style="background-color:black">
+                    @foreach (var project in projects)
+                    {
+                        if (project.Year < 2016)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light " asp-area="" asp-controller="Projects" asp-action="Index" asp-route-id="@project.Id" method="post">@project.Project</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </li>
+
+
+
+            
+
+
+           
+
+            @*   <li class="nav-item">
+        <a class="nav-link text-light " asp-area="" asp-controller="Projects" asp-action="Index" asp-route-id="@project.Id" method="post">@project.Project</a>
+        </li>*@
+
+
+
+            @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "Admin" || x.Value == "Planlama"))
+            {
+
+
+                <li>
+                    <a class="nav-link text-light" href="#">  Proje İşlemleri &raquo; </a>
+                    <ul class="submenu dropdown-menu" style="background-color:black">
+
+                        <li><a class="nav-link text-light " asp-area="" asp-controller="Projects" asp-action="ProjectAdd">Proje Ekleme</a></li>
+
+                    </ul>
+                </li>
+
+
+
+
+
+            }
+
+        </ul>
+    </li>
+
+    <li class="nav-item dropdown" id="myDropdown">
+
+        @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "Admin" || x.Value == "Planlama"))
+        {
+            <button class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown">   Bekleyen İşler  </button>
+            <ul class="dropdown-menu" style="background-color:black">
+
+                <li class="nav-item">
+                    <a class="nav-link text-light " asp-area="" asp-controller="WaitingJobs" asp-action="Index">Onay Bekleyen İşler</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light " asp-area="" asp-controller="WaitingJobs" asp-action="AssignedJobsIndex">Atanan İşler</a>
+                </li>
+
+
+
+                @*<div class="btn-group btn-dark">
+        <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Başvuru İşlemleri
+        </button>
+        <ul class="dropdown-menu">
+
+        <li><a class="nav-link text-light " asp-area="" asp-controller="TelecomFo" asp-action="TeamAdd">Telekom Ekibi Ekle</a></li>
+
+
+        </ul>
+        </div>*@
+
+                <li>
+                    <a class="nav-link text-light" href="#">  İşlemler &raquo; </a>
+                    <ul class="submenu dropdown-menu" style="background-color:black">
+
+                        <li><a class="nav-link text-light " asp-area="" asp-controller="Home" asp-action="AlertAdd">Tekrarlı İş Ekleme</a></li>
+                        @*<li><a class="dropdown-item nav-link text-light" href="#">Submenu item 1</a></li>
+                <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
+                <li>
+                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                <ul class="submenu dropdown-menu">
+                <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+                <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+                </ul>
+                </li>
+                @*<li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+                <li><a class="dropdown-item" href="#">Submenu item 5</a><*/li>*@
+                    </ul>
+                </li>
+                @* <li><a class="dropdown-item" href="#"> Dropdown item 3 </a></li>
+        <li><a class="dropdown-item" href="#"> Dropdown item 4 </a></li>*@
+
+
+            </ul>
+        }
+
+
+    </li>
+
+    <li class="nav-item dropdown" id="myDropdown">
+
+        @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "Admin" || x.Value == "Planlama"))
+        {
+            <button class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown"> Takipli İşler </button>
+            <ul class="dropdown-menu" style="background-color:black">
+                <li class="nav-item">
+
+                    <a class="nav-link text-light " asp-area="" asp-controller="TenderProjects" asp-action="Index">İhale Takip</a>
+
+                </li>
+                <li class="nav-item">
+
+
+                    <a class="nav-link text-light " asp-area="" asp-controller="KgysRequested" asp-action="Index">KGYS Talepleri</a>
+
+
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link text-light " asp-area="" asp-controller="ParkAndRecreations" asp-action="Index">Park ve Rekreasyon</a>
+
+                </li>
+
+                <li class="nav-item">
+
+                    <a class="nav-link text-light " asp-area="" asp-controller="AccidentKgys" asp-action="Index">Kazalı Noktalar</a>
+
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link text-light " asp-area="" asp-controller="Payment" asp-action="Index">Ödenek Takip</a>
+
+                </li>
+
+                @*<div class="btn-group btn-dark">
+        <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Başvuru İşlemleri
+        </button>
+        <ul class="dropdown-menu">
+
+        <li><a class="nav-link text-light " asp-area="" asp-controller="TelecomFo" asp-action="TeamAdd">Telekom Ekibi Ekle</a></li>
+
+
+        </ul>
+        </div>*@
+
+                @*<li>
+        <a class="nav-link text-light" href="#">  İşlemler &raquo; </a>
+        <ul class="submenu dropdown-menu" style="background-color:black">
+
+        <li><a class="nav-link text-light " asp-area="" asp-controller="Home" asp-action="AlertAdd">Tekrarlı İş Ekleme</a></li>*@
+                @*<li><a class="dropdown-item nav-link text-light" href="#">Submenu item 1</a></li>
+        <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
+        <li>
+        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+        <ul class="submenu dropdown-menu">
+        <li><a class="dropdown-item" href="#">Multi level 1</a></li>
+        <li><a class="dropdown-item" href="#">Multi level 2</a></li>
+        </ul>
+        </li>
+        @*<li><a class="dropdown-item" href="#">Submenu item 4</a></li>
+        <li><a class="dropdown-item" href="#">Submenu item 5</a><*/li>
+        </ul>
+        </li>
+        @* <li><a class="dropdown-item" href="#"> Dropdown item 3 </a></li>
+        <li><a class="dropdown-item" href="#"> Dropdown item 4 </a></li>*@
+
+
+            </ul>
+        }
+
+    </li>
+    <li class="nav-item dropdown" id="myDropdown">
+
+        @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "Admin" || x.Value == "PlanlamaAmiri" || x.Value == "Depo" || x.Value == "Yönetici"))
+        {
+            <button class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown"> Malzemeler </button>
+            <ul class="dropdown-menu" style="background-color:black">
+
+                <li class="nav-item">
+
+                    <a id="btnSubmit" type="button" class="nav-link text-light " asp-area="" asp-controller="WareHouse" asp-action="Index">İşlemler</a>
+
+                </li>
+
+
+
+            </ul>
+
+
+        }
+
+    </li>
+    <a class="nav-link text-light " asp-area="" asp-controller="Calender" asp-action="Index">İzin Modülü</a>
+}

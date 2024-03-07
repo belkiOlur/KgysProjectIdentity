@@ -1,0 +1,160 @@
+﻿@{
+    ViewData["Title"] = "TeamAdd";
+}
+
+@model TelecomTeamViewModel
+<style type="text/css">
+    #menu {
+        display: inline-block;
+        width: 29%;
+    }
+
+    #content {
+        display: inline-block;
+        width: 69%;
+    }
+</style>
+<div class="container">
+    @if (TempData["SuccessMassage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessMassage"]
+        </div>
+    }
+</div>
+
+<div id="menu">
+
+
+    <div class="row">
+        <div class="col-md-8 offset-md-1">
+
+            <h2>Telekom Takım Listesi</h2>
+
+            <a class="btn btn-primary mb-3 mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop">TT Saha Takımı Ekle</a>
+            <div class="">
+                <div class="">
+                    <table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style="width:fit-content; vertical-align:middle">
+                        <thead>
+                            <tr class="table-light">
+                                <th>Takım Adı</th>
+                                <th>İşlem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.Teams)
+                            {
+                                <tr class="table-light">
+                                    <td>@item.TelecomTeam</td>
+                                    <td>
+                                        <a type="button" data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-danger d-md-block" data-bs-id="@item.Id">Sil</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="content">
+    @*<h2>Kullanıcı Bilgileri</h2>
+
+    <table class="table table-hover">
+    <thead>
+    <tr>
+    <th>Kullanıcı Adı</th>
+    <th>Tam Adı</th>
+    <th>Email</th>
+    <th>Sahip Olduğu Roller</th>
+    <th>Rol İşlemleri</th>
+    <th>Kullanıcı İşlemleri</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in ViewBag.userViewModelList)
+    {
+    <tr>
+    <td>@item.Name</td>
+    <td>@item.FullName</td>
+    <td>@item.Email</td>
+    <td>
+    <user-rol-names user-id="@item.Id"></user-rol-names>
+    </td>
+    <td>
+    <button asp-area="admin"  asp-controller="Roles" asp-action="AssignRoleToUser" asp-route-id="@item.Id"  class="btn btn-secondary btn-sm">Rolü Güncelle</button>
+    <a class="btn btn-secondary btn-sm" type="button" asp-controller="Roles" asp-action="AssignRoleToUser" asp-route-id="@item.Id">Rolü Güncelle</a>
+
+    </td>
+    <td>
+    <a class="btn btn-danger btn-sm" type="button" asp-area="admin" asp-controller="Home" asp-action="UserDelete" asp-route-id="@item.Id">Kullanıcıyı Sil</a>
+    <a class="btn btn-primary btn-sm" type="button" asp-area="Home" asp-controller="Member" asp-action="UserEdit" asp-route-id="@item.Id">Kullanıcıyı Güncelle</a>
+    </td>
+    </tr>
+    }
+    </tbody>
+    </table>*@
+</div>
+
+
+
+@*Modal Remove*@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <form asp-area="" asp-controller="TelecomFo" asp-action="TeamAdd" method="post">
+                    <label for="TelecomTeam" class="col-sm-4 col-form-label" asp-for="TelecomTeam"> Takım Adı :</label>
+                    <input type="Text" class="form-control" asp-for="TelecomTeam" required>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*Modal Add*@
+<div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdroppLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                Silmek İstediğinize Emin Misiniz?
+                <form asp-area="" asp-controller="TelecomFo" asp-action="TeamRemove" method="post">
+
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
+
+

@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<div class="col-md-4 offset-md-4">
+<h1>Hoşgeldin @User.Identity!.Name</h1>
+</div>
+
+
+<div class="col-md4 offset-md-4">
+    @if (String.IsNullOrEmpty(Model.PictureUrl))
+    {
+        <img src="/userpictures/default_user_picture.jpg" class="rounded" />
+    }
+    else
+    {
+            <img src="/userpictures/@(Model.PictureUrl)" class="rounded" />
+    }
+</div>

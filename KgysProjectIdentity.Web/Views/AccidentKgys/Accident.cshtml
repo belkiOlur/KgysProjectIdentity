@@ -1,0 +1,162 @@
+﻿@using GridMvc;
+@{
+    ViewData["Title"] = "Accident";
+}
+
+@model List<AccidentKgysViewModel>
+<div class="col-md-4 offset-md-4 text-center">
+    <h1>Kazalı Nokta Durumları</h1>
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert">
+            @TempData["status"]
+        </div>
+
+    }
+</div>
+<div class="container mt-lg-5">
+    <table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style=" vertical-align:middle">
+        <thead>
+            <tr class="table-light">
+                <th>Kazalı Nokta Adı</th>
+                <th>KGYS / PTS</th>
+                <th>Kaza İlçesi</th>
+                <th>Kaza Tarihi</th>
+                <th>Kaza Bilgisi</th>
+                <th>Kaza EBYS No</th>
+                <th>Alkol Testi</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.AccidentKgysName</td>
+                    <td>@item.AccidenKgysType</td>
+                    <td>@item.AccidentKgysDistrict</td>
+                    <td>@item.AccidentDate</td>
+                    <td>@item.AccidentInfo</td>
+                    <td>@item.AccidentEbysNo</td>
+                    <td>@item.AlcoholTest</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+
+    <table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style=" vertical-align:middle">
+        <thead>
+            <tr class="table-light">
+                <th>Kaza Tutanağı</th>
+                <th>Sigorta Şirketi</th>
+                <th>Sigorta Poliçe No</th>
+                <th>Kasko Şirketi</th>
+                <th>Kasko Poliçe No</th>
+                <th>Hasar Kayıt Tarihi</th>
+                <th>Hasar Kayıt No</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.AccidentReport</td>
+                    <td>@item.AccidentInsuranceName</td>
+                    <td>@item.AccidentPolicyNo </td>
+                    <td>@item.AccidentComplementInsuranceName</td>
+                    <td>@item.AccidentComplementPolicyNo</td>
+                    <td>
+                        @if (item.AccidentRegistrationDate != null)
+                        {
+                            @item.AccidentRegistrationDate.Value.ToString("dd/MM/yyyy")
+                        }
+                    </td>
+                    <td>@item.AccidentRegistrationNo </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+
+
+    <table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style=" vertical-align:middle">
+        <thead>
+            <tr class="table-light">
+                <th>Hasar Kayıt Durumu</th>
+                <th>Atanan Expertiz Şirketi</th>
+                <th>Expertiz Telefon No</th>
+                <th>Expertiz E-mail</th>
+                <th>Belgeler Expertize Gönderildi Mi?</th>
+                <th>Tahmini Onarım Bedeli</th>
+                <th>Açıklama</th>
+            </tr>
+            <tr class="warning no-result">
+                <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.AccidentRegistrationStatus</td>
+                    <td>@item.AccidentExpertiseCompany</td>
+                    <td>@item.AccidentExpertiseTelephone</td>
+                    <td>@item.AccidentExpertiseEmail</td>
+                    <td>@item.AccidentExpertiseEmailSend</td>
+                    <td>@item.AccidentDamagePrice</td>
+                    <td>@item.Explanation</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+
+
+
+    <table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style=" vertical-align:middle">
+        <thead>
+            <tr class="table-light">
+                <th>Ödeme Durumu</th>
+                <th>Ödenen Miktar</th>
+                <th>Onarımı Yapan Şirket</th>
+                <th>Onarım Tamamlanma Tarihi</th>
+                <th>İşin Durumu</th>
+                <th>Güncelleme Tarihi</th>
+                <th>İlgilenen Personel</th>
+            </tr>
+            <tr class="warning no-result">
+                <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.PriceStatus</td>
+                    <td>@item.AmountPaid</td>
+                    <td>@item.RepairCompany</td>
+                    <td>
+                        @if (item.RepairFinishDate != null)
+                        {
+                            @item.RepairFinishDate.Value.ToString("dd/MM/yyyy")
+                        }
+                    </td>
+                    <td>@item.Status</td>
+                    <td>@item.UpdateDate</td>
+                    <td>@item.UpdateUser</td>
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>

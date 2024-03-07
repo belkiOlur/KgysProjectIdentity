@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "EbysUpdate";
+}
+
+@model WaitingJobsViewModel
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h1>Bekleyen İşi Güncelleme Sayfası</h1>
+
+    </div>
+</div>
+<div asp-validation-summary="ModelOnly"></div>
+
+
+<form asp-controller="WaitingJobs" asp-action="EbysUpdate" method="post">
+    <div class="mb-3">
+        <label asp-for="EbysNumber" class="form-label">EBYS Numarası :</label>
+        <input type="text" class="form-control" asp-for="EbysNumber">
+        <span class="text-danger" asp-validation-for="EbysNumber"></span>
+    </div>
+
+    <input type="hidden" asp-for="Id" />
+   
+
+    <button type="submit" class="btn-outline-primary"> Ürünü Güncelle</button>
+</form>

@@ -1,0 +1,118 @@
+﻿@using GridMvc;
+@{
+    ViewData["Title"] = "Index";
+    int i = 0;
+}
+
+@model AccidentKgysViewModel
+<div class="col-md-4 offset-md-4 text-center">
+    <h1>Kazalı Nokta Durumları</h1>
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert">
+            @TempData["status"]
+        </div>
+
+    }
+</div>
+@if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Planlama" || x.Value == "KGYS" || x.Value == "Idari"))
+{
+    <a class="btn btn-secondary" role="button" asp-controller="AccidentKgys" asp-action="Add">Kazalı Nokta Ekle</a>
+}
+<a class="btn btn-secondary" role="button" asp-controller="AccidentKgys" asp-action="CreateExcel">Excele Aktar</a>
+<a class="btn btn-secondary" role="button" asp-controller="AccidentKgys" asp-action="FinishIndex">Tamamlanan Kazalı Noktalar</a>
+<div class="offset-10 form-group pull-right mb-3">
+    <input type="text" class="search form-control" placeholder="Aranılacak Kelimeyi Giriniz" style="width:300px">
+    <span class="counter pull-right"></span>
+</div>
+<table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style="width:fit-content; vertical-align:middle">
+    <thead>
+        <tr class="table-light">
+            <th>Sıra No</th>
+            <th>Kazalı Nokta Adı</th>
+            <th>Kaza Tarihi</th>
+            <th>Alkol Testi</th>
+            <th>Kaza Tutanağı</th>
+            <th>Sigorta Şirketi</th>
+            <th>Sigorta Poliçe No</th>
+            <th>Kasko Şirketi</th>
+            <th>Kasko Poliçe No</th>
+            <th>Hasar Kayıt No</th>
+            <th>Hasar Kayıt Durumu</th>
+            <th>Atanan Expertiz Şirketi</th>
+            <th>Expertiz Telefon No</th>
+            <th>Expertize Bilgiler Mail Atıldı Mı? </th>
+            <th>Ödeme Durumu</th>
+            <th>Onarımı Yapan Şirket</th>
+            <th>İşin Durumu</th>
+            <th>İşlem</th>
+        </tr>
+        <tr class="warning no-result">
+            <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in ViewBag.AccidentKgys)
+        {
+            i++;
+
+            <tr>
+                <th scope="row">@i</th>
+                <td><a role="button" asp-controller="AccidentKgys" asp-action="Accident" asp-route-id="@item.Id">@item.AccidentKgysName</a></td>
+                <td>@item.AccidentDate</td>
+                <td>@item.AlcoholTest</td>
+                <td>@item.AccidentReport</td>
+                <td>@item.AccidentInsuranceName</td>
+                <td>@item.AccidentPolicyNo </td>
+                <td>@item.AccidentComplementInsuranceName</td>
+                <td>@item.AccidentComplementPolicyNo</td>
+                <td>@item.AccidentRegistrationNo </td>
+                <td>@item.AccidentRegistrationStatus</td>
+                <td>@item.AccidentExpertiseCompany</td>
+                <td>@item.AccidentExpertiseTelephone</td>
+                <td>@item.AccidentExpertiseEmailSend</td>
+                <td>@item.PriceStatus</td>
+                <td>@item.RepairCompany</td>
+                <td>@item.Status</td>
+                <td>
+                    @if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Hat" || x.Value == "Silme"))
+                    {
+                        @if (User.HasClaim(x => x.Value == "Silme"))
+                        {
+                            <a type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id">Sil</a>
+
+                        }
+                        <a class="btn btn-outline-secondary d-md-block" role="button" asp-controller="AccidentKgys" asp-action="update" asp-route-id="@item.Id">Güncelle</a>
+
+                    }
+
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+@*Modal*@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                Silmek İstediğinize Emin Misiniz?
+                <form asp-area="" asp-controller="AccidentKgys" asp-action="Remove" method="post">
+
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

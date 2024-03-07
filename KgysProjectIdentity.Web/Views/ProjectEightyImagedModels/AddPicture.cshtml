@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "AddPicture";
+}
+@model ProImages
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h1>Noktaya Resim Ekleme Sayfası</h1>
+    </div>
+</div>
+
+<div asp-validation-summary="ModelOnly"></div>
+<form asp-controller="ProjectEightyImagedModels" asp-action="AddPicture" enctype="multipart/form-data">
+    <input type="hidden" value="@ViewBag.images" asp-for="ProjectId" />
+    @* <div class="mb-3">
+    <label asp-for="projectEightyModel" class="form-label">Foroğraf Seçiniz :</label>
+    <select type="text " class="form-control" asp-for="projectEightyModel"></select>
+    <span class="text-danger" asp-validation-for="projectEightyModel"></span>
+    </div>*@
+
+    <div class="mb-3">
+        <label asp-for="Images" class="control-label">Foroğraf Seçiniz :</label>
+        <input class="form-control" asp-for="Images" multiple>
+        <span class="text-danger" asp-validation-for="Images"></span>
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary d-md-block">Resimleri Kaydet</button>
+</form>
+<div class="mb-3">
+    <a asp-controller="ProjectEighty" asp-action="Index">Geri Dön</a>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+    <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    }

@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "TnUpdate";
+}
+
+@model TelecomFoViewModel
+<div class="col-md-4 offset-md-4">
+    <h1 class="text-dark">Temos No Güncelleme Sayfası</h1>
+</div>
+<form asp-controller="TelecomFo" asp-action="TnUpdate" method="post">
+    <div class="mb-3">
+        <label asp-for="TemosNumber" class="form-label">Temos Numarası :</label>
+        <input type="number" class="form-control" asp-for="TemosNumber">
+        <span class="text-danger" asp-validation-for="TemosNumber"></span>
+    </div>
+    <input type="hidden" asp-for="Id" />
+   
+    <button type="submit" class="btn-outline-primary">Kaydet</button>
+</form>
+@*Hatayı henüz Client tarafında kontrol etmek için aşağıdaki komutlar kullanılır.*@
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }

@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+}
+@model SecondaryRequestViewModel
+<html>
+<head>
+    <style type="text/css">
+        #menu {
+            display: inline-block;
+            width: 40%;
+        }
+
+        #content {
+            display: inline-block;
+            width: 40%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="col-md-4 offset-md-4">
+        <h1 class="mb-3">Başvuru Güncelleme Sayfası</h1>
+    </div>
+    <div class="container mt-3">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="SecondaryRequest" asp-action="Update" method="post">
+            <div id="menu">
+                <div class="mb-3">
+                    <label asp-for="District" class="form-label">İlçe Adı :</label>
+                    <select class="form-select" asp-for="District" asp-items="@ViewBag.DistrictSelect">
+                        <option value=""> İlçe Seçiniz </option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="District"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Name" class="form-label">Nokta Adı :</label>
+                    <input type="decimal" class="form-control" asp-for="Name">
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="InstitutialFO" class="form-label">Kurumsal Altyapı :</label>
+                    <select class="form-select" asp-for="InstitutialFO" asp-items="@ViewBag.StatusSelect">
+                        <option value=""> Seçiniz </option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="InstitutialFO"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="TtDistance" class="form-label">TTNET Metraj :</label>
+                    <select class="form-select" asp-for="TtDistance" asp-items="@ViewBag.StatusSelect">
+                        <option value=""> İlçe Seçiniz </option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="TtDistance"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="TtRequest" class="form-label">TTNET Talep :</label>
+                    <select class="form-select" asp-for="TtRequest" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="TtRequest"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="TtStatus" class="form-label">TTNET Durum :</label>
+                    <select class="form-select" asp-for="TtStatus" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="TtStatus"></span>
+                </div>
+            </div>
+
+            <div id="content" class="offset-1">
+                <div class="mb-3">
+                    <label asp-for="Switch" class="form-label">Switch :</label>
+                    <select class="form-select" asp-for="Switch" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Switch"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Configuration" class="form-label">Konfigürasyon :</label>
+                    <select class="form-select" asp-for="Configuration" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Configuration"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="Cable" class="form-label">Kablolama :</label>
+                    <select class="form-select" asp-for="Cable" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Cable"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PcImaje" class="form-label">PC İmaj Atımı :</label>
+                    <select class="form-select" asp-for="PcImaje" asp-items="@ViewBag.StatusSelect">
+                        <option value="Pc Gelmedi"> Pc Gelmedi </option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="PcImaje"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label">Genel Durum :</label>
+                    <select class="form-select" asp-for="Status" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Status"></span>
+                </div>
+
+                <div class="mb-5">
+                    <label class="form-label"> </label>
+                    <button type="submit" class="btn btn-outline-primary d-md-block">Kaydet</button>
+                </div>
+
+                <input type="hidden" class="form-control" asp-for="UpdatedTime" value="@DateTime.Now">
+                <input type="hidden" class="form-control" asp-for="UpdatedPersonel" value="@User.Identity!.Name">
+                <input type="hidden" asp-for="Id" >
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
+@*Hatayı henüz Client tarafında kontrol etmek için aşağıdaki komutlar kullanılır.*@
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
+
+

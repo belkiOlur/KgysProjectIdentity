@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Add";
+}
+@model TelecomFoViewModel
+<html>
+<head>
+    <style type="text/css">
+        #menu {
+            display: inline-block;
+            width: 40%;
+        }
+
+        #content {
+            display: inline-block;
+            width: 40%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="col-md-4 offset-md-4">
+        <h1>Başvuru Ekleme Sayfası</h1>
+    </div>
+    <div class="container">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="TelecomFo" asp-action="Add" method="post">
+            <div id="menu">
+                <div class="mb-3">
+                    <label asp-for="EbysNumber" class="form-label"> EGM Onay EBYS No :</label>
+                    <input type="number" class="form-control" asp-for="EbysNumber">
+                    <span class="text-danger" asp-validation-for="EbysNumber"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Aplication" class="form-label">Başvuru Tipi :</label>
+                    <select class="form-select" asp-for="Aplication" asp-items="@ViewBag.AplicationSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Aplication"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="District" class="form-label">İlçe Adı :</label>
+                    <select class="form-select" asp-for="District" asp-items="@ViewBag.DistrictSelect">
+                        <option value=""> İlçe Seçiniz </option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="District"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Nokta Adı :</label>
+                    <input type="decimal" class="form-control" asp-for="Name">
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="TemosNumber" class="form-label">Temos Numarası :</label>
+                    <input type="number" class="form-control" asp-for="TemosNumber">
+                    <span class="text-danger" asp-validation-for="TemosNumber"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Vlan" class="form-label">Vlan :</label>
+                    <input type="number" class="form-control" asp-for="Vlan">
+                    <span class="text-danger" asp-validation-for="Vlan"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="IpAddress" class="form-label">IP Adresi :</label>
+                    <input type="text" class="form-control" asp-for="IpAddress">
+                    <span class="text-danger" asp-validation-for="IpAddress"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Coordinate" class="form-label">Koordinat :</label>
+                    <input type="text" class="form-control" asp-for="Coordinate">
+                    <span class="text-danger" asp-validation-for="Coordinate"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="CreatedTime" class="form-label">Başvuru Tarihi :</label>
+                    <input type="date" class="form-control" asp-for="CreatedTime">
+                    <span class="text-danger" asp-validation-for="CreatedTime"></span>
+                </div>
+
+
+            </div>
+
+            <div id="content" class="offset-1">
+                <div class="mb-3">
+                    <label asp-for="SlaStartTime" class="form-label">SLA Başlangıç Tarihi :</label>
+                    <input type="date" class="form-control" asp-for="SlaStartTime">
+                    <span class="text-danger" asp-validation-for="SlaStartTime"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="EpymStatus" class="form-label">EPMYS Durumu :</label>
+                    <select class="form-select" asp-for="EpymStatus" asp-items="@ViewBag.StatusEpmysSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="EpymStatus"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="EomStatus" class="form-label">EOM Durumu :</label>
+                    <select class="form-select" asp-for="EomStatus" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="EomStatus"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="MplsOperationStatus" class="form-label">MPLS Oparasyonu Durumu :</label>
+                    <select class="form-select" asp-for="MplsOperationStatus" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="MplsOperationStatus"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="MplsNmsStatus" class="form-label">MPLS NMS Durumu :</label>
+                    <select class="form-select" asp-for="MplsNmsStatus" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="MplsNmsStatus"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="CheckEGM" class="form-label">EGM Kontrol Durumu :</label>
+                    <select class="form-select" asp-for="CheckEGM" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="CheckEGM"></span>
+                </div>
+                <div class="form-floating">
+                    <textarea asp-for="Description" class="form-control" style="height: 100px"></textarea>
+                    <label asp-for="Description">Açıklama</label>
+                    <span class="text-danger" asp-validation-for="Description"></span>
+                </div>
+
+
+                <div class="mb-4">
+                    <label asp-for="Team" class="form-label">TT Birimi :</label>
+                    <select class="form-select" asp-for="Team" asp-items="@ViewBag.TtTeamSelect">
+                        <option value=""> TT Birimi Seçiniz</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="Team"></span>
+                </div>
+                <div class="mb-4">
+                    <button type="submit" class="btn btn-outline-primary d-md-block">Kaydet</button>
+                </div>
+
+                <input type="hidden" class="form-control" asp-for="UpdatedTime" value="@DateTime.Now">
+                <input type="hidden" class="form-control" asp-for="UpdatedUser" value="@User.Identity!.Name">
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>
+@*Hatayı henüz Client tarafında kontrol etmek için aşağıdaki komutlar kullanılır.*@
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
+
+
+

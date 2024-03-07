@@ -1,0 +1,189 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+@model AdminPageViewModel
+
+<html>
+<head>
+    <style type="text/css">
+        #menu {
+            display: inline-block;
+            width: 29%;
+        }
+
+        #content {
+            display: inline-block;
+            width: 69%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        @if (TempData["SuccessMassage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["SuccessMassage"]
+            </div>
+        }
+    </div>
+    <div id="menu">
+
+
+        <div class="row">
+            <div class="col-md-8 offset-md-1
+">
+                <h2>Kullanıcı Kayıt Formu</h2>
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                <form asp-area="Admin" asp-controller="Home" asp-action="SignUp" method="post">
+                    <div class="row mb-3">
+                        <label for="Name" class="col-sm-4 col-form-label" asp-for="Name"></label>
+                        <div class="col-sm-8">
+                            <input asp-for="Name" class="form-control">
+                            <span class="text-danger" asp-validation-for="Name"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="FullName" class="col-sm-4 col-form-label" asp-for="FullName"></label>
+                        <div class="col-sm-8">
+                            <input asp-for="FullName" class="form-control">
+                            <span class="text-danger" asp-validation-for="FullName"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="Email" class="col-sm-4 col-form-label" asp-for="Email"></label>
+                        <div class="col-sm-8">
+                            <input asp-for="Email" class="form-control">
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="Password" class="col-sm-4 col-form-label" asp-for="Password"></label>
+                        <div class="col-sm-8">
+                            <input asp-for="Password" class="form-control">
+                            <span class="text-danger" asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="PasswordConfirm" class="col-sm-4 col-form-label" asp-for="PasswordConfirm"></label>
+                        <div class="col-sm-8">
+                            <input asp-for="PasswordConfirm" class="form-control">
+                            <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-8 offset-md-4">
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
+                        </div>
+                    </div>
+                </form>
+
+                <h2>Rol Listesi</h2>
+
+
+                <a class="btn btn-primary mb-3 mt-3" asp-controller="Roles" asp-action="RolesCreate" asp-area="admin">Rol Ekle</a>
+                <div class="">
+                    <div class="">
+                        <table class="table table-hover text-center">
+                            <thead>
+                                <tr>
+                                    <th>Rol Adı</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.rolesList)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td></td>
+                                        <td></td>
+
+                                        <td>
+                                            <a class="btn btn-white"> </a>
+                                            <a class="btn btn-white "> </a>
+                                            @if (User.HasClaim(x => x.Value == "Silme"))
+                                            {
+                                                <a class="btn btn-danger btn-sm" asp-area="admin" asp-controller="Roles" asp-action="RoleDelete" asp-route-id="@item.Id">Sil</a>
+                                            }
+                                           
+                                            <a class="btn btn-primary btn-sm" asp-area="admin" asp-controller="Roles" asp-action="RoleUpdate" asp-route-id="@item.Id">Güncelle</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <div id="content">
+        <h2>Kullanıcı Bilgileri</h2>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Kullanıcı Adı</th>
+                    <th>Tam Adı</th>
+                    <th>Email</th>
+                    <th>Sahip Olduğu Roller</th>
+                    <th>Rol İşlemleri</th>
+                    <th>Kullanıcı İşlemleri</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.userViewModelList)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.FullName</td>
+                        <td>@item.Email</td>
+                        <td>
+                            <user-rol-names user-id="@item.Id"></user-rol-names>
+                        </td>
+                        <td>
+                            @*<button asp-area="admin"  asp-controller="Roles" asp-action="AssignRoleToUser" asp-route-id="@item.Id"  class="btn btn-secondary btn-sm">Rolü Güncelle</button>*@
+                            <a class="btn btn-secondary btn-sm" type="button" asp-controller="Roles" asp-action="AssignRoleToUser" asp-route-id="@item.Id">Rolü Güncelle</a>
+
+                        </td>
+                        <td>
+                            @if (User.HasClaim(x => x.Value == "Silme"))
+                            {
+                                <a class="btn btn-danger btn-sm" type="button" asp-area="admin" asp-controller="Home" asp-action="UserDelete" asp-route-id="@item.Id">Kullanıcıyı Sil</a>
+                            }
+                            
+                            <a class="btn btn-primary btn-sm" type="button" asp-area="Home" asp-controller="Member" asp-action="UserEdit" asp-route-id="@item.Id">Kullanıcıyı Güncelle</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+
+</body>
+</html>
+@*@section Scripts
+    {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    }*@
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
+
+

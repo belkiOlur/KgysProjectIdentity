@@ -1,0 +1,222 @@
+﻿@{
+    ViewData["Title"] = "Add";
+}
+
+@model TenderProjectsViewModel
+
+<html>
+<head>
+    <style type="text/css">
+        #menu {
+            display: inline-block;
+            width: 27%;
+        }
+
+        #content {
+            display: inline-block;
+            width: 27%;
+        }
+
+        #content1 {
+            display: inline-block;
+            width: 27%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h1>İhale Talebi Ekleme Sayfası</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="TenderProjects" asp-action="Add" method="post">
+            <div id="menu">
+                <div class="mb-2">
+                    <label asp-for="RequestEbysNo" class="form-label"> Talep EBYS No :</label>
+                    <input type="text" class="form-control" asp-for="RequestEbysNo">
+                    <span class="text-danger" asp-validation-for="RequestEbysNo"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="WhoRequested" class="form-label"> Talep Eden :</label>
+                    <input type="text" class="form-control" asp-for="WhoRequested">
+                    <span class="text-danger" asp-validation-for="WhoRequested"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Evaluation" class="form-label">Değerlendirme :</label>
+                    <input type="text" class="form-control" asp-for="Evaluation">
+                    <span class="text-danger" asp-validation-for="Evaluation"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AnswerEbysNo" class="form-label">Cevap EBYS No :</label>
+                    <input type="number" class="form-control" asp-for="AnswerEbysNo">
+                    <span class="text-danger" asp-validation-for="AnswerEbysNo"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ProjectName" class="form-label">Proje Adı :</label>
+                    <input type="text" class="form-control" asp-for="ProjectName">
+                    <span class="text-danger" asp-validation-for="ProjectName"></span>
+                </div>
+                <div>
+                    <label asp-for="ProjectDescription">Açıklama</label>
+                    <textarea asp-for="ProjectDescription" class="form-control" style="height: 100px"></textarea>
+                    <span class="text-danger" asp-validation-for="ProjectDescription"></span>
+                </div>
+                <div class="mt-1">
+                    <label asp-for="CommissionerConfirmation" class="form-label">Şartname Komisyon Oluru Alındı Mı?</label>
+                    <select class="form-select" asp-for="CommissionerConfirmation" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="CommissionerConfirmation"></span>
+                </div>
+                <div class="">
+                    <label asp-for="SpecificationEbys" class="form-label">Şartname Komisyon Oluşturma Yazısı :</label>
+                    <input type="text" class="form-control" asp-for="SpecificationEbys">
+                    <span class="text-danger" asp-validation-for="SpecificationEbys"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Specification" class="form-label">Şartname Geldi Mi? :</label>
+                    <select class="form-select" asp-for="Specification" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Specification"></span>
+                </div>
+            </div>
+
+            <div id="content" class="mx-lg-4">
+                <div class="">
+                    <label asp-for="Officials" class="form-label select-label">Şartname Komisyon Üyeleri :</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <select asp-items="@ViewBag.Officials" asp-for="Officials" class="form-control" id="sel1" multiple multiselect-select-all="true" multiselect-hide-x="false" data-coreui-selection-type="text" data-coreui-search="true" style="height:80px">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Officials"></span>
+                </div>
+               
+
+                <div class="mb-2">
+                    <label asp-for="SpecificationApproval" class="form-label">Şartname Onayı Alındı Mı? :</label>
+                    <select class="form-select" asp-for="SpecificationApproval" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="SpecificationApproval"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="UnitOfTender" class="form-label">İhale Birimi :</label>
+                    <input type="text" class="form-control" asp-for="UnitOfTender">
+                    <span class="text-danger" asp-validation-for="UnitOfTender"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="SendOfTender" class="form-label">İhale Birimine Yazıldı mı? :</label>
+                    <select class="form-select" asp-for="SendOfTender" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="SendOfTender"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="TenderTime" class="form-label">İhale Tarihi :</label>
+                    <input type="date" class="form-control" asp-for="TenderTime">
+                    <span class="text-danger" asp-validation-for="TenderTime"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="WhoHasJob" class="form-label">İhaleyi Alan :</label>
+                    <input type="text" class="form-control" asp-for="WhoHasJob">
+                    <span class="text-danger" asp-validation-for="WhoHasJob"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="PriceOfWork" class="form-label">İhale Bedeli :</label>
+                    <input type="text" class="form-control" asp-for="PriceOfWork">
+                    <span class="text-danger" asp-validation-for="PriceOfWork"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="DateOfStart" class="form-label">İş Başlama Tarihi :</label>
+                    <input type="date" class="form-control" asp-for="DateOfStart">
+                    <span class="text-danger" asp-validation-for="DateOfStart"></span>
+                </div>
+            </div>
+            <div id="content1" class="mx-lg-4">
+                <div class="mb-2">
+                    <label asp-for="TimeOfWork" class="form-label">İşin Süresi(Gün) :</label>
+                    <input type="number" class="form-control" asp-for="TimeOfWork">
+                    <span class="text-danger" asp-validation-for="TimeOfWork"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="WhoResponse" class="form-label">Sorumlu Personel :</label>
+                    <select class="form-select" asp-for="WhoResponse" asp-items="@ViewBag.ResponseOfficials">
+                    </select>
+                    <span class="text-danger" asp-validation-for="WhoResponse"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="DateOfEnd" class="form-label">İş Bitiş Tarihi :</label>
+                    <input type="date" class="form-control" asp-for="DateOfEnd">
+                    <span class="text-danger" asp-validation-for="DateOfEnd"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AdmissionCommissionEstablished" class="form-label">Kabul Komisyon Oluru Alındı Mı?:</label>
+                    <select class="form-select" asp-for="AdmissionCommissionEstablished" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="AdmissionCommissionEstablished"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AdmissionCommissionEbys" class="form-label">Kabul Komisyon Oluşturma Yazısı :</label>
+                    <input type="text" class="form-control" asp-for="AdmissionCommissionEbys">
+                    <span class="text-danger" asp-validation-for="AdmissionCommissionEbys"></span>
+                </div>
+                <div class="">
+                     <label asp-for="AdmissionCommission" class="form-label select-label">Kabul Komisyon Üyeleri :</label>
+                     </div>
+                <div class="form-floating">
+                    <select asp-items="@ViewBag.Commission" asp-for="AdmissionCommission" class="form-control" id="sel1" multiple multiselect-search="true" multiselect-select-all="true" multiselect-hide-x="false" data-coreui-selection-type="text" data-coreui-search="true" style="height:80px">
+                    </select>
+                    <span class="text-danger" asp-validation-for="AdmissionCommission"></span>
+                </div>
+                <div class="mb-2 mt-2">
+                    <label asp-for="PriceStatus" class="form-label">Hakediş Yazıldı Mı?:</label>
+                    <select class="form-select" asp-for="PriceStatus" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="PriceStatus"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="PriceEbysNo" class="form-label">Hakediş EBYS No :</label>
+                    <input type="text" class="form-control" asp-for="PriceEbysNo">
+                    <span class="text-danger" asp-validation-for="PriceEbysNo"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Status" class="form-label">Durumu:</label>
+                    <select class="form-select" asp-for="Status" asp-items="@ViewBag.RequestSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Status"></span>
+                </div>
+
+            </div>
+            <div class="mb-4">
+                <button type="submit" class="btn btn-outline-primary d-md-block">Kaydet</button>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+</html>
+<script>
+    fetch("/options").then(d => d.json()).then(d => {
+        sel1.innerHTML =
+            d.map(t => '<option value="' + t.value + '">' + t.text + '</option>');
+
+        sel1.loadOptions();
+    })
+</script>
+@*Hatayı henüz Client tarafında kontrol etmek için aşağıdaki komutlar kullanılır.*@
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
+
+
+
+
+
+
+
+
+
+

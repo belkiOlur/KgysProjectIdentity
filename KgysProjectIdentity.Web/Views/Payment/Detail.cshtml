@@ -1,0 +1,159 @@
+﻿@inject GetProject project
+@{
+    ViewData["Title"] = "Detail";
+    int i = 0;
+    string payment = project.GetPaymentCalculate(ViewBag.Id);
+}
+
+@model PaymentViewModel
+
+<div class="row">
+    <div class="col-md-5 offset-md-4">
+        <h1>@ViewBag.Name Ödeneği Durum Tablosu</h1>
+    </div>
+</div>
+@if (TempData["status"] != null)
+{
+    <div class="row">
+        <div class="col-md-3 offset-md-4 alert alert-success text-center" role="alert">
+            @TempData["status"]
+        </div>
+    </div>
+
+}
+@if (TempData["error"] != null)
+{
+    <div class="row">
+        <div class="col-md-3 offset-md-4 alert alert-danger text-center" role="alert">
+            @TempData["error"]
+        </div>
+    </div>
+
+}
+
+<div class="container mt-lg-5">
+    <div class="mb-3">
+        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-outline-secondary d-md-block">Ödenek/Harcama Ekle</button>
+    </div>
+    <table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style=" vertical-align:middle">
+        <thead>
+            <tr class="table-light">
+                <th>Sıra No</th>
+                <th>Odenek/Harcama Tarihi</th>
+                <th>Ödenek/Harcama EBYS No</th>
+                <th>Ödenek/Harcama Türü</th>
+                <th>Ödenek/Harcama Miktarı</th>
+                <th>Sisteme Girildiği Tarih</th>
+                <th>Sisteme Giren Personel</th>
+                @if (User.HasClaim(x => x.Value == "Silme" || x.Value == "Admin"))
+                {
+                    <th>İşlem</th>
+                }
+
+        </thead>
+        <tbody>
+
+            @foreach (var item in ViewBag.Payment)
+            {
+                i++;
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>
+                        @if (item.PaymentDate != null)
+                        {
+                            @item.PaymentDate.ToString("dd/MM/yyyy")
+                        }
+                    </td>
+                    <td>@item.PaymentEbysNumber</td>
+                    <td>@item.PaymentType</td>
+                    <td>@item.PaymentPrice</td>
+                    <td>@item.UpdateDate</td>
+                    <td>@item.UpdateUser</td>
+                    @if (User.HasClaim(x => x.Value == "Silme" || x.Value == "Admin"))
+                    {
+                        <td> <a type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id">Sil</a></td>
+                    }
+                </tr>
+            }
+            <tr>
+                <th>Toplam</th>
+                <th colspan="7">@payment</th>
+            </tr>
+        </tbody>
+       
+    </table>
+</div>
+
+@*Modal*@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                Silmek İstediğinize Emin Misiniz?
+                <form asp-area="" asp-controller="Payment" asp-action="Remove" method="post">
+
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@*Modal*@
+<div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdroppLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="mb-3">
+                    <h2>Ödenek/Harcama Ekleme Modülü</h2>
+                </div>
+                <form asp-area="" asp-controller="Payment" asp-action="Add" method="post">
+
+                    <div class="mb-3">
+                        <label asp-for="PaymentDate" class="form-label">Evrak Geliş Tarihi :</label>
+                        <input type="date" class="form-control" asp-for="PaymentDate">
+                        <span class="text-danger" asp-validation-for="PaymentDate"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PaymentEbysNumber" class="form-label">EBYS Numarası :</label>
+                        <input type="text" class="form-control" asp-for="PaymentEbysNumber">
+                        <span class="text-danger" asp-validation-for="PaymentEbysNumber"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PaymentCodeId" class="form-label">Ödenek/Harcama Kalemi :</label>
+                        <select asp-items="@ViewBag.PaymentSelect" asp-for="PaymentCodeId" class=" form-select" aria-label="Default select example"></select>
+                        <span class="text-danger" asp-validation-for="PaymentCodeId"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PaymentType" class="form-label">Ödenek/Harcama Türü :</label>
+                        <select asp-items="@ViewBag.PaymentTypeSelect" asp-for="PaymentType" class=" form-select" aria-label="Default select example"></select>
+                        <span class="text-danger" asp-validation-for="PaymentType"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PaymentPrice" class="form-label">Ödenek/Harcama Miktarı :</label>
+                        <input type="number" class="form-control" asp-for="PaymentPrice">
+                        <span class="text-danger" asp-validation-for="PaymentPrice"></span>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

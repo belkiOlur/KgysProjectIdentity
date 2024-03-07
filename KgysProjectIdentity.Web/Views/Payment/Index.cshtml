@@ -1,0 +1,135 @@
+﻿@using System.Security.Claims;
+@{
+    ViewData["Title"] = "Index";
+    int i = 0;
+    string payment = "0 TL";
+}
+@inject GetProject project
+@model PaymentCodeModel
+
+<div class="row">
+    <div class="container text-center">
+        <h1>Ödenek Durum Tablosu</h1>
+    </div>
+</div>
+@if (TempData["status"] != null)
+{
+    <div class="row">
+        <div class="col-md-3 offset-md-4 alert alert-success text-center" role="alert">
+            @TempData["status"]
+        </div>
+    </div>
+
+}
+@if (TempData["error"] != null)
+{
+    <div class="row">
+        <div class="col-md-3 offset-md-4 alert alert-danger text-center" role="alert">
+            @TempData["error"]
+        </div>
+    </div>
+
+}
+
+<div class="container mt-lg-5">
+    
+    <div class="mb-3">
+        <a role="button" data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-secondary">Ödenek Kalemi Ekle</a>
+        <a class="btn btn-secondary" role="button" asp-controller="Payment" asp-action="CreateExcel">Excele Aktar</a>
+    </div>
+    <table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style="vertical-align:middle">
+        <thead>
+            <tr class="table-light">
+                <th>Sıra No</th>
+                <th>Odenek Kodu</th>
+                <th>Ödenek Adı</th>
+                <th>Toplam Ödenek</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in ViewBag.Payment)
+            {
+                if (item.Id != null)
+                {
+                    payment = project.GetPaymentCalculate(item.Id);
+                }
+                i++;
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@item.PaymentCode</td>
+                    <td><a role="button" asp-controller="Payment" asp-action="Detail" asp-route-id="@item.Id"> @item.PaymentName</a></td>
+                    <td>@payment</td>
+                    <td>
+                        @if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Planlama" || x.Value == "Silme" || x.Value == "KGYS"))
+                        {
+                            @if (User.HasClaim(x => x.Value == "Silme"))
+                            {
+                                <a type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id">Sil</a>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@*Silme Modalı*@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                Silmek İstediğinize Emin Misiniz?
+                <form asp-area="" asp-controller="Payment" asp-action="PaymentCodeRemove" method="post">
+
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@*Ekleme Modalı*@
+<div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdroppLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="mb-3">
+                    <h2>Ödenek Kalemi Ekleme Modülü</h2>
+                </div>
+                <form asp-area="" asp-controller="Payment" asp-action="PaymentCodeAdd" method="post">
+
+                    <div class="mb-3">
+                        <label asp-for="PaymentCode" class="form-label">Ödenek Kalem No :</label>
+                        <input type="text" class="form-control" asp-for="PaymentCode">
+                        <span class="text-danger" asp-validation-for="PaymentCode"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PaymentName" class="form-label">Ödenek Kalem Adı :</label>
+                        <input type="text" class="form-control" asp-for="PaymentName">
+                        <span class="text-danger" asp-validation-for="PaymentName"></span>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

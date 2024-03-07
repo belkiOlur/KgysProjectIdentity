@@ -1,0 +1,205 @@
+﻿@{
+    ViewData["Title"] = "Update";
+}
+
+@model AccidentKgysModel
+
+<html>
+<head>
+    <style type="text/css">
+        #menu {
+            display: inline-block;
+            width: 27%;
+        }
+
+        #content {
+            display: inline-block;
+            width: 27%;
+        }
+
+        #content1 {
+            display: inline-block;
+            width: 27%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h1>Kazalı Nokta Ekleme Sayfası</h1>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="height:fit-content">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="AccidentKgys" asp-action="Update" method="post">
+            <div id="menu" class="mx-lg-4">
+                <div class="mb-2">
+                    <label asp-for="AccidentKgysName" class="form-label">KGYS/PTS Nokta Adı :</label>
+                    <input type="text" class="form-control" asp-for="AccidentKgysName">
+                    <span class="text-danger" asp-validation-for="AccidentKgysName"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AccidentKgysDistrict" class="form-label">İlçe :</label>
+                    <select class="form-select" asp-for="AccidentKgysDistrict" asp-items="@ViewBag.District">
+                    </select>
+                    <span class="text-danger" asp-validation-for="AccidentKgysDistrict"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="AccidenKgysType" class="form-label">Nokta Tipi :</label>
+                    <select class="form-select" asp-for="AccidenKgysType" asp-items="@ViewBag.KgysPtsSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="AccidenKgysType"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AccidentDate" class="form-label">Kaza Tarihi :</label>
+                    <input type="date" class="form-control" asp-for="AccidentDate">
+                    <span class="text-danger" asp-validation-for="AccidentDate"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AccidentInfo " class="form-label">Kaza Detayı :</label>
+                    <input type="text" class="form-control" asp-for="AccidentInfo">
+                    <span class="text-danger" asp-validation-for="AccidentInfo "></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="AccidentEbysNo" class="form-label">Kaza EBYS No :</label>
+                    <input type="text" class="form-control" asp-for="AccidentEbysNo">
+                    <span class="text-danger" asp-validation-for="AccidentEbysNo"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="AlcoholTest" class="form-label">Alkol Testi Var Mı? :</label>
+                    <select class="form-select" asp-for="AlcoholTest" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="AlcoholTest"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AccidentReport" class="form-label">Kaza Tutanağı Geldi Mi? :</label>
+                    <select class="form-select" asp-for="AccidentReport" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="AccidentReport"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AccidentDamagePrice" class="form-label">Tahmini Hasar Bedeli :</label>
+                    <input type="text" class="form-control" asp-for="AccidentDamagePrice">
+                    <span class="text-danger" asp-validation-for="AccidentDamagePrice"></span>
+                </div>
+            </div>
+            <div id="content" class="mx-lg-4">
+                <div class="mb-2">
+                    <label asp-for="AccidentInsuranceName" class="form-label">Sigorta Şirketi :</label>
+                    <input type="text" class="form-control" asp-for="AccidentInsuranceName">
+                    <span class="text-danger" asp-validation-for="AccidentInsuranceName"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="AccidentPolicyNo" class="form-label">Poliçe No :</label>
+                    <input type="text" class="form-control" asp-for="AccidentPolicyNo">
+                    <span class="text-danger" asp-validation-for="AccidentPolicyNo"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AccidentComplementInsuranceName" class="form-label">Kasko Şirketi :</label>
+                    <input type="text" class="form-control" asp-for="AccidentComplementInsuranceName">
+                    <span class="text-danger" asp-validation-for="AccidentComplementInsuranceName"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AccidentComplementPolicyNo" class="form-label">Kasko Poliçe No :</label>
+                    <input type="text" class="form-control" asp-for="AccidentComplementPolicyNo">
+                    <span class="text-danger" asp-validation-for="AccidentComplementPolicyNo"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AccidentRegistrationDate" class="form-label">Hasar Kayıt Tarihi :</label>
+                    <input type="date" class="form-control" asp-for="AccidentRegistrationDate">
+                    <span class="text-danger" asp-validation-for="AccidentRegistrationDate"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AccidentRegistrationNo" class="form-label">Hasar Kayıt No :</label>
+                    <input type="text" class="form-control" asp-for="AccidentRegistrationNo">
+                    <span class="text-danger" asp-validation-for="AccidentRegistrationNo"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AccidentRegistrationStatus" class="form-label">Hasar Kayıt Durumu :</label>
+                    <input type="text" class="form-control" asp-for="AccidentRegistrationStatus">
+                    <span class="text-danger" asp-validation-for="AccidentRegistrationStatus"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AccidentExpertiseCompany" class="form-label">Ekspertiz Şirketi :</label>
+                    <input type="text" class="form-control" asp-for="AccidentExpertiseCompany">
+                    <span class="text-danger" asp-validation-for="AccidentExpertiseCompany"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="AccidentExpertiseTelephone" class="form-label">Ekspertiz Telefon No :</label>
+                    <input type="text" class="form-control" asp-for="AccidentExpertiseTelephone">
+                    <span class="text-danger" asp-validation-for="AccidentExpertiseTelephone"></span>
+                </div>
+            </div>
+
+            <div id="content1" class="mx-lg-4">
+
+                <div class="mb-2">
+                    <label asp-for="AccidentExpertiseEmail" class="form-label">Ekspertiz E-mail :</label>
+                    <input type="text" class="form-control" asp-for="AccidentExpertiseEmail">
+                    <span class="text-danger" asp-validation-for="AccidentExpertiseEmail"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="AccidentExpertiseEmailSend" class="form-label">Evraklar Mail Atıldı Mı? :</label>
+                    <select class="form-select" asp-for="AccidentExpertiseEmailSend" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="AccidentExpertiseEmailSend"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="PriceStatus" class="form-label">Sigorta Parayı Yatırdı Mı? :</label>
+                    <select class="form-select" asp-for="PriceStatus" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="PriceStatus"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="AmountPaid" class="form-label">Yatırılan Bedel :</label>
+                    <input type="text" class="form-control" asp-for="AmountPaid">
+                    <span class="text-danger" asp-validation-for="AmountPaid"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="RepairCompany" class="form-label">Onarımı Yapan Şirket :</label>
+                    <input type="text" class="form-control" asp-for="RepairCompany">
+                    <span class="text-danger" asp-validation-for="RepairCompany"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RepairFinishDate" class="form-label">Onarım Tamamlanma Tarihi :</label>
+                    <input type="date" class="form-control" asp-for="RepairFinishDate">
+                    <span class="text-danger" asp-validation-for="RepairFinishDate"></span>
+                </div>
+                <div>
+                    <label class="form-label"></label>
+                </div>
+                <div class="form-floating">
+                    <textarea asp-for="Explanation" class="form-control" style="height: 130px"></textarea>
+                    <input type="hidden" asp-for="Id" />
+                    <label asp-for="Explanation">Açıklama</label>
+                    <span class="text-danger" asp-validation-for="Explanation"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Status" class="form-label">Son Durum :</label>
+                    <select class="form-select" asp-for="Status" asp-items="@ViewBag.ParksSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Status"></span>
+                </div>
+            </div>
+
+
+            <div class="mt-2 mx-4">
+
+                <button type="submit" class="btn btn-md btn-outline-primary d-md-block ">Güncelle</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

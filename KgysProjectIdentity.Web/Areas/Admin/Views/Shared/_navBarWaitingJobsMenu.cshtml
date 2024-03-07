@@ -1,0 +1,12 @@
+﻿<li class="nav-item">
+    @if (User.Identity!.IsAuthenticated)
+    {
+       
+      <a class="nav-link text-light " asp-area="" asp-controller="WaitingJobs" asp-action="Index">Bekleyen İşler</a>
+        
+    }
+    else
+    {
+        
+    }
+</li>

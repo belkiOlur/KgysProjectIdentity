@@ -1,0 +1,82 @@
+﻿@using KgysProjectIdentity.Service.Services;
+
+@{
+    ViewData["Title"] = "CommissionOfficials";
+    int i = 0;
+    string officialsUserName = "";
+    string officialsFullName = "";
+    int spesificationCount = 0;
+    int admissionCount = 0;
+}
+@inject ITenderService _tender
+@model TenderProjectsViewModel
+<div class="col-md-4 offset-md-4 text-center">
+    <h1>Personel Komisyon Üyeliği Sayıları</h1>
+    @if (TempData["status"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert">
+            @TempData["status"]
+        </div>
+
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center" role="alert">
+            @TempData["Error"]
+        </div>
+
+    }
+</div>
+
+<div class="container mt-lg-5">
+    <div class="offset-10 form-group pull-right mb-3">
+        <input type="text" class="search form-control" placeholder="Aranılacak Kelimeyi Giriniz" style="width:300px">
+        <span class="counter pull-right"></span>
+    </div>
+    <table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style="vertical-align:middle">
+        <thead>
+            <tr class="table-light">
+                <th>Sıra No</th>
+                <th>Personel Adı</th>
+                <th>Şartname Komisyonu Üyeliği Sayısı</th>
+                <th>Kabul Komisyonu Üyeliği Sayısı</th>
+            </tr>
+            <tr class="warning no-result">
+                <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in ViewBag.CommissionsOfficials)
+            {
+                i++;
+
+                officialsUserName = _tender.FindOfficialsUserNameById(item.UserId);
+                officialsFullName = _tender.FindOfficialsFullNameById(item.UserId);
+                spesificationCount = _tender.SpecificationOfficialsCount(officialsUserName);
+                admissionCount = _tender.AdmissionCommissionOfficialsCount(officialsUserName);
+                if (spesificationCount != 0 || admissionCount != 0)
+                {
+                    <tr>
+                        <th scope="row">@i</th>
+                        <td>
+                            <a role="button" asp-controller="TenderProjects" asp-action="OfficialTenders" asp-route-id="@item.UserId" style="text-decoration:none; color:black">@officialsFullName</a>
+                        </td>
+                        <td>
+                            @if (spesificationCount != 0)
+                            {
+                                @spesificationCount
+                            }
+                        </td>
+                        <td>
+                            @if (admissionCount != 0)
+                            {
+                                @admissionCount
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

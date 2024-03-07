@@ -1,0 +1,377 @@
+﻿@{
+    ViewData["Title"] = "Update";
+   
+}
+
+@model KgysRequestModel
+
+<html>
+<head>
+    <style type="text/css">
+        #menu {
+            display: inline-block;
+            width: 40%;
+        }
+
+        #content {
+            display: inline-block;
+            width: 40%;
+        }
+
+        #content1 {
+            display: inline-block;
+            width: 25%;
+        }
+
+        #content2 {
+            display: inline-block;
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <h1>Talep Güncelleme Sayfası</h1>
+
+        </div>
+    </div>
+    <div class="container" style="height:fit-content">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="KgysRequested" asp-action="Update" method="post">
+            <div id="menu" class="mx-lg-4">
+                <div class="mb-2">
+                    <label asp-for="KgysName" class="form-label">KGYS/PTS Nokta Adı :</label>
+                    <input type="text" class="form-control" asp-for="KgysName">
+                    <span class="text-danger" asp-validation-for="KgysName"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="District" class="form-label">İlçe :</label>
+                    <select class="form-select" asp-for="District" asp-items="@ViewBag.District" id="District">
+                    </select>
+                    <span class="text-danger" asp-validation-for="District"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="Neighbourhood" class="form-label">Mahalle / Semt :</label>
+                    <select class="form-select" asp-for="Neighbourhood" asp-items="@Enumerable.Empty<SelectListItem>()" id="DistrictArea">
+                        <option value="@Model.Neighbourhood">@Model.Neighbourhood</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="Neighbourhood"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="RequestMethod" class="form-label">Talep Yöntemi :</label>
+                    <input type="text" class="form-control" asp-for="RequestMethod">
+                    <span class="text-danger" asp-validation-for="RequestMethod"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="RequestMethodDetail " class="form-label">Talep Yöntem Detayı :</label>
+                    <input type="text" class="form-control" asp-for="RequestMethodDetail ">
+                    <span class="text-danger" asp-validation-for="RequestMethodDetail "></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="RequestArraviedDate" class="form-label">Geldiği Tarih :</label>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="date" class="form-control" asp-for="RequestArraviedDate">
+                    <span class="text-danger" asp-validation-for="RequestArraviedDate"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="RequestedByWho" class="form-label">Talep Kimden Geldi :</label>
+                    <input type="text" class="form-control" asp-for="RequestedByWho">
+                    <span class="text-danger" asp-validation-for="RequestedByWho"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="RequestedByWhoDetail" class="form-label">Talep Eden Detay :</label>
+                    <input type="text" class="form-control" asp-for="RequestedByWhoDetail">
+                    <span class="text-danger" asp-validation-for="RequestedByWhoDetail"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestedTelephoneNumber" class="form-label">Talep Edenin Numarası :</label>
+                    <input type="text" class="form-control" asp-for="RequestedTelephoneNumber">
+                    <span class="text-danger" asp-validation-for="RequestedTelephoneNumber"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestAddress" class="form-label">Talep Adresi :</label>
+                    <input type="text" class="form-control" asp-for="RequestAddress">
+                    <span class="text-danger" asp-validation-for="RequestAddress"></span>
+                </div>
+
+                <div class="mb-2">
+                    <div id="content">
+                        <label asp-for="ProjectCoordinateX" class="form-label">Koordinat X:</label>
+                        <input type="number" class="form-control" asp-for="ProjectCoordinateX">
+                    </div>
+                    <div id="menu">
+                        <label asp-for="ProjectCoordinateY" class="form-label">Koordinat Y:</label>
+                        <input type="number" class="form-control" asp-for="ProjectCoordinateY">
+                    </div>
+                    <div>
+                        <span class="text-danger" asp-validation-for="ProjectCoordinateX"></span>
+                        <span class="text-danger" asp-validation-for="ProjectCoordinateY"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="content" class="mx-lg-4">
+                <div class="mb-2">
+                    <label asp-for="RequestEvaluation" class="form-label">Değerlendirme :</label>
+                    
+                    <input type="text" class="form-control" asp-for="RequestEvaluation">
+                    <span class="text-danger" asp-validation-for="RequestEvaluation"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestEvaluationDetail" class="form-label">Değerlendirme Açıklama :</label>
+                    <input type="text" class="form-control" asp-for="RequestEvaluationDetail">
+                    <span class="text-danger" asp-validation-for="RequestEvaluationDetail"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestGoToDiscovery" class="form-label">Keşif Yapıldı Mı?</label>
+                    <select class="form-select" asp-for="RequestGoToDiscovery" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="RequestGoToDiscovery"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestFirstDiscovery" class="form-label">1.Keşif Sonucu :</label>
+                    <input type="text" class="form-control" asp-for="RequestFirstDiscovery">
+                    <input type="hidden" asp-for="TelecomFoId" />
+                    <span class="text-danger" asp-validation-for="RequestFirstDiscovery"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="RequestType" class="form-label">Talep Türü</label>
+                    <select class="form-select" asp-for="RequestType" asp-items="@ViewBag.KgysPtsSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="RequestType"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="RequestAskToDistrict" class="form-label">İlçeye Yazıldı Mı?</label>
+                    <select class="form-select" asp-for="RequestAskToDistrict" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="RequestAskToDistrict"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestAskToDistrictEbysNumber" class="form-label">İlçeye Yazılan EBYS No :</label>
+                    <input type="text" class="form-control" asp-for="RequestAskToDistrictEbysNumber">
+                    <span class="text-danger" asp-validation-for="RequestAskToDistrictEbysNumber"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="RequestAnswerFromDisctrictEbysNumber" class="form-label">İlçeden Gelen Cevap EBYS No :</label>
+                    <input type="text" class="form-control" asp-for="RequestAnswerFromDisctrictEbysNumber">
+                    <span class="text-danger" asp-validation-for="RequestAnswerFromDisctrictEbysNumber"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="RequestArrangementNumber" class="form-label">Talebin İlçe Sıralaması :</label>
+                    <input type="number" class="form-control" asp-for="RequestArrangementNumber">
+                    <span class="text-danger" asp-validation-for="RequestArrangementNumber"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label asp-for="LastStatus" class="form-label">Güncel Hali :</label>
+                    <select class="form-select" asp-for="LastStatus" asp-items="@ViewBag.RequestSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="LastStatus"></span>
+                </div>
+               
+                <div class="mb-2">
+                    <label asp-for="ProjectName" class="form-label">Proje Adı :</label>
+                    <select class="form-select" asp-for="ProjectName" asp-items="@ViewBag.Project">
+                        <option value="">Lütfen Proje Seçiniz</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectName"></span>
+                </div>
+              
+
+            </div>
+            <div class="mx-4">
+                <button type="submit" class="btn btn-lg btn-outline-primary d-md-block ">Güncelle</button>
+            </div>
+          @*  <div id="content1" class="mx-lg-4">
+                <div class="mb-2">
+                    <label asp-for="KgysName" class="form-label">KGYS/PTS Nokta Adı :</label>
+                    <input type="text" class="form-control" asp-for="KgysName">
+                    <span class="text-danger" asp-validation-for="KgysName"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="CameraCount" class="form-label">Sabit Kamera Sayısı :</label>
+                    <input type="number" class="form-control" asp-for="CameraCount">
+                    <span class="text-danger" asp-validation-for="CameraCount"></span>
+
+                </div>
+                <div class="mb-2">
+                    <label asp-for="DomeCameraCount" class="form-label">Hareketli Kamera Sayısı :</label>
+                    <input type="number" class="form-control" asp-for="DomeCameraCount">
+                    <span class="text-danger" asp-validation-for="DomeCameraCount"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ProjectProtocol" class="form-label">Protokol Yapıldı Mı? :</label>
+                    <select class="form-select" asp-for="ProjectProtocol" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectProtocol"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="ProjectExcavation" class="form-label">Kazı Tamamlandı mı? :</label>
+                    <select class="form-select" asp-for="ProjectExcavation" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectExcavation"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="ProjectBasis" class="form-label">Ankaraj Tamamlandı mı? :</label>
+                    <select class="form-select" asp-for="ProjectBasis" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectBasis"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ProjectPole" class="form-label">Direk Montajı Tamamlandı mı? :</label>
+                    <select class="form-select" asp-for="ProjectPole" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectPole"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ProjectCabinet" class="form-label">Saha Dolabı Montajı Tamamlandı mı? :</label>
+                    <select class="form-select" asp-for="ProjectCabinet" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectCabinet"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ProjectAssembly" class="form-label">Kamera Montajı Tamamlandı mı? :</label>
+                    <select class="form-select" asp-for="ProjectAssembly" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectAssembly"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ProjectEnergyCable" class="form-label">Enerji Kablosu Çekildi Mi? :</label>
+                    <select class="form-select" asp-for="ProjectEnergyCable" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectEnergyCable"></span>
+                </div>
+
+            </div>
+            <div id="content2">
+                <div class="mb-2">
+                    <label asp-for="ProjectName" class="form-label">Proje Adı :</label>
+                    <select class="form-select" asp-for="ProjectName" asp-items="@ViewBag.Project">
+                       <option value="">Lütfen Proje Seçiniz</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectName"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ProjectEnergyConnect" class="form-label">Enerji Bağlandı Mı? :</label>
+                    <select class="form-select" asp-for="ProjectEnergyConnect" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectEnergyConnect"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ProjectFiberOptic" class="form-label">Fiber Sonlandı Mı? :</label>
+                    <select class="form-select" asp-for="ProjectFiberOptic" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectFiberOptic"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ProjectConnection" class="form-label">Görüntü Alındı Mı? :</label>
+                    <select class="form-select" asp-for="ProjectConnection" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectConnection"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ProjectRecording" class="form-label">Kayıt Başladı Mı? :</label>
+                    <select class="form-select" asp-for="ProjectRecording" asp-items="@ViewBag.ReportSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectRecording"></span>
+                </div>
+                <div class="form-floating">
+                    <textarea asp-for="ProjectDescription" class="form-control" style="height: 100px"></textarea>
+                    <label asp-for="ProjectDescription">Açıklama</label>
+                    <span class="text-danger" asp-validation-for="ProjectDescription"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ProjectTeam" class="form-label">İş Hangi Takımda? :</label>
+                    <input type="text" class="form-control" asp-for="ProjectTeam">
+                    <span class="text-danger" asp-validation-for="ProjectTeam"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="ProjectStatus" class="form-label">Son Durum :</label>
+                    <select class="form-select" asp-for="ProjectStatus" asp-items="@ViewBag.StatusSelect">
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectStatus"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="MaximoId" class="form-label">Maximo ID :</label>
+                    <input type="text" class="form-control" asp-for="MaximoId">
+                    <span class="text-danger" asp-validation-for="MaximoId"></span>
+                </div>
+                <div class="mb-3">
+                <label asp-for="ProjectYear" class="form-label">Projelendirme Yılı :</label>
+                    <input type="number" class="form-control" asp-for="ProjectYear">
+                    <span class="text-danger" asp-validation-for="ProjectYear"></span>
+                </div>
+               
+            </div>
+            <div class="mx-4">
+                <button type="submit" class="btn btn-lg btn-outline-primary d-md-block ">Güncelle</button>
+            </div>*@
+           
+        </form>
+    </div>
+
+</body>
+</html>
+@*İlçe seçince mahalle gelmesi için konuldu*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        // İlçe seçildiğinde bu fonksiyon çalışmaya başlayacak.
+        $('#District').change(function () {
+            // Seçilen İlçenin ID sini alıyoruz.
+            var districtID = $(this).val();
+            /*Seçilen districtID sini kullanarak
+            KgysRequested(Controller) sınıfı içerisindeki GetNeighbour
+            Action metodunu çağırıyoruz.
+            Bu metoddan dönen liste sayesinde .each fonksiyonu ile
+            DistrictArea idli SelectList nesnesini dolduruluyor.*/
+            if (districtID != null && districtID != '') {
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("GetNeighbour", "KgysRequested")',
+                    data: { districtID: districtID },
+                    success: function (getNeighbour) {
+                        $('#DistrictArea').empty();
+                        $.each(getNeighbour, function (index, neighbour) {
+                            $('#DistrictArea').append($('<option/>', {
+                                value: neighbour.Id,
+                                text: neighbour.neighbourName
+                            }));
+                        });
+                    },
+                    error: function () {
+                        /*Bu metod ile Ajax işlemi başarısız
+                        olursa eğer hata mesajı verebiliyoruz.*/
+                        alert("Hata");
+                    },
+                    beforeSend: function () {
+                        /*Burada ise Form Post edilmeden önce
+                        işlemler yapılabilir.Örnek olarak Loading, yükleniyor vs..*/
+                    },
+                    complete: function () {
+                        /*Burada ise Form Post edildikten sonra
+                        işlemler yapılabilir.Örnek olarak yükleme tamamlandı vs..*/
+                    }
+                });
+            }
+        });
+    });
+</script>
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
+
+
+

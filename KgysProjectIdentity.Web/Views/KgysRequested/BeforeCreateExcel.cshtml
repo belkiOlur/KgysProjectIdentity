@@ -1,0 +1,146 @@
+﻿@{
+    Layout = null;
+    int i = 0;
+}
+@model List<KgysRequestedViewModel>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>01.04.2023'den Önceki KGYS Talepleri @DateTime.Now.ToString()</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/images/cop.ico" /> @*site iconu değiştirir*@
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="~/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/KgysProjectIdentity.Web.styles.css" asp-append-version="true" />
+</head>
+<body class="container-responsive">
+    <div class="row">
+        <div class="container-fluid">
+            <header>
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-black border-bottom box-shadow mb-3">
+                    <div class="container-fluid">
+                        <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">BTH Proje Takip</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+
+                                <partial name="_navBarDropBox"></partial>
+
+                                <partial name="_navBarKgysRequestedMenu"></partial>
+
+                            </ul>
+                            @*navbar partial view*@
+                            <partial name="_navBarLoginMenu"></partial>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+        </div>
+    </div>
+    <table id="example" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>Sıra No</th>
+                <th>Talep Yöntemi</th>
+                <th>Talep Yöntemi Detayı</th>
+                <th>Talep Geliş Tarihi</th>
+                <th>Talep Eden</th>
+                <th>Talep Eden Detay</th>
+                <th>Talep Eden İrtibat</th>
+                <th>İlçe</th>
+                <th>Mahalle/Semt</th>
+                <th>Adres</th>
+                <th>Koordinat</th>
+                <th>Keşif Yapıldı Mı?</th>
+                <th>Keşif Sonucu</th>
+                <th>Değerlendirme</th>
+                <th>Değerlendirme Detayı</th>
+                <th>Son Durum</th>
+                <th>İlçeye Yazıldı mı?</th>
+                <th>İlçeye Yazılan EBYS No</th>
+                <th>İlçe Cevabı EBYS No</th>
+                <th>Tamamlandı Mı? </th>
+                <th>Tamamlandığı Tarih</th>
+                <th>Güncellenen Tarih</th>
+                <th>Güncelleyen Personel</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                @if (item.FinishedOrNot != "Evet")
+                {
+                    if (item.Id < 779)
+                    {
+                        string sexc = TableRowsColor.RowsColor(item.GoToDiscovery!);
+                        string sbas = TableRowsColor.RowsColor(item.AskToDistrict!);
+                        i++;
+                        <tr>
+                            <th scope="row">@i</th>
+                            <td>@item.Method</td>
+                            <td>@item.MethodDetail</td>
+                            <td>@item.ArraviedDate</td>
+                            <td>@item.RequestedByWho</td>
+                            <td>@item.RequestedByWhoDetail</td>
+                            <td>@item.TelephoneNumber</td>
+                            <td>@item.District</td>
+                            <td>@item.DistrictArea</td>
+                            <td>@item.Address</td>
+                            <td>@item.Coordinate</td>
+                            <td class="@sexc">@item.GoToDiscovery</td>
+                            <td>@item.Evaluation</td>
+                            <td>@item.EvaluationDetail</td>
+                            <td>@item.Status</td>
+                            <td>@item.FirstDiscovery</td>
+                            <td class="@sbas">@item.AskToDistrict</td>
+                            <td>@item.AskToDistrictEbysNumber</td>
+                            <td>@item.AnswerFromDisctrictEbysNumber</td>
+                            <td>@item.FinishedOrNot</td>
+                            <td>@item.FinishDate </td>
+                            <td>@item.UpdatedTime</td>
+                            <td>@item.UpdatedUser</td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+ <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery-3.7.0.min.js" type="text/javascript"></script>
+    <script src="~/js/slick.js"></script>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/js/dataTables.buttons.min.js"></script>
+    <script src="~/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/pdfmake.min.js"></script>
+    <script src="~/js/vfs_fonts.js"></script>
+    <script src="~/js/buttons.html5.min.js"></script>
+    <script src="~/js/buttons.print.min.js"></script>
+    <script src="~/js/buttons.colVis.min.js"></script>
+    <script src="~/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/responsive.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#example').DataTable({
+            lengthChange: true,
+            buttons: ['excel', 'colvis']
+        });
+
+        table.buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+    });
+</script>
+
+

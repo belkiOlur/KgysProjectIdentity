@@ -1,0 +1,176 @@
+﻿@{
+    ViewData["Title"] = "MaterialsDetailUpdate";
+}
+
+@model MaterialsDetailViewModel
+<html>
+<head>
+    <style type="text/css">
+        #menu {
+            display: inline-block;
+            width: 40%;
+        }
+
+        #content {
+            display: inline-block;
+            width: 40%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="col-md-4 offset-md-4">
+        <h1>Detaylı Ürün Güncelleme Sayfası</h1>
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @TempData["error"]
+            </div>
+
+        }
+    </div>
+    <div class="container">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="WareHouse" asp-action="MaterialsDetailUpdate" method="post">
+            <div id="menu" class="mx-4">
+                <div class="mb-3">
+                    <label asp-for="Material" class="form-label">Ana Ürün :</label>
+                    <select class="form-select" asp-for="Material" asp-items="@ViewBag.Material" id="District">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Material"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Product" class="form-label">Alt Ürün :</label>
+                    <select class="form-select" asp-for="Product" asp-items="@Enumerable.Empty<SelectListItem>()" id="DistrictArea">
+                        <option value="@Model.Product">@Model.Product</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="Product"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="MaterialBrandCode" class="form-label"> Ürün Kodu :</label>
+                    <input type="text" class="form-control" asp-for="MaterialBrandCode">
+                    <span class="text-danger" asp-validation-for="MaterialBrandCode"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="MaterialBrand" class="form-label">Marka / Model :</label>
+                    <input type="text" class="form-control" asp-for="MaterialBrand">
+                    <span class="text-danger" asp-validation-for="MaterialBrand"></span>
+                    <input type="hidden" asp-for="Id" />
+                </div>
+                <div class="mb-3">
+                    <label asp-for="TechnicalSpecification1" class="form-label">Teknik Özellik :</label>
+                    <input type="text" class="form-control" asp-for="TechnicalSpecification1">
+                    <span class="text-danger" asp-validation-for="TechnicalSpecification1"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="SerialNo" class="form-label">Seri Numarası :</label>
+                    <input type="text" class="form-control" asp-for="SerialNo">
+                    <span class="text-danger" asp-validation-for="SerialNo"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Explanation" class="form-label">Geliş Açıklaması :</label>
+                    <input type="text" class="form-control" asp-for="Explanation">
+                    <span class="text-danger" asp-validation-for="Explanation"></span>
+                </div>
+
+            </div>
+
+            <div id="content" class="mx-4">
+                <div class="mb-3">
+                    <label asp-for="Shelf" class="form-label">Bulunduğu Raf :</label>
+                    <input type="text" class="form-control" asp-for="Shelf">
+                    <span class="text-danger" asp-validation-for="Shelf"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Year" class="form-label">Yılı :</label>
+                    <input type="text" class="form-control" asp-for="Year">
+                    <span class="text-danger" asp-validation-for="Year"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="EtmysNumber" class="form-label">ETMYS No :</label>
+                    <input type="text" class="form-control" asp-for="EtmysNumber">
+                    <span class="text-danger" asp-validation-for="EtmysNumber"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="WhoTake" class="form-label">Verilen Birim / Kişi :</label>
+                    <input type="text" class="form-control" asp-for="WhoTake">
+                    <span class="text-danger" asp-validation-for="WhoTake"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Çıkış Açıklaması :</label>
+                    <input type="text" class="form-control" asp-for="Description">
+                    <span class="text-danger" asp-validation-for="Description"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Status" class="form-label">Durumu :</label>
+                    <select class="form-select" asp-for="Status" asp-items="@ViewBag.Status">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Status"></span>
+                </div>
+                <div class="mt-3">
+                    <label class="form-label"></label>
+                    <button type="submit" class="btn btn-outline-primary d-md-block">Kaydet</button>
+                </div>
+            </div>
+           
+
+
+        </form>
+
+    </div>
+
+</body>
+</html>
+@*Ürün seçince alt ürün gelmesi için konuldu*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Ürün seçildiğinde bu fonksiyon çalışmaya başlayacak.
+        $('#District').change(function () {
+            // Seçilen İlçenin ID sini alıyoruz.
+            var ProductId = $(this).val();
+            /*Seçilen ProductId sini kullanarak
+            WareHouse(Controller) sınıfı içerisindeki GetProduct
+            Action metodunu çağırıyoruz.
+            Bu metoddan dönen liste sayesinde .each fonksiyonu ile
+            DistrictArea idli SelectList nesnesini dolduruluyor.*/
+            if (ProductId != null && ProductId != '') {
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("GetProduct", "WareHouse")',
+                    data: { ProductId: ProductId },
+                    success: function (getProduct) {
+                        console.log(getProduct);
+                        $('#DistrictArea').empty();
+                        $.each(getProduct, function (index, product) {
+                            $('#DistrictArea').append($('<option/>', {
+                                value: product.id,
+                                text: product.productName
+                            }));
+                        });
+                    },
+                    error: function () {
+                        /*Bu metod ile Ajax işlemi başarısız
+                        olursa eğer hata mesajı verebiliyoruz.*/
+                        alert("Hata");
+                    },
+                    beforeSend: function () {
+                        /*Burada ise Form Post edilmeden önce
+                        işlemler yapılabilir.Örnek olarak Loading, yükleniyor vs..*/
+                    },
+                    complete: function () {
+                        /*Burada ise Form Post edildikten sonra
+                        işlemler yapılabilir.Örnek olarak yükleme tamamlandı vs..*/
+                    }
+                });
+            }
+        });
+    });
+</script>
+@*Hatayı henüz Client tarafında kontrol etmek için aşağıdaki komutlar kullanılır.*@
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
+
