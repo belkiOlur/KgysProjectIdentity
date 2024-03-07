@@ -25,6 +25,7 @@ namespace KgysProjectIdentity.Service.Mapping
             CreateMap<MaterialsDetailModel, MaterialsDetailViewModel>().ReverseMap();
             CreateMap<SecurityCodeModel, SecurityCodeViewModel>().ReverseMap();
             CreateMap<CalenderModel, CalenderViewModel>().ReverseMap();
+            CreateMap<IpPhoneModel, IpPhoneViewModel>().ReverseMap();
         }
     }
 }
