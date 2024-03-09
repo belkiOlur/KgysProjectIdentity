@@ -28,5 +28,7 @@ namespace KgysProjectIdentity.Service.Services
         string WaitingJobsUpdate(WaitingJobsViewModel newRequest);
         string UserEdit(UserEditViewModel newRequest);
         string MaterialsDetailDifference(MaterialsDetailViewModel newRequest);
+        string IpPhoneAdd(IpPhoneViewModel newRequest);
+        string IpPhoneUpdate(IpPhoneModel newRequest);
     }
 }

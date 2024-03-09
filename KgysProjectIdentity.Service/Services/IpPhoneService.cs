@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using KgysProjectIdentity.Core.ViewModels;
 using KgysProjectIdentity.Repository.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KgysProjectIdentity.Service.Services
 {
@@ -28,6 +23,32 @@ namespace KgysProjectIdentity.Service.Services
         {
             try
             {
+                var log = UserName + " isimli kullanıcı " + _detect.IpPhoneAdd(phone);
+                phone.UpdatedPersonel = UserName;
+                phone.UpdatedTime=DateTime.Now;
+                _context.IpPhoneProject.Add(_mapper.Map<IpPhoneModel>(phone));
+                _context.SaveChanges();
+                _log.LogForAdd(log);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool Complete(int id, string UserName)
+        {
+            try
+            {
+                var phone = _context.IpPhoneProject.Find(id)!;
+                var log = UserName + " isimli kullanıcı " + DateTime.Now +" tarihinde "+ phone.Campus + " binasında "+ phone.Unit+" biriminindeki Ip Telefon Projesini tamamlandı konumuna çekti.";
+                phone.Priority = "Mevcut";
+                phone.UpdatedPersonel = UserName;
+                phone.UpdatedTime = DateTime.Now;
+                _context.IpPhoneProject.Update(phone);
+                _context.SaveChanges();
+                _log.LogForAdd(log);
                 return true;
             }
             catch
@@ -40,6 +61,11 @@ namespace KgysProjectIdentity.Service.Services
         {
             try
             {
+                var phone = _context.IpPhoneProject.Find(id)!;
+                var log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + phone.Campus + " binasında bulunan " + phone.Unit + " birimine ait projeyi sildi.";
+                _context.IpPhoneProject.Remove(phone);
+                _context.SaveChanges();
+                _log.LogForAdd(log);
                 return true;
             }
             catch
@@ -52,6 +78,12 @@ namespace KgysProjectIdentity.Service.Services
         {
             try
             {
+                var log = UserName + " isimli kullanıcısı " + DateTime.Now/*+ _detect.IpPhoneUpdate(phone)*/;
+                phone.UpdatedPersonel = UserName;
+                phone.UpdatedTime = DateTime.Now;
+                _context.IpPhoneProject.Update(phone);
+                _context.SaveChanges();
+                _log.LogForAdd(log);
                 return true;
             }
             catch

@@ -1,7 +1,167 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
+    int i = 0;
+    string durum;
 }
+<style>
+    .button-container {
+        display: flex;
+        flex-direction: row; /* Butonları yatay olarak hizalar */
+        align-items: center; /* Butonları dikey olarak ortalar */
+        gap: 10px; /* Butonlar arası boşluk */
+    }
+</style>
+@model IpPhoneViewModel
+<div class="col-md-4 offset-md-4 text-center">
+    <h1>Ip Telefon Kurulum Projesi</h1>
+    @if (TempData["Status"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert">
+            @TempData["Status"]
+        </div>
 
-<h1>Index</h1>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center" role="alert">
+            @TempData["Error"]
+        </div>
 
+    }
+</div>
+<div class="button-container">
+    <form action="@Url.Action("CreateExcel", "IpPhone")" method="post" class="d-inline">
+        <input type="hidden" name="ipPhone" value='@Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.IpPhone)' />
+        <button type="submit" class="btn btn-secondary">Excele Aktar</button>
+    </form>
+    <a class="btn btn-secondary d-inline-block" role="button" asp-controller="IpPhone" asp-action="Add">Yeni Bina Ekle</a>
+    <a class="btn btn-secondary d-inline-block" role="button" asp-controller="IpPhone" asp-action="">Proje Etabı Ekle</a>
+    <div class="dropdown d-inline-block">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Etaplar
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            @foreach (var priority in ViewBag.Priority)
+            {
+                <li>
+                    <a class="nav-link text-dark " asp-area="" asp-controller="IpPhone" asp-action="Priority" asp-route-priority="@priority.PriorityName">@priority.PriorityName</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<div class="offset-10 form-group pull-right mb-3">
+    <input type="text" class="search form-control" placeholder="Aranılacak Kelimeyi Giriniz" style="width:300px">
+    <span class="counter pull-right"></span>
+</div>
+<div class="container-fluid">
+    <table class="table table-striped table-hover text-center table-bordered results" style="width:100%" id="dataTable">
+        <thead>
+            <tr class="table-light">
+                <th>Sıra No</th>
+                <th>Bina Adı</th>
+                <th>Birim Adı</th>
+                <th>Santral Var Mı?</th>
+                <th>Santral Markası</th>
+                <th>Poe Switch Var Mı?</th>
+                <th>Altyapı Uygun Mu?</th>
+                <th>Telefon Sayısı</th>
+                <th>İşlem</th>
+            </tr>
+            <tr class="warning no-result">
+                <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.IpPhone)
+            {
+                i++;
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@item.Campus</td>
+                    <td>@item.Unit</td>
+                    <td>
+                        @if (item.Central == true)
+                        {
+                            durum = "Uygun";
+                        }
+                        else
+                        {
+                            durum = "Uygun Değil";
+                        }
+                        @durum
+                    </td>
+                    <td>@item.CentralBrand</td>
+                    <td>
+                        @if (item.PoeSwitch == true)
+                        {
+                            durum = "Var";
+                        }
+                        else
+                        {
+                            durum = "Yok";
+                        }
+                        @durum
+                    </td>
+                    <td>
+                        @if (item.CableIsTrue == true)
+                        {
+                            durum = "Uygun";
+                        }
+                        else
+                        {
+                            durum = "Uygun Değil";
+                        }
+                        @durum
+                    </td>
+                    <td>@item.PhonePieces</td>
+                    <td>
+                        @if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Silme"))
+                        {
+                            @if (User.HasClaim(x => x.Value == "Silme"))
+                            {
+                                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-danger d-md-block" data-bs-id="@item.Id">Sil</a>
+                            }
+                            <a class="btn btn-outline-secondary d-md-block" role="button" asp-controller="IpPhone" asp-action="Update" asp-route-id="@item.Id">Güncelle</a>
+                            @if (item.Priority != "Mevcut")
+                            {
+                                <a class="btn btn-outline-success d-md-block" role="button" asp-controller="IpPhone" asp-action="Complete" asp-route-id="@item.Id">Tamamlandı</a>
+                            }
+                        }
+
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@*Modal*@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Silmek İstediğinize Emin Misiniz?
+                <form asp-area="" asp-controller="IpPhone" asp-action="Remove" method="post">
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/messages_tr.js"></script>
+}

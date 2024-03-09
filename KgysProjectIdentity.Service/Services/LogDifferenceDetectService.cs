@@ -1552,9 +1552,67 @@ namespace KgysProjectIdentity.Service.Services
             return difference;
         }
 
+        public string IpPhoneAdd(IpPhoneViewModel newRequest)
+        {
+            string difference = DateTime.Now + " tarihinde, ";
+            if (newRequest.Campus != null)
+            {
+                difference += newRequest.Campus + " binasında, ";
+            }
+            if (newRequest.Unit != null)
+            {
+                difference += newRequest.Unit + " birimine, ";
+            }
+            if (newRequest.CentralBrand != null)
+            {
+                difference += newRequest.CentralBrand + " markalı santrali olduğu, ";
+            }
+            if (newRequest.PoeSwitch != false)
+            {
+                difference += " poe switch olduğu, ";
+            }
+            if (newRequest.CableIsTrue != false)
+            {
+                difference += " altyapısının olduğu, ";
+            }
+            if (newRequest.PhonePieces != 0)
+            {
+                difference += newRequest.PhonePieces+" adet Ip Telefon, ";
+            }
+            if (newRequest.Priority != null)
+            {
+                difference += newRequest.Priority+ " önceliği, ";
+            }
+            difference += "bilgileri ile IP Telefon Kurulumu Projesi ekledi.";
+            return difference;
+        }
 
-
-
-
+        public string IpPhoneUpdate(IpPhoneModel newRequest)
+        {
+            string difference = " tarihinde, ";
+            var exRequest = _context.IpPhoneProject.Where(x=>x.Id == newRequest.Id).FirstOrDefault()!;
+            if (newRequest.Campus != exRequest.Campus)
+            {
+                difference += exRequest.Campus + " binasını " + newRequest.Campus+", ";
+            }
+            if (newRequest.Unit != exRequest.Unit)
+            {
+                difference += exRequest.Unit + " birimini " + newRequest.Unit + ", ";
+            }
+            if (newRequest.CentralBrand != exRequest.CentralBrand)
+            {
+                difference += exRequest.CentralBrand + " markalı santralini, "+newRequest.CentralBrand + ", ";
+            }
+            if (newRequest.PhonePieces != exRequest.PhonePieces)
+            {
+                difference += exRequest.PhonePieces+" telefon adetini " +newRequest.PhonePieces + ", ";
+            }
+            if (newRequest.Priority != exRequest.Priority)
+            {
+                difference += exRequest.Priority + " önceliğini "+ newRequest.Priority + ", ";
+            }
+            difference += "bilgileri olacak şekilde IP Telefon Kurulumu Projesi bilgilerini güncelledi.";
+            return difference;
+        }
     }
 }

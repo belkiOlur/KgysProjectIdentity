@@ -13,5 +13,7 @@ namespace KgysProjectIdentity.Service.Services
         bool Add(IpPhoneViewModel phone, string UserName);
         bool Update(IpPhoneModel phone, string UserName);
         bool Remove(int id, string UserName);
+        bool Complete(int id, string UserName);
+
     }
 }

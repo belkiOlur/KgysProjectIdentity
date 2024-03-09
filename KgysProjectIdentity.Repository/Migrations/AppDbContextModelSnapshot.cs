@@ -38,7 +38,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserAndValue");
+                    b.ToTable("UserAndValue", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.AccidentKgysModel", b =>
@@ -135,7 +135,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AccidentKgys");
+                    b.ToTable("AccidentKgys", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.AlertModel", b =>
@@ -154,7 +154,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Alerts");
+                    b.ToTable("Alerts", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.AppRole", b =>
@@ -283,7 +283,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PermissionCalender");
+                    b.ToTable("PermissionCalender", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.DistrictModel", b =>
@@ -299,7 +299,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DistrictModels");
+                    b.ToTable("DistrictModels", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.IpPhoneModel", b =>
@@ -342,7 +342,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IpPhoneProject");
+                    b.ToTable("IpPhoneProject", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.KgysPlannedModel", b =>
@@ -457,7 +457,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KgysPlanned");
+                    b.ToTable("KgysPlanned", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.KgysRequestModel", b =>
@@ -551,7 +551,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KgysRequest");
+                    b.ToTable("KgysRequest", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.KgysRequestedModel", b =>
@@ -633,7 +633,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KgysRequested");
+                    b.ToTable("KgysRequested", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.KuppaMultiplierModel", b =>
@@ -652,7 +652,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("KuppaMultipliers");
+                    b.ToTable("KuppaMultipliers", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.LogModel", b =>
@@ -671,7 +671,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("LogModel");
+                    b.ToTable("LogModel", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.MaterialsDetailModel", b =>
@@ -735,7 +735,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MaterialsDetail");
+                    b.ToTable("MaterialsDetail", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.MaterialsModel", b =>
@@ -751,7 +751,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Materials");
+                    b.ToTable("Materials", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.MaterialsProductsModel", b =>
@@ -770,7 +770,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MaterialsProductsModels");
+                    b.ToTable("MaterialsProductsModels", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.NanetModel", b =>
@@ -798,7 +798,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Nanet");
+                    b.ToTable("Nanet", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.NeighbourModel", b =>
@@ -817,7 +817,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("NeighbourModels");
+                    b.ToTable("NeighbourModels", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.OfficialsJobsModel", b =>
@@ -836,7 +836,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OfficialsJobs");
+                    b.ToTable("OfficialsJobs", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.ParkAndRecreationsModel", b =>
@@ -909,7 +909,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ParkAndRecreations");
+                    b.ToTable("ParkAndRecreations", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.PaymentCodeModel", b =>
@@ -928,7 +928,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PaymentCode");
+                    b.ToTable("PaymentCode", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.PaymentModel", b =>
@@ -962,7 +962,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Payment");
+                    b.ToTable("Payment", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.PriorityForIpPhone", b =>
@@ -978,7 +978,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PriorityForPhone");
+                    b.ToTable("PriorityForPhone", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.ProjectEightyImagedModel", b =>
@@ -997,7 +997,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProjectEightyImagedModel");
+                    b.ToTable("ProjectEightyImagedModel", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.ProjectsModel", b =>
@@ -1016,7 +1016,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProjectsModels");
+                    b.ToTable("ProjectsModels", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.RepetitiveRequestModel", b =>
@@ -1062,7 +1062,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RepetitiveRequest");
+                    b.ToTable("RepetitiveRequest", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.SecondaryRequestModel", b =>
@@ -1114,7 +1114,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SecondaryRequestModels");
+                    b.ToTable("SecondaryRequestModels", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.SecurityCodeModel", b =>
@@ -1136,7 +1136,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SecurityCode");
+                    b.ToTable("SecurityCode", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.TelecomFoModel", b =>
@@ -1230,7 +1230,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.TelecomTeamModel", b =>
@@ -1246,7 +1246,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TelecomTeams");
+                    b.ToTable("TelecomTeams", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.TenderOfAdmissionCommissionOfficialsModel", b =>
@@ -1265,7 +1265,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TenderOfAdmissionCommissionOfficials");
+                    b.ToTable("TenderOfAdmissionCommissionOfficials", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.TenderOfSpecificationOfficialsModel", b =>
@@ -1284,7 +1284,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TenderOfSpecificationOfficials");
+                    b.ToTable("TenderOfSpecificationOfficials", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.TenderProjectsModel", b =>
@@ -1375,7 +1375,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TenderProjects");
+                    b.ToTable("TenderProjects", (string)null);
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.WaitingJobsModel", b =>
@@ -1439,7 +1439,7 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WaitingJobs");
+                    b.ToTable("WaitingJobs", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

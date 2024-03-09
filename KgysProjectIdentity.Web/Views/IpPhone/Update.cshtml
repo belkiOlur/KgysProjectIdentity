@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Update";
+}
+@model IpPhoneModel
+<div class="row">
+    <div class="col-md-6 offset-md-4 mb-5">
+        <h1>Ip Telefon Projesi Güncelleme Sayfası</h1>
+    </div>
+</div>
+
+<div class="container-fluid" style="height:fit-content;width:50%">
+    <div asp-validation-summary="ModelOnly"></div>
+    <form asp-controller="IpPhone" asp-action="Update" method="post">
+        <div class="mb-2">
+            <label asp-for="Campus" class="form-label">Bina Adı :</label>
+            <input type="text" class="form-control" asp-for="Campus">
+            <input type="hidden" asp-for="Id" />
+            <span class="text-danger" asp-validation-for="Campus"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="Unit" class="form-label">Birim Adı :</label>
+            <input type="text" class="form-control" asp-for="Unit">
+            <span class="text-danger" asp-validation-for="Unit"></span>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" asp-for="Central" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Uygun Santral Var Mı?
+            </label>
+        </div>
+        <div class="mb-2">
+            <label asp-for="CentralBrand" class="form-label">Santral Markası :</label>
+            <input type="text" class="form-control" asp-for="CentralBrand">
+            <span class="text-danger" asp-validation-for="CentralBrand"></span>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" asp-for="PoeSwitch" id="flexCheckDefault1">
+            <label class="form-check-label" for="flexCheckDefault1">
+                POE Switch Var Mı?
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" asp-for="CableIsTrue" id="flexCheckDefault2">
+            <label class="form-check-label" for="flexCheckDefault2">
+                Altyapı Uygun Var Mu?
+            </label>
+        </div>
+        <div class="mb-2">
+            <label asp-for="PhonePieces" class="form-label">Telefon Sayısı :</label>
+            <input type="number" class="form-control" asp-for="PhonePieces">
+            <span class="text-danger" asp-validation-for="PhonePieces"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="Priority" class="form-label">Öncelik Durumu :</label>
+            <select class="form-select" asp-for="Priority" asp-items="@ViewBag.PriorityName">
+                <option>@Model.Priority</option>
+            </select>
+            <span class="text-danger" asp-validation-for="Priority"></span>
+        </div>
+        <div class="mt-2">
+            <button type="submit" class="btn btn-md btn-outline-primary d-md-block ">Güncelle</button>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/messages_tr.js"></script>
+}
+

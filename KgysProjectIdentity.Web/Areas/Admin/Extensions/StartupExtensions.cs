@@ -29,6 +29,7 @@ namespace KgysProjectIdentity.Web.Areas.Admin.Extensions
             services.AddScoped<IWaitingJobService, WaitingJobService>();
             services.AddScoped<IWareHouseService, WareHouseService>();
             services.AddScoped<IPermissionService, PermissionService>();
+            services.AddScoped<IIpPhoneService, IpPhoneService>();
 
             services.Configure<DataProtectionTokenProviderOptions>(options =>
             {
