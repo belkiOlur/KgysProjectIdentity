@@ -57,6 +57,39 @@ namespace KgysProjectIdentity.Service.Services
             }
         }
 
+        public bool ProjectAdd(PriorityForIpPhoneModel phone, string UserName)
+        {
+            try
+            {
+                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + phone.PriorityName + " Ip Telefon Etabını ekledi.";
+                _context.PriorityForPhone.Add(phone);
+                _context.SaveChanges();
+                _log.LogForAdd(log);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ProjectRemove(int id, string UserName)
+        {
+            try
+            {
+                var phone = _context.PriorityForPhone.Find(id)!;
+                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + phone.PriorityName + " Ip Telefon Etabını sildi.";
+                _context.PriorityForPhone.Remove(phone);
+                _context.SaveChanges();
+                _log.LogForAdd(log);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool Remove(int id, string UserName)
         {
             try

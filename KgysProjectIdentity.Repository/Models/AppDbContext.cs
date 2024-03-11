@@ -69,7 +69,7 @@ namespace KgysProjectIdentity.Repository.Models
         public DbSet<TenderOfAdmissionCommissionOfficialsModel> TenderOfAdmissionCommissionOfficials { get; set; }
         public DbSet<CalenderModel> PermissionCalender { get; set; }
         public DbSet<IpPhoneModel> IpPhoneProject { get; set; }
-        public DbSet<PriorityForIpPhone> PriorityForPhone { get; set; }
+        public DbSet<PriorityForIpPhoneModel> PriorityForPhone { get; set; }
 
     }
 

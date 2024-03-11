@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KgysProjectIdentity.Repository.Models
 {
-    public class PriorityForIpPhone
+    public class PriorityForIpPhoneModel
     {
         public int Id { get; set; }
         public string? PriorityName { get; set; }

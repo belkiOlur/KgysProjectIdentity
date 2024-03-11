@@ -121,6 +121,46 @@ namespace KgysProjectIdentity.Web.Controllers
             }
         }
         [HttpGet]
+        public IActionResult Project()
+        {
+            ViewBag.IpPhone = _context.PriorityForPhone;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ProjectAdd(PriorityForIpPhoneModel phone)
+        {
+            try
+            {
+                if (!_ipphone.ProjectAdd(phone, UserName))
+                {
+                    TempData["Error"] = "Ip Telefon Kurulum Etabı Ekleme İşlemi Tamamlanamadı";
+                }
+                return RedirectToAction("Project");
+            }
+            catch
+            {
+                TempData["Status"] = "Ip Telefon Kurulum Etabı Ekleme İşlemi Başarıyla Tamamlandı";
+                return RedirectToAction("Project");
+            }
+        }
+        [HttpPost]
+        public IActionResult ProjectRemove(PriorityForIpPhoneModel phone)
+        {
+            try
+            {
+                if (!_ipphone.ProjectRemove(phone.Id, UserName))
+                {
+                    TempData["Error"] = "Ip Telefon Kurulum Etabı Silme İşlemi Tamamlanamadı";
+                }
+                return RedirectToAction("Project");
+            }
+            catch
+            {
+                TempData["Status"] = "Ip Telefon Kurulum Etabı Silme İşlemi Başarıyla Tamamlandı";
+                return RedirectToAction("Project");
+            }
+        }
+        [HttpGet]
         public IActionResult CreateExcel()
         {
             ViewBag.IpPhone = null;

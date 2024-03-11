@@ -207,7 +207,29 @@ if (staticBackdropdate) {
         modalCourseDate2.value = recipientss
     })
 }
+const staticBackdropSil = document.getElementById('staticBackdropSil')
+if (staticBackdropSil) {
+    staticBackdropSil.addEventListener('show.bs.modal', event => {
+        // Button that triggered the modal
+        const button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        const recipient = button.getAttribute('data-bs-id')
+        const recipients = button.getAttribute('data-bs-date')
+        const recipientss = button.getAttribute('data-bs-date2')
+        // If necessary, you could initiate an Ajax request here
+        // and then do the updating in a callback.
 
+        // Update the modal's content.
+        const modalTitle = staticBackdropSil.querySelector('.modal-title')
+        const modalCourseId = staticBackdropSil.querySelector('#recipient-name')
+        const modalCourseDate = staticBackdropSil.querySelector('#recipients-name')
+        const modalCourseDate2 = staticBackdropSil.querySelector('#recipientss-name')
+
+        modalCourseId.value = recipient
+        modalCourseDate.value = recipients
+        modalCourseDate2.value = recipientss
+    })
+}
 //Modal validation Başlangıç
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (() => {

@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Project";
+    int i = 0;
+}
+@model PriorityForIpPhoneModel
+<div class="col-md-4 offset-md-4 text-center">
+    <h1>Ip Telefon Kurulum Etap İşlem Sayfası</h1>
+    @if (TempData["Status"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert">
+            @TempData["Status"]
+        </div>
+
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center" role="alert">
+            @TempData["Error"]
+        </div>
+
+    }
+</div>
+<div class="container">
+    <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-secondary d-md-block">Etap Ekle</button>
+    <div class="offset-9 form-group pull-right mb-3">
+        <input type="text" class="search form-control" placeholder="Aranılacak Kelimeyi Giriniz" style="width:300px">
+        <span class="counter pull-right"></span>
+    </div>
+    <table class="table table-striped table-hover text-center table-bordered results" style="width:100%" id="dataTable">
+        <thead>
+            <tr class="table-light">
+                <th>Sıra No</th>
+                <th>Etap Adı</th>
+                <th>İşlem</th>
+            </tr>
+            <tr class="warning no-result">
+                <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.IpPhone)
+            {
+                i++;
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@item.PriorityName</td>
+                    <td>
+                        @if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Silme"))
+                        {
+                            @if (User.HasClaim(x => x.Value == "Silme"))
+                            {
+                                <a data-bs-toggle="modal" data-bs-target="#staticBackdropSil" class="btn btn-outline-danger d-md-block" data-bs-id="@item.Id">Sil</a>
+                            }
+
+                        }
+
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+@*Etap Silme Modal*@
+<div class="modal fade" id="staticBackdropSil" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropSilLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Silmek İstediğinize Emin Misiniz?
+                <form asp-area="" asp-controller="IpPhone" asp-action="ProjectRemove" method="post">
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@*Etap Ekleme Modalı*@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Etap Ekleme Modülü</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Eklemek İstediğiniz Etap Adını Giriniz
+                <form asp-area="" asp-controller="IpPhone" asp-action="ProjectAdd" method="post">
+                    <label asp-for="PriorityName" class="form-label">Etap Adı :</label>
+                    <input type="text" asp-for="PriorityName" class="form-control" required />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-primary d-md-block">Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/messages_tr.js"></script>
+}
+

@@ -14,6 +14,8 @@ namespace KgysProjectIdentity.Service.Services
         bool Update(IpPhoneModel phone, string UserName);
         bool Remove(int id, string UserName);
         bool Complete(int id, string UserName);
+        bool ProjectAdd(PriorityForIpPhoneModel phone, string UserName);
+        bool ProjectRemove(int id, string UserName);
 
     }
 }
