@@ -193,6 +193,11 @@ namespace KgysProjectIdentity.Web.Controllers
             ViewBag.Products = _context.CctvProducts.AsNoTracking().Where(x => x.DetailId == id);
             return View();
         }
+        public IActionResult Ek1(int id)
+        {
+           
+            return View();
+        }
         public IActionResult CreateExcel(int id)
         {
             ViewBag.Detail = _context.CctvProjectDetail.Find(id);
