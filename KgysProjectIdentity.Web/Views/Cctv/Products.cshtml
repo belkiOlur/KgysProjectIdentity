@@ -2,7 +2,6 @@
     ViewData["Title"] = "Products";
     int i = 0;
 }
-
 @model CctvProductsViewModel
 <style type="text/css">
     .centered-td {
@@ -13,22 +12,23 @@
 </style>
 <div class="text-center">
     <h1>CCTV @ViewBag.ProjectName Projesi Malzemeleri</h1>
-    @if (TempData["Status"] != null)
-    {
-        <div class="alert alert-success text-center" role="alert">
-            @TempData["Status"]
-        </div>
+    <div class="col-md-4 offset-md-4 text-center">
+        @if (TempData["Status"] != null)
+        {
+            <div class="alert alert-success text-center" role="alert">
+                @TempData["Status"]
+            </div>
 
-    }
-    @if (TempData["Error"] != null)
-    {
-        <div class="alert alert-danger text-center" role="alert">
-            @TempData["Error"]
-        </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @TempData["Error"]
+            </div>
 
-    }
+        }
+    </div>
 </div>
-
 
 <div class="offset-10 form-group pull-right mb-3">
     <input type="text" class="search form-control" placeholder="Aranılacak Kelimeyi Giriniz" style="width:300px">
@@ -80,7 +80,7 @@
                     <span class="text-danger" asp-validation-for="ProductPieces"></span>
                 </td>
                 <td class="centered-td">
-                    <button type="submit" class="btn btn-outline-primary d-md-block">Kaydet</button>
+                    <button type="submit" class="btn btn-outline-success d-md-block">Kaydet</button>
                 </td>
                 </form>
             </tr>
@@ -102,7 +102,7 @@
                             {
                                 <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-danger d-md-block mb-1" data-bs-id="@item.Id">Sil</a>
                             }
-                            <a class="btn btn-outline-secondary d-md-block mb-1" role="button" asp-controller="Cctv" asp-action="ProductUpdatev" asp-route-id="@item.Id">Güncelle</a>
+                            <a class="btn btn-outline-secondary d-md-block mb-1" role="button" asp-controller="Cctv" asp-action="ProductUpdate" asp-route-id="@item.Id">Güncelle</a>
                         }
                     </td>
                 </tr>
@@ -133,7 +133,7 @@
     </div>
 </div>
 @section Scripts
-    {
+{
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/lib/jquery-validation/dist/messages_tr.js"></script>

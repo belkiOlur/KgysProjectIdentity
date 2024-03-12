@@ -1,7 +1,62 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "ProductUpdate";
 }
 
-<h1>ProductUpdate</h1>
+
+@model CctvProductsModel
+<div class="text-center">
+    <div class="text-center mb-5">
+        <h1>Cctv @ViewBag.ProjectName Projesi Malzeme Güncelleme Sayfası</h1>
+    </div>
+</div>
+
+<div class="container" style="height:fit-content;width:50%">
+    <div asp-validation-summary="ModelOnly"></div>
+    <form asp-area="" asp-controller="Cctv" asp-action="ProductUpdate" method="post">
+        <input type="hidden" asp-for="Id"/>
+        <input type="hidden" asp-for="DetailId"/>
+        <div class="mb-2">
+            <label asp-for="FloorOfSystem" class="form-label">Sonlandığı Sistem Odası :</label>
+            <input type="text" class="form-control" asp-for="FloorOfSystem">
+            <span class="text-danger" asp-validation-for="FloorOfSystem"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProductName" class="form-label">Ürün Adı :</label>
+            <input type="text" class="form-control" asp-for="ProductName">
+            <span class="text-danger" asp-validation-for="ProductName"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProductModel" class="form-label">Model :</label>
+            <input type="text" class="form-control" asp-for="ProductModel">
+            <span class="text-danger" asp-validation-for="ProductModel"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="FloorOfProduct" class="form-label">Planlanan Kat :</label>
+            <input type="text" class="form-control" asp-for="FloorOfProduct">
+            <span class="text-danger" asp-validation-for="FloorOfProduct"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="PlannedPlace" class="form-label">Planlanan Yer :</label>
+            <input type="text" class="form-control" asp-for="PlannedPlace">
+            <span class="text-danger" asp-validation-for="PlannedPlace"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProductPieces" class="form-label">Planlanan Adet :</label>
+            <input type="number" class="form-control" asp-for="ProductPieces">
+            <span class="text-danger" asp-validation-for="ProductPieces"></span>
+        </div>
+        <div class="mt-2">
+            <button type="submit" class="btn btn-md btn-outline-primary d-md-block ">Güncelle</button>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/messages_tr.js"></script>
+}
+
 

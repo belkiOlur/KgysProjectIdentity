@@ -12,22 +12,23 @@
 </style>
 <div class="col-md-4 offset-md-4 text-center">
     <h1>CCTV @ViewBag.ProjectName Kurulum Projesi</h1>
-    @if (TempData["Status"] != null)
-    {
-        <div class="alert alert-success text-center" role="alert">
-            @TempData["Status"]
-        </div>
+    <div class="col-md-4 offset-md-4 text-center">
+        @if (TempData["Status"] != null)
+        {
+            <div class="alert alert-success text-center" role="alert">
+                @TempData["Status"]
+            </div>
 
-    }
-    @if (TempData["Error"] != null)
-    {
-        <div class="alert alert-danger text-center" role="alert">
-            @TempData["Error"]
-        </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @TempData["Error"]
+            </div>
 
-    }
+        }
+    </div>
 </div>
-
 
 <div class="offset-10 form-group pull-right mb-3">
     <input type="text" class="search form-control" placeholder="Aranılacak Kelimeyi Giriniz" style="width:300px">
@@ -84,7 +85,7 @@
                 </td>
                 <td></td>
                 <td class="centered-td">
-                    <button type="submit" class="btn btn-outline-primary d-md-block">Kaydet</button>
+                    <button type="submit" class="btn btn-outline-success d-md-block">Kaydet</button>
                 </td>
                 </form>
             </tr>
@@ -94,13 +95,13 @@
                 <tr class="table-light">
                     <th scope="row">@i</th>
                     <td>@item.ProjectDistrict</td>
-                    <td><a role="button" asp-controller="Cctv" asp-action="ProjectFullDetail" asp-route-id="@item.Id">@item.Unit</a></td>
+                    <td><a role="button" asp-controller="Cctv" asp-action="ProjectFullDetail" asp-route-id="@item.Id" style="color:black">@item.Unit</a></td>
                     <td>@item.ExProjectName</td>
                     <td>@item.ProjectReason</td>
                     <td>@item.Status</td>
                     <td>
-                        <a class="btn btn-outline-secondary d-md-block mb-1" role="button" asp-controller="Cctv" asp-action="Products" asp-route-id="@item.Id">Malzemeler</a>
-                        <a class="btn btn-outline-secondary d-md-block mb-1" role="button" asp-controller="" asp-action="" asp-route-id="@item.Id">Ek-1</a>
+                        <a class="btn btn-outline-primary d-md-block mb-1" role="button" asp-controller="Cctv" asp-action="Products" asp-route-id="@item.Id">Malzemeler</a>
+                        <a class="btn btn-outline-primary d-md-block mb-1" role="button" asp-controller="" asp-action="" asp-route-id="@item.Id">Ek-1</a>
                     </td>
                     <td>
                         @if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Silme" || x.Value == "Planlama"))
@@ -140,7 +141,7 @@
     </div>
 </div>
 @section Scripts
-    {
+{
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/lib/jquery-validation/dist/messages_tr.js"></script>

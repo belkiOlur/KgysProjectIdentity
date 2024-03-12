@@ -10,17 +10,17 @@
         align-items: center; /* Dikeyde merkezle */
     }
 </style>
-<div class="col-md-6 offset-md-4">
+<div class="col-md-4 offset-md-4 text-center">
     <h1>CCTV Faz Ekleme Sayfası</h1>
     @if (TempData["Status"] != null)
     {
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success text-center" role="alert">
             @TempData["Status"]
         </div>
     }
     @if (TempData["Error"] != null)
     {
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger text-center" role="alert">
             @TempData["Error"]
         </div>
     }
@@ -46,7 +46,7 @@
                     <input type="number" class="form-control" asp-for="ProjectYear" required>
                 </td>
                 <td class="centered-td">
-                    <button type="submit" class="btn btn-outline-primary d-md-block">Kaydet</button>
+                    <button type="submit" class="btn btn-outline-success d-md-block">Kaydet</button>
                 </td>
                 </form>
             </tr>

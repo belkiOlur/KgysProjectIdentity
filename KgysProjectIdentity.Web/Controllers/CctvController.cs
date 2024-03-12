@@ -6,6 +6,7 @@ using KgysProjectIdentity.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Build.Evaluation;
 using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
 using NuGet.Versioning;
@@ -167,7 +168,9 @@ namespace KgysProjectIdentity.Web.Controllers
         [HttpGet]
         public IActionResult ProductUpdate(int id)
         {
-            var project = _context.CctvProducts.Find(id);
+            var project = _context.CctvProducts.Find(id)!;
+            var detail = _context.CctvProjectDetail.Find(project.DetailId)!;
+            ViewBag.ProjectName = detail.ProjectName + " " + detail.ProjectDistrict + " " + detail.Unit;
             return View(project);
         }
         [HttpPost]
@@ -177,14 +180,16 @@ namespace KgysProjectIdentity.Web.Controllers
             if (!_cctv.ProjectProductUpdate(project, UserName))
             {
                 TempData["Error"] = "CCTV Proje Fazı Malzeme Detayı Güncelleme İşlemi Tamamlanamadı.";
-                return RedirectToAction("ProjectProductsUpdate", new { id = project.Id });
+                return RedirectToAction("Products", new { id = project.DetailId });
             }
             TempData["Status"] = "CCTV Proje Fazı Malzeme Detayı Güncelleme İşlemi Tamamlandı.";
             return RedirectToAction("Products", new { id = project.DetailId });
         }
         public IActionResult ProjectFullDetail(int id)
         {
-            ViewBag.Detail = _context.CctvProjectDetail.Find(id);
+            var detail = _context.CctvProjectDetail.Where(x=>x.Id==id)!;
+            ViewBag.ProjectName = detail.FirstOrDefault()!.ProjectName + " " + detail.FirstOrDefault()!.ProjectDistrict + " " + detail.FirstOrDefault()!.Unit;
+            ViewBag.Detail = detail.ToList();
             ViewBag.Products = _context.CctvProducts.AsNoTracking().Where(x => x.DetailId == id);
             return View();
         }
