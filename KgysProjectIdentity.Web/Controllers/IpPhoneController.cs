@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace KgysProjectIdentity.Web.Controllers
 {
     [Authorize]
-    public class IpPhoneController:Controller
+    public class IpPhoneController : Controller
     {
         private readonly IIpPhoneService _ipphone;
         private readonly AppDbContext _context;
@@ -28,7 +28,7 @@ namespace KgysProjectIdentity.Web.Controllers
         public IActionResult Index()
         {
             ViewBag.Priority = _context.PriorityForPhone;
-            ViewBag.IpPhone = _context.IpPhoneProject.AsNoTracking().Where(x=>x.Priority=="Mevcut").ToList();
+            ViewBag.IpPhone = _context.IpPhoneProject.AsNoTracking().Where(x => x.Priority == "Mevcut").ToList();
             return View();
         }
         [HttpGet]
@@ -41,19 +41,14 @@ namespace KgysProjectIdentity.Web.Controllers
         [HttpGet]
         public IActionResult Complete(int id)
         {
-            try
+            if (!_ipphone.Complete(id, UserName))
             {
-                if (!_ipphone.Complete(id, UserName))
-                {
-                    TempData["Error"] = "Ip Telefon Kurulumu;Güncelleme İşlemi Tamamlanamadı";
-                }
+                TempData["Error"] = "Ip Telefon Kurulumu;Güncelleme İşlemi Tamamlanamadı";
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                TempData["Status"] = "Ip Telefon Kurulumu Güncelleme İşlemi Başarıyla Tamamlandı";
-                return RedirectToAction("Index");
-            }
+
+            TempData["Status"] = "Ip Telefon Kurulumu Güncelleme İşlemi Başarıyla Tamamlandı";
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult Add()
@@ -64,19 +59,14 @@ namespace KgysProjectIdentity.Web.Controllers
         [HttpPost]
         public IActionResult Add(IpPhoneViewModel phone)
         {
-            try
+            if (!_ipphone.Add(phone, UserName))
             {
-                if (!_ipphone.Add(phone,UserName))
-                {
-                    TempData["Error"] = "Ip Telefon Kurulumu Ekleme İşlemi Tamamlanamadı";
-                }
+                TempData["Error"] = "Ip Telefon Kurulumu Ekleme İşlemi Tamamlanamadı";
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                TempData["Status"] = "Ip Telefon Kurulumu Ekleme İşlemi Başarıyla Tamamlandı";
-                return RedirectToAction("Index");
-            }
+            TempData["Status"] = "Ip Telefon Kurulumu Ekleme İşlemi Başarıyla Tamamlandı";
+            return RedirectToAction("Index");
+
         }
         [HttpGet]
         public IActionResult Update(int id)
@@ -89,36 +79,28 @@ namespace KgysProjectIdentity.Web.Controllers
         [HttpPost]
         public IActionResult Update(IpPhoneModel phone)
         {
-            try
+
+            if (!_ipphone.Update(phone, UserName))
             {
-                if (!_ipphone.Update(phone, UserName))
-                {
-                    TempData["Error"] = "Ip Telefon Kurulumu Güncelleme İşlemi Tamamlanamadı";
-                }
+                TempData["Error"] = "Ip Telefon Kurulumu Güncelleme İşlemi Tamamlanamadı";
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                TempData["Status"] = "Ip Telefon Kurulumu Güncelleme İşlemi Başarıyla Tamamlandı";
-                return RedirectToAction("Index");
-            }
+            TempData["Status"] = "Ip Telefon Kurulumu Güncelleme İşlemi Başarıyla Tamamlandı";
+            return RedirectToAction("Index");
+
         }
         [HttpPost]
         public IActionResult Remove(IpPhoneViewModel phone)
         {
-            try
+            if (!_ipphone.Remove(phone.Id, UserName))
             {
-                if (!_ipphone.Remove(phone.Id, UserName))
-                {
-                    TempData["Error"] = "Ip Telefon Kurulumu Silme İşlemi Tamamlanamadı";
-                }
+                TempData["Error"] = "Ip Telefon Kurulumu Silme İşlemi Tamamlanamadı";
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                TempData["Status"] = "Ip Telefon Kurulumu Silme İşlemi Başarıyla Tamamlandı";
-                return RedirectToAction("Index");
-            }
+
+            TempData["Status"] = "Ip Telefon Kurulumu Silme İşlemi Başarıyla Tamamlandı";
+            return RedirectToAction("Index");
+
         }
         [HttpGet]
         public IActionResult Project()
@@ -129,36 +111,30 @@ namespace KgysProjectIdentity.Web.Controllers
         [HttpPost]
         public IActionResult ProjectAdd(PriorityForIpPhoneModel phone)
         {
-            try
+
+            if (!_ipphone.ProjectAdd(phone, UserName))
             {
-                if (!_ipphone.ProjectAdd(phone, UserName))
-                {
-                    TempData["Error"] = "Ip Telefon Kurulum Etabı Ekleme İşlemi Tamamlanamadı";
-                }
+                TempData["Error"] = "Ip Telefon Kurulum Etabı Ekleme İşlemi Tamamlanamadı";
                 return RedirectToAction("Project");
             }
-            catch
-            {
-                TempData["Status"] = "Ip Telefon Kurulum Etabı Ekleme İşlemi Başarıyla Tamamlandı";
-                return RedirectToAction("Project");
-            }
+
+            TempData["Status"] = "Ip Telefon Kurulum Etabı Ekleme İşlemi Başarıyla Tamamlandı";
+            return RedirectToAction("Project");
+
         }
         [HttpPost]
         public IActionResult ProjectRemove(PriorityForIpPhoneModel phone)
         {
-            try
+
+            if (!_ipphone.ProjectRemove(phone.Id, UserName))
             {
-                if (!_ipphone.ProjectRemove(phone.Id, UserName))
-                {
-                    TempData["Error"] = "Ip Telefon Kurulum Etabı Silme İşlemi Tamamlanamadı";
-                }
+                TempData["Error"] = "Ip Telefon Kurulum Etabı Silme İşlemi Tamamlanamadı";
                 return RedirectToAction("Project");
+
             }
-            catch
-            {
-                TempData["Status"] = "Ip Telefon Kurulum Etabı Silme İşlemi Başarıyla Tamamlandı";
-                return RedirectToAction("Project");
-            }
+            TempData["Status"] = "Ip Telefon Kurulum Etabı Silme İşlemi Başarıyla Tamamlandı";
+            return RedirectToAction("Project");
+
         }
         [HttpGet]
         public IActionResult CreateExcel()

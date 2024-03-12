@@ -29,6 +29,7 @@ namespace KgysProjectIdentity.Service.Services
         string UserEdit(UserEditViewModel newRequest);
         string MaterialsDetailDifference(MaterialsDetailViewModel newRequest);
         string IpPhoneAdd(IpPhoneViewModel newRequest);
-        string IpPhoneUpdate(IpPhoneModel newRequest);
+        string CctvProjectDetailUpdate(CctvModel newRequest);
+        string CctvProjectProductUpdate(CctvProductsModel newRequest);
     }
 }

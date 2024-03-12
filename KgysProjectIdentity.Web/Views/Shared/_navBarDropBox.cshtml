@@ -2,6 +2,7 @@
 @inject GetProject getProject
 @{
     List<ProjectsModel> projects = getProject.GettingProjects();
+    List<CctvProjectModel> cctvProjects = getProject.GettingCctvProjects();
 }
 @if (User.Identity!.IsAuthenticated)
 {
@@ -27,6 +28,17 @@
         <li class="nav-item dropdown" id="myDropdown">
             <button class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown">   Proje Durumları  </button>
             <ul class="dropdown-menu" style="background-color:black">
+                <li>
+                    <a class="nav-link text-light" href="#">  CCTV Projeleri &raquo; </a>
+                    <ul class="submenu dropdown-menu" style="background-color:black">
+                        @foreach (var cctv in cctvProjects)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light " asp-area="" asp-controller="Cctv" asp-action="Index" asp-route-id="@cctv.Id" method="post">@cctv.ProjectName</a>
+                            </li>
+                        }
+                    </ul>
+                </li>
                 <li>
                     <a class="nav-link text-light" href="#">  KGYS Projeleri &raquo; </a>
                     <ul class="submenu dropdown-menu" style="background-color:black">
@@ -76,8 +88,9 @@
                         </li>
                     </ul>
                 </li>
+
                 <li>
-                  <a class="nav-link text-light " asp-area="" asp-controller="IpPhone" asp-action="Index">Ip Telefon Projesi</a>  
+                    <a class="nav-link text-light " asp-area="" asp-controller="IpPhone" asp-action="Index">Ip Telefon Projesi</a>
                 </li>
                 @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "Admin" || x.Value == "Planlama" || x.Value == "PlanlamaAmiri" || x.Value == "Hat" || x.Value == "Yönetici"))
                 {
@@ -86,6 +99,7 @@
                         <ul class="submenu dropdown-menu" style="background-color:black">
                             <li><a class="nav-link text-light " asp-area="" asp-controller="Projects" asp-action="ProjectAdd">KGYS Proje Ekleme</a></li>
                             <li><a class="nav-link text-light " asp-area="" asp-controller="IpPhone" asp-action="Project">IP Telefon Projesi Ekleme</a></li>
+                            <li><a class="nav-link text-light " asp-area="" asp-controller="Cctv" asp-action="Project">CCTV Proje Fazı Ekleme</a></li>
                         </ul>
                     </li>
                 }

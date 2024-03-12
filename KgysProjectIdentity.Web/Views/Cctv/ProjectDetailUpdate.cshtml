@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewData["Title"] = "ProjectDetailUpdate";
+}
+
+@model CctvModel
+<div class="text-center">
+    <div class="text-center mb-5">
+        <h1>Cctv @ViewBag.ProjectName Projesi Güncelleme Sayfası</h1>
+    </div>
+</div>
+
+<div class="container" style="height:fit-content;width:50%">
+    <div asp-validation-summary="ModelOnly"></div>
+    <form asp-area="" asp-controller="Cctv" asp-action="ProjectDetailUpdate" method="post">
+        <input type="hidden" asp-for="Id"/>
+        <div class="mb-2">
+            <label asp-for="ProjectName" class="form-label">Proje Fazı :</label>
+            <select class="form-select" asp-for="ProjectName" asp-items="@ViewBag.CctvProjects">
+                <option></option>
+            </select>
+            <span class="text-danger" asp-validation-for="ProjectName"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProjectDistrict" class="form-label">İlçe Adı :</label>                    
+            <select class="form-select" asp-for="ProjectDistrict" asp-items="@ViewBag.District">
+                <option></option>
+            </select>
+            <span class="text-danger" asp-validation-for="ProjectDistrict"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="Unit" class="form-label">Birim Adı :</label>
+            <input type="text" class="form-control" asp-for="Unit">
+            <span class="text-danger" asp-validation-for="Unit"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ExProjectName" class="form-label">Mevcuttaki Sistem :</label>
+            <select class="form-select" asp-for="ExProjectName" asp-items="@ViewBag.CctvProjects">
+                <option></option>
+            </select>
+            <span class="text-danger" asp-validation-for="ExProjectName"></span>
+        </div>
+        <div class="mb-2">
+            <label asp-for="ProjectReason" class="form-label">Planlanan Proje Türü :</label>
+            <select class="form-select" asp-for="ProjectReason" asp-items="@ViewBag.CctvReason">
+                <option></option>
+            </select>
+            <span class="text-danger" asp-validation-for="ProjectReason"></span>
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="Status" class="form-label">Durumu :</label>
+            <select class="form-select" asp-for="Status" asp-items="@ViewBag.CctvStatus">
+                <option></option>
+            </select>
+            <span class="text-danger" asp-validation-for="Status"></span>
+        </div>
+        <div class="mt-2">
+            <button type="submit" class="btn btn-md btn-outline-primary d-md-block ">Güncelle</button>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/messages_tr.js"></script>
+}
+
+

@@ -30,7 +30,7 @@ namespace KgysProjectIdentity.Web.Areas.Admin.Extensions
             services.AddScoped<IWareHouseService, WareHouseService>();
             services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<IIpPhoneService, IpPhoneService>();
-
+            services.AddScoped<ICctvService, CctvService>();
             services.Configure<DataProtectionTokenProviderOptions>(options =>
             {
                 options.TokenLifespan = TimeSpan.FromMinutes(30);

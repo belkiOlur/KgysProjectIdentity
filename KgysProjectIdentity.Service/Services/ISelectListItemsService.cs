@@ -17,6 +17,7 @@ namespace KgysProjectIdentity.Service.Services
         List<StatusSelectList> EtmysSelect();
         List<StatusSelectList> PaymentSelect();
         List<StatusSelectList> TenderSelect();
+        List<StatusSelectList> CctvReasonSelect();
         List<AppUser> Users();
         List<AppUser> CommissionUsers();
         List<AppUser> UsersReponse();

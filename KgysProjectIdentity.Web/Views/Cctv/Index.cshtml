@@ -1,0 +1,147 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    int i = 0;
+}
+@model CctvViewModel
+<style type="text/css">
+    .centered-td {
+        display: flex; /* Flexbox kullanarak */
+        justify-content: center; /* Yatayda merkezle */
+        align-items: center; /* Dikeyde merkezle */
+    }
+</style>
+<div class="col-md-4 offset-md-4 text-center">
+    <h1>CCTV @ViewBag.ProjectName Kurulum Projesi</h1>
+    @if (TempData["Status"] != null)
+    {
+        <div class="alert alert-success text-center" role="alert">
+            @TempData["Status"]
+        </div>
+
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center" role="alert">
+            @TempData["Error"]
+        </div>
+
+    }
+</div>
+
+
+<div class="offset-10 form-group pull-right mb-3">
+    <input type="text" class="search form-control" placeholder="Aranılacak Kelimeyi Giriniz" style="width:300px">
+    <span class="counter pull-right"></span>
+</div>
+<div class="container-fluid">
+    <table class="table table-striped table-hover text-center table-bordered results" style="width:100%" id="dataTable">
+        <thead>
+            <tr class="table-light">
+                <th>Sıra No</th>
+                <th>İlçe Adı</th>
+                <th>Birim Adı</th>
+                <th>Mevcuttaki Sistem</th>
+                <th>Planlanan Proje Türü</th>
+                <th>Durumu</th>
+                <th>Proje Detayı</th>
+                <th>İşlem</th>
+            </tr>
+            <tr class="warning no-result">
+                <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="table-light">
+                <form asp-area="" asp-controller="Cctv" asp-action="ProjectDetailAdd" method="post">
+                <td> <input type="hidden" class="form-control" asp-for="ProjectName" value="@ViewBag.ProjectName"></td>
+                <td>
+                    <select class="form-select" asp-for="ProjectDistrict" asp-items="@ViewBag.District">
+                        <option></option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectDistrict"></span>
+                </td>
+                <td>
+                    <input type="text" class="form-control" asp-for="Unit">
+                    <span class="text-danger" asp-validation-for="Unit"></span>
+                </td>
+                <td>
+                    <select class="form-select" asp-for="ExProjectName" asp-items="@ViewBag.CctvProjects">
+                        <option></option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="ExProjectName"></span>
+                </td>
+                <td>
+                    <select class="form-select" asp-for="ProjectReason" asp-items="@ViewBag.CctvReason">
+                        <option></option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="ProjectReason"></span>
+                </td>
+                <td>
+                    <select class="form-select" asp-for="Status" asp-items="@ViewBag.CctvStatus">
+                        <option></option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="Status"></span>
+                </td>
+                <td></td>
+                <td class="centered-td">
+                    <button type="submit" class="btn btn-outline-primary d-md-block">Kaydet</button>
+                </td>
+                </form>
+            </tr>
+            @foreach (var item in ViewBag.ProjectDetail)
+            {
+                i++;
+                <tr class="table-light">
+                    <th scope="row">@i</th>
+                    <td>@item.ProjectDistrict</td>
+                    <td><a role="button" asp-controller="Cctv" asp-action="ProjectFullDetail" asp-route-id="@item.Id">@item.Unit</a></td>
+                    <td>@item.ExProjectName</td>
+                    <td>@item.ProjectReason</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a class="btn btn-outline-secondary d-md-block mb-1" role="button" asp-controller="Cctv" asp-action="Products" asp-route-id="@item.Id">Malzemeler</a>
+                        <a class="btn btn-outline-secondary d-md-block mb-1" role="button" asp-controller="" asp-action="" asp-route-id="@item.Id">Ek-1</a>
+                    </td>
+                    <td>
+                        @if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Silme" || x.Value == "Planlama"))
+                        {
+                            @if (User.HasClaim(x => x.Value == "Silme"))
+                            {
+                                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-danger d-md-block mb-1" data-bs-id="@item.Id">Sil</a>
+                            }
+                            <a class="btn btn-outline-secondary d-md-block mb-1" role="button" asp-controller="Cctv" asp-action="ProjectDetailUpdate" asp-route-id="@item.Id">Güncelle</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@*Modal*@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Silmek İstediğinize Emin Misiniz?
+                <form asp-area="" asp-controller="Cctv" asp-action="ProjectDetailRemove" method="post">
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/messages_tr.js"></script>
+}

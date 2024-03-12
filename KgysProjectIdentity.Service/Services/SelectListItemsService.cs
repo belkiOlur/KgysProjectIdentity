@@ -212,5 +212,17 @@ namespace KgysProjectIdentity.Service.Services
             }
             return usersReponse;
         }
+        public List<StatusSelectList> CctvReasonSelect()
+        {
+            List<StatusSelectList> cctvSelectLists = new()
+           {
+               new(){Data="Genişleme", Value="Genişleme"},
+               new(){Data="Modernizasyon", Value="Modernizasyon"}, 
+               new(){Data="Genişleme/Modernizasyon", Value="Genişleme/Modernizasyon"},
+               new(){Data="Yeni Kurulum", Value="Yeni Kurulum"},
+           };
+
+            return cctvSelectLists;
+        }
     }
 }

@@ -70,6 +70,9 @@ namespace KgysProjectIdentity.Repository.Models
         public DbSet<CalenderModel> PermissionCalender { get; set; }
         public DbSet<IpPhoneModel> IpPhoneProject { get; set; }
         public DbSet<PriorityForIpPhoneModel> PriorityForPhone { get; set; }
+        public DbSet<CctvProjectModel> CctvProjects { get; set; }
+        public DbSet<CctvModel> CctvProjectDetail { get; set; }
+        public DbSet<CctvProductsModel> CctvProducts { get; set; }
 
     }
 

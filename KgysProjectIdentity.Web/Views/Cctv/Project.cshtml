@@ -1,0 +1,98 @@
+﻿@{
+    ViewData["Title"] = "Project";
+}
+
+@model CctvProjectViewModel
+<style type="text/css">
+    .centered-td {
+        display: flex; /* Flexbox kullanarak */
+        justify-content: center; /* Yatayda merkezle */
+        align-items: center; /* Dikeyde merkezle */
+    }
+</style>
+<div class="col-md-6 offset-md-4">
+    <h1>CCTV Faz Ekleme Sayfası</h1>
+    @if (TempData["Status"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["Status"]
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["Error"]
+        </div>
+    }
+</div>
+
+<div class="container">
+    <table class="table table-striped table-hover text-center table-bordered results" id="dataTable" style="width:80%; vertical-align:middle">
+        <thead>
+            <tr class="table-light">
+                <th>Proje Adı</th>
+                <th>Proje Yılı</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr class="table-light">
+                <form asp-area="" asp-controller="Cctv" asp-action="ProjectAdd" method="post">
+                <td>
+                    <input type="text" class="form-control" asp-for="ProjectName" required>
+                </td>
+                <td>
+                    <input type="number" class="form-control" asp-for="ProjectYear" required>
+                </td>
+                <td class="centered-td">
+                    <button type="submit" class="btn btn-outline-primary d-md-block">Kaydet</button>
+                </td>
+                </form>
+            </tr>
+            @foreach (var item in ViewBag.CctvProjects)
+            {
+                <tr class="table-light">
+                    <td>@item.ProjectName</td>
+                    <td>@item.ProjectYear</td>
+                    <td>
+                        <a data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-danger d-md-block" data-bs-id="@item.Id">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+
+@*Modal Silm*@
+<div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdroppLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                Silmek İstediğinize Emin Misiniz?
+                <form asp-area="" asp-controller="Cctv" asp-action="ProjectRemove" method="post">
+
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }
+
+

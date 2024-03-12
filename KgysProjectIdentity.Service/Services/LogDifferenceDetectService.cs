@@ -1332,10 +1332,6 @@ namespace KgysProjectIdentity.Service.Services
             {
                 difference += "EBYS No  = " + newRequest.EbysNumber + ", ";
             }
-            if (newRequest.ArrivalDate != null)
-            {
-                difference += "Geliş Tarihi  = " + newRequest.ArrivalDate + ", ";
-            }
             if (newRequest.District != null)
             {
                 difference += "Yazan Birim  = " + newRequest.District + ", ";
@@ -1612,6 +1608,67 @@ namespace KgysProjectIdentity.Service.Services
                 difference += exRequest.Priority + " önceliğini "+ newRequest.Priority + ", ";
             }
             difference += "bilgileri olacak şekilde IP Telefon Kurulumu Projesi bilgilerini güncelledi.";
+            return difference;
+        }
+
+        public string CctvProjectDetailUpdate(CctvModel newRequest)
+        {
+            string difference =DateTime.Now+ " tarihinde, ";
+            var exRequest = _context.CctvProjectDetail.AsNoTracking().Where(x => x.Id == newRequest.Id).FirstOrDefault()!;
+            if (newRequest.ProjectName != exRequest.ProjectName)
+            {
+                difference += exRequest.ProjectName + " fazını " + newRequest.ProjectName + ", ";
+            }
+            if (newRequest.ProjectDistrict != exRequest.ProjectDistrict)
+            {
+                difference += exRequest.ProjectDistrict + " ilçesi " + newRequest.ProjectDistrict + ", ";
+            }
+            if (newRequest.Unit != exRequest.Unit)
+            {
+                difference += exRequest.Unit + " birimini " + newRequest.Unit + ", ";
+            }
+            if (newRequest.ExProjectName != exRequest.ExProjectName)
+            {
+                difference += exRequest.ExProjectName + " eski projesini, " + newRequest.ExProjectName + ", ";
+            }
+            if (newRequest.ProjectReason != exRequest.ProjectReason)
+            {
+                difference += exRequest.ProjectReason + " nedenini " + newRequest.ProjectReason + ", ";
+            }           
+            difference += "bilgileri olacak şekilde Cctv Kurulum Projesi bilgilerini güncelledi.";
+            return difference;
+        }
+
+        public string CctvProjectProductUpdate(CctvProductsModel newRequest)
+        {
+            var exRequest = _context.CctvProducts.AsNoTracking().Where(x => x.Id == newRequest.Id).FirstOrDefault()!;
+            var detail = _context.CctvProjectDetail.Find(exRequest.DetailId)!;
+            string difference = DateTime.Now + " tarihinde, "+ detail.ProjectName + " projesinde" + detail.ProjectDistrict + " ilçesi " + detail.Unit + " projesi ";
+            if (newRequest.FloorOfSystem != exRequest.FloorOfSystem)
+            {
+                difference += exRequest.FloorOfSystem + " sistem odası katını " + newRequest.FloorOfSystem + ", ";
+            }
+            if (newRequest.ProductName != exRequest.ProductName)
+            {
+                difference += exRequest.ProductName + " malzemesini " + newRequest.ProductName + ", ";
+            }
+            if (newRequest.ProductModel != exRequest.ProductModel)
+            {
+                difference += exRequest.ProductModel + " modelini " + newRequest.ProductModel + ", ";
+            }
+            if (newRequest.FloorOfProduct != exRequest.FloorOfProduct)
+            {
+                difference += exRequest.FloorOfProduct + " planlandığı katı, " + newRequest.FloorOfProduct + ", ";
+            }
+            if (newRequest.PlannedPlace != exRequest.PlannedPlace)
+            {
+                difference += exRequest.PlannedPlace + " planlandığı yeri," + newRequest.PlannedPlace + ", ";
+            }
+            if (newRequest.ProductPieces != exRequest.ProductPieces)
+            {
+                difference += exRequest.ProductPieces + " planlandığı adeti," + newRequest.ProductPieces + ", ";
+            }
+            difference += "bilgileri olacak şekilde Cctv Kurulum Detayı Projesi malzeme bilgilerini güncelledi.";
             return difference;
         }
     }

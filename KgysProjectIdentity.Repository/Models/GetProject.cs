@@ -21,7 +21,11 @@ namespace KgysProjectIdentity.Repository.Models
             List<ProjectsModel> projects = _context.ProjectsModels.ToList();
             return projects;
         }
-
+        public List<CctvProjectModel> GettingCctvProjects()
+        {
+            List<CctvProjectModel> cctvProjects = _context.CctvProjects.ToList();
+            return cctvProjects;
+        }
         public string GetOfficials(int id)
         {
             string officials = "";
@@ -125,6 +129,7 @@ namespace KgysProjectIdentity.Repository.Models
                 return 1;
             }
         }
+
 
 
     }
