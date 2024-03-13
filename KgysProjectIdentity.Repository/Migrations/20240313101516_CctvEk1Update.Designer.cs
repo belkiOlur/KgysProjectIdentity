@@ -4,6 +4,7 @@ using KgysProjectIdentity.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KgysProjectIdentity.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240313101516_CctvEk1Update")]
+    partial class CctvEk1Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -370,9 +373,6 @@ namespace KgysProjectIdentity.Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("KameraDirek9M")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KameraKontrol")
                         .HasColumnType("int");
 
                     b.Property<int>("KameraYazilim")

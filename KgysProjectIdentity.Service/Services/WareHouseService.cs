@@ -29,8 +29,8 @@ namespace KgysProjectIdentity.Service.Services
 
         public string MaterialDetailFirstLetterUpper(MaterialsDetailViewModel mAdd)
         {
-            string firstLetter = mAdd.Material!.Length > 0 ? mAdd.Material[0].ToString().ToUpper() : "";
-            string restOfTheText = mAdd.Material.Length > 1 ? mAdd.Material.Substring(1).ToLower() : "";
+            string firstLetter = mAdd.Product!.Length > 0 ? mAdd.Product[0].ToString().ToUpper() : "";
+            string restOfTheText = mAdd.Product.Length > 1 ? mAdd.Product.Substring(1).ToLower() : "";
             string word = firstLetter + restOfTheText;
             return word;
         }

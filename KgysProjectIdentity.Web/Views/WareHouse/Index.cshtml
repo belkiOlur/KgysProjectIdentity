@@ -161,7 +161,7 @@
                 <h2>Lütfen Ürünün Yeni Adını Giriniz</h2>
                 <form asp-area="" asp-controller="WareHouse" asp-action="MaterialUpdate" method="post">
                     <div class="mb-2 mt-2">
-                        <input class="form-control" type="text" asp-for="Material" />
+                        <input class="form-control" type="text" asp-for="Material" required/>
                     </div>
                     <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
 

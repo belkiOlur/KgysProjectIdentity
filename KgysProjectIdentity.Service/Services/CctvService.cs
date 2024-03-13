@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using KgysProjectIdentity.Core.ViewModels;
 using KgysProjectIdentity.Repository.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Net;
 
 namespace KgysProjectIdentity.Service.Services
@@ -58,6 +59,8 @@ namespace KgysProjectIdentity.Service.Services
                 _context.CctvProjectDetail.Add(_mapper.Map<CctvModel>(project));
                 _context.SaveChanges();
                 _log.LogForAdd(log);
+                var detailId = _context.CctvProjectDetail.OrderByDescending(x=>x.Id).FirstOrDefault()!.Id;
+                Ek1Add(detailId);
                 return true;
             }
             catch
@@ -70,10 +73,12 @@ namespace KgysProjectIdentity.Service.Services
         {
             try
             {
+                var detailId = project.Id;
                 string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + project.ProjectName + " fazına " + project.ExProjectName + " eski projesi olan " + project.ProjectDistrict + project.Unit + " biriminin " + project.ProjectReason + " nedenli projeyi sildi.";
                 _context.CctvProjectDetail.Remove(project);
                 _context.SaveChanges();
                 _log.LogForAdd(log);
+                Ek1Remove(detailId);
                 return true;
             }
             catch
@@ -138,6 +143,78 @@ namespace KgysProjectIdentity.Service.Services
                 var detail = _context.CctvProjectDetail.Find(project.DetailId)!;
                 string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + project.FloorOfSystem + " katındaki sistem odasına kayıtlı " + project.ProductName + " malzemesini " + project.ProductModel + " model olmak üzere" + project.FloorOfProduct + " katta " + project.PlannedPlace + " içerisinde bulunan" + project.ProductPieces + " adet olarak " + detail.ProjectName + " projesinde" + detail.ProjectDistrict + " ilçesi " + detail.Unit + " projesinedeki ürünü sildi.";
                 _context.CctvProducts.Remove(project);
+                _context.SaveChanges();
+                _log.LogForAdd(log);              
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ProductOfCctvAdd(CctvProductsViewModel project, string UserName)
+        {
+            try
+            {
+                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde  CCTV Projeleri İçin" + project.ProductName + " malzemesini ekledi.";
+                _context.ProductsOfCctv.Add(new ProductsOfCctvProjectModel { ProductName= project.ProductName });
+                _context.SaveChanges();
+                _log.LogForAdd(log);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ProductOfCctvRemove(CctvProductsViewModel project, string UserName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ModelsForCctvAdd(CctvProductsViewModel project, string UserName)
+        {
+            try
+            {
+                var productId = _context.ProductsOfCctv.AsNoTracking().FirstOrDefault(x => x.ProductName == project.ProductName)!.Id; 
+                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde  CCTV Projeleri İçin" + project.ProductName + " malzemesine "+ project.ProductModel +" modelini ekledi.";
+                _context.ModelForCctv.Add(new ModelForCctvProjectModel { ProductId = productId, ProductsModel= project.ProductModel });
+                _context.SaveChanges();
+                _log.LogForAdd(log);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool ModelsForCctvRemove(CctvProductsViewModel project, string UserName)
+        {
+            throw new NotImplementedException();
+        }
+       public Task Ek1Add(int id)
+        {
+           _context.CctvEk1.Add(new CctvEk1Model { DetailId = id});
+           _context.SaveChanges();
+            return Task.CompletedTask;
+        }
+        public Task Ek1Remove(int id)
+        {
+            var remove = _context.CctvEk1.Where(x=>x.DetailId==id).FirstOrDefault()!;
+            _context.CctvEk1.Remove(remove);
+            _context.SaveChanges();
+            return Task.CompletedTask;
+        }
+
+        public bool CctvEk1Update(CctvEk1Model project, string UserName)
+        {
+            try
+            {
+                string log = UserName + " isimli kullanıcı " + _detect.CctvEk1Update(project);
+                _context.CctvEk1.Update(project);
                 _context.SaveChanges();
                 _log.LogForAdd(log);
                 return true;

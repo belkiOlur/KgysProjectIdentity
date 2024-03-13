@@ -18,5 +18,10 @@ namespace KgysProjectIdentity.Service.Services
         bool ProjectProductAdd(CctvProductsViewModel project, string UserName);
         bool ProjectProductUpdate(CctvProductsModel project, string UserName);
         bool ProjectProductRemove(CctvProductsModel project, string UserName);
+        bool ProductOfCctvAdd(CctvProductsViewModel project, string UserName);
+        bool ProductOfCctvRemove(CctvProductsViewModel project, string UserName);
+        bool ModelsForCctvAdd(CctvProductsViewModel project, string UserName);
+        bool ModelsForCctvRemove(CctvProductsViewModel project, string UserName);
+        bool CctvEk1Update(CctvEk1Model project, string UserName);
     }
 }

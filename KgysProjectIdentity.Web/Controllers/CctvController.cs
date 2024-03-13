@@ -30,8 +30,10 @@ namespace KgysProjectIdentity.Web.Controllers
             _context = context;
             _selectItems = selectItems;
         }
+
         private SelectList DistrictSelectList => new(_context.DistrictModels, "districtName", "districtName");
         private SelectList CctvProjectSelectList => new(_context.CctvProjects, "ProjectName", "ProjectName");
+        private SelectList ProductsSelectList => new(_context.ProductsOfCctv, "ProductName", "ProductName");
         private SelectList CctvReasonSelectList => new(_selectItems.CctvReasonSelect(), "Value", "Data");
         private SelectList CctvStatusSelectList => new(_selectItems.ParkSelect(), "Value", "Data");
 
@@ -137,6 +139,7 @@ namespace KgysProjectIdentity.Web.Controllers
             var detail = _context.CctvProjectDetail.Find(id)!;
             ViewBag.Products = products;
             ViewBag.ProjectName = detail.ProjectName + " " + detail.ProjectDistrict + " " + detail.Unit;
+            ViewBag.ProductsOfCctv = ProductsSelectList;
             ViewBag.DetailId = id;
             return View();
         }
@@ -171,6 +174,7 @@ namespace KgysProjectIdentity.Web.Controllers
             var project = _context.CctvProducts.Find(id)!;
             var detail = _context.CctvProjectDetail.Find(project.DetailId)!;
             ViewBag.ProjectName = detail.ProjectName + " " + detail.ProjectDistrict + " " + detail.Unit;
+            ViewBag.ProductsOfCctv = ProductsSelectList;
             return View(project);
         }
         [HttpPost]
@@ -193,10 +197,70 @@ namespace KgysProjectIdentity.Web.Controllers
             ViewBag.Products = _context.CctvProducts.AsNoTracking().Where(x => x.DetailId == id);
             return View();
         }
+        
+        [HttpPost]
+        public IActionResult ProductOfCctvAdd(CctvProductsViewModel project)
+        {
+            if (!_cctv.ProductOfCctvAdd(project, UserName))
+            {
+                TempData["Error"] = "CCTV Projeleri İçin Malzeme Eklenemedi.";
+                return RedirectToAction("Products", new { id = project.Id });
+            }
+            TempData["Status"] = "CCTV Projeleri İçin Malzeme Eklendi.";
+            return RedirectToAction("Products", new { id = project.Id });
+        }
+        [HttpPost]
+        public IActionResult ProductOfCctvRemove(CctvProductsViewModel project)
+        {
+            if (!_cctv.ProductOfCctvRemove(project, UserName))
+            {
+                TempData["Error"] = "CCTV Projeleri İçin Malzeme Silinemedi.";
+                return RedirectToAction("Products", new { id = project.Id });
+            }
+            TempData["Status"] = "CCTV Projeleri İçin Malzeme silindi.";
+            return RedirectToAction("Products", new { id = project.Id });
+        }
+        [HttpPost]
+        public IActionResult ModelsForCctvAdd(CctvProductsViewModel project)
+        {
+            if (!_cctv.ModelsForCctvAdd(project, UserName))
+            {
+                TempData["Error"] = "CCTV Projeleri İçin Model Eklenemedi.";
+                return RedirectToAction("Products", new { id = project.Id });
+            }
+            TempData["Status"] = "CCTV Projeleri İçin Model Eklendi.";
+            return RedirectToAction("Products", new { id = project.Id });
+        }
+        [HttpPost]
+        public IActionResult ModelsForCctvRemove(CctvProductsViewModel project)
+        {
+            if (!_cctv.ModelsForCctvRemove(project, UserName))
+            {
+                TempData["Error"] = "CCTV Projeleri İçin Model Silinemedi.";
+                return RedirectToAction("Products", new { id = project.Id });
+            }
+            TempData["Status"] = "CCTV Projeleri İçin Model Silindi.";
+            return RedirectToAction("Products", new { id = project.Id });
+        }
         public IActionResult Ek1(int id)
         {
-           
-            return View();
+            var project = _context.CctvEk1.FirstOrDefault(x=>x.DetailId==id)!;
+            var detail = _context.CctvProjectDetail.Find(id)!;
+            ViewBag.ProjectName = detail.ProjectName!.ToUpper() + " " + detail.ProjectDistrict!.ToUpper() + " " + detail.Unit!.ToUpper();
+            ViewBag.ProductsOfCctv = ProductsSelectList;
+            return View(project);
+        }
+        [HttpPost]
+        public IActionResult CctvEk1Update(CctvEk1Model project)
+        {
+
+            if (!_cctv.CctvEk1Update(project, UserName))
+            {
+                TempData["Error"] = "CCTV Projesi Ek-1 Detayı Güncelleme İşlemi Tamamlanamadı.";
+                return RedirectToAction("CctvEk1", new { id = project.DetailId });
+            }
+            TempData["Status"] = "CCTV Proje Ek-1 Detayı Güncelleme İşlemi Tamamlandı.";
+            return RedirectToAction("CctvEk1", new { id = project.DetailId });
         }
         public IActionResult CreateExcel(int id)
         {
@@ -204,6 +268,12 @@ namespace KgysProjectIdentity.Web.Controllers
             ViewBag.Products = _context.CctvProducts.AsNoTracking().Where(x => x.DetailId == id);
             return View();
         }
-       
+
+        public ActionResult GetProducts(string productName)
+        {
+            var productID = _context.ProductsOfCctv.FirstOrDefault(x => x.ProductName == productName)!.Id;
+            List<ModelForCctvProjectModel> getModels = _context.ModelForCctv.Where(k => k.ProductId == productID).ToList();
+            return Json(getModels);
+        }
     }
 }

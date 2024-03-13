@@ -1671,5 +1671,194 @@ namespace KgysProjectIdentity.Service.Services
             difference += "bilgileri olacak şekilde Cctv Kurulum Detayı Projesi malzeme bilgilerini güncelledi.";
             return difference;
         }
+
+        public string CctvEk1Update(CctvEk1Model newRequest)
+        {
+            var exRequest = _context.CctvEk1.AsNoTracking().Where(x => x.Id == newRequest.Id).FirstOrDefault()!;
+            var detail = _context.CctvProjectDetail.Find(exRequest.DetailId)!;
+            string difference = DateTime.Now + " tarihinde, " + detail.ProjectName + " projesinde" + detail.ProjectDistrict + " ilçesi " + detail.Unit + " projesi ";
+            if (newRequest.KameraYazilim != exRequest.KameraYazilim)
+            {
+                difference += exRequest.KameraYazilim + " KAMERA KONTROL/GÖRÜNTÜLEME VE YÖNETİM SİSTEMİ YAZILIMI SAYISINI " + newRequest.KameraYazilim + ", ";
+            }
+            if (newRequest.NvrTip1 != exRequest.NvrTip1)
+            {
+                difference += exRequest.NvrTip1 + " AĞ GÖRÜNTÜ KAYIT CİHAZI (NVR) TİP-1 SAYISINI " + newRequest.NvrTip1 + ", ";
+            }
+            if (newRequest.NvrTip2 != exRequest.NvrTip2)
+            {
+                difference += exRequest.NvrTip2 + " AĞ GÖRÜNTÜ KAYIT CİHAZI (NVR) TİP-2 SAYISINI " + newRequest.NvrTip2 + ", ";
+            }
+            if (newRequest.DomeTip1 != exRequest.DomeTip1)
+            {
+                difference += exRequest.DomeTip1 + " İÇ ORTAM SABİT DOME KAMERA TİP-1 SAYISINI " + newRequest.DomeTip1 + ", ";
+            }
+            if (newRequest.DomeTip2 != exRequest.DomeTip2)
+            {
+                difference += exRequest.DomeTip2 + " İÇ ORTAM SABİT DOME KAMERA TİP-2 SAYISINI " + newRequest.DomeTip2 + ", ";
+            }
+            if (newRequest.Mic != exRequest.Mic)
+            {
+                difference += exRequest.Mic + " İFADE ALMA ODASI MİKROFONU SAYISINI " + newRequest.Mic + ", ";
+            }
+            if (newRequest.DisBullet != exRequest.DisBullet)
+            {
+                difference += exRequest.DisBullet + " DIŞ ORTAM SABİT BULLET TİPİ KAMERA SAYISINI " + newRequest.DisBullet + ", ";
+            }
+            if (newRequest.PtzKamera != exRequest.PtzKamera)
+            {
+                difference += exRequest.PtzKamera + " HAREKETLİ (PTZ) KAMERA SAYISINI " + newRequest.PtzKamera + ", ";
+            }
+            if (newRequest.KameraKontrol != exRequest.KameraKontrol)
+            {
+                difference += exRequest.KameraKontrol + " KAMERA KONTROL ÜNİTESİ SAYISINI " + newRequest.KameraKontrol + ", ";
+            }
+            if (newRequest.SahaSwitch != exRequest.SahaSwitch)
+            {
+                difference += exRequest.SahaSwitch + " SAHA AĞ ANAHTARI SAYISINI " + newRequest.SahaSwitch + ", ";
+            }
+            if (newRequest.IcSwitch != exRequest.IcSwitch)
+            {
+                difference += exRequest.IcSwitch + " İÇ ORTAM AĞ ANAHTARI SAYISINI " + newRequest.IcSwitch + ", ";
+            }
+            if (newRequest.PcTip1 != exRequest.PcTip1)
+            {
+                difference += exRequest.PcTip1 + " OPERATÖR BİLGİSAYARI ( İZLEME VE YÖNETİM MERKEZİ İÇİN ) TİP-1 SAYISINI " + newRequest.PcTip1 + ", ";
+            }
+            if (newRequest.PcTip2 != exRequest.PcTip2)
+            {
+                difference += exRequest.PcTip2 + " OPERATÖR BİLGİSAYARI ( İZLEME NOKTASI İÇİN) TİP-2 SAYISINI " + newRequest.PcTip2 + ", ";
+            }
+            if (newRequest.Monitor != exRequest.Monitor)
+            {
+                difference += exRequest.Monitor + " OPERATÖR BİLGİSAYARI MONİTÖRÜ SAYISINI " + newRequest.Monitor + ", ";
+            }
+            if (newRequest.LedTv != exRequest.LedTv)
+            {
+                difference += exRequest.LedTv + " ÇERÇEVESİZ DUVAR EKRAN SAYISINI " + newRequest.LedTv + ", ";
+            }
+            if (newRequest.DuvarKabin != exRequest.DuvarKabin)
+            {
+                difference += exRequest.DuvarKabin + " DUVAR TİPİ RACK KABİN SAYISINI " + newRequest.DuvarKabin + ", ";
+            }
+            if (newRequest.RackKabin != exRequest.RackKabin)
+            {
+                difference += exRequest.RackKabin + " RACK KABİN SAYISINI " + newRequest.RackKabin + ", ";
+            }
+            if (newRequest.SahaKabin != exRequest.SahaKabin)
+            {
+                difference += exRequest.SahaKabin + " SAHA KABİN SAYISINI " + newRequest.SahaKabin + ", ";
+            }
+            if (newRequest.KGK != exRequest.KGK)
+            {
+                difference += exRequest.KGK + " KGK SAYISINI " + newRequest.KGK + ", ";
+            }
+            if (newRequest.Cat6Ic != exRequest.Cat6Ic)
+            {
+                difference += exRequest.Cat6Ic + " İÇ ORTAM CAT6 METRAJINI " + newRequest.Cat6Ic + ", ";
+            }
+            if (newRequest.Caat6Dis != exRequest.Caat6Dis)
+            {
+                difference += exRequest.Caat6Dis + " DIŞ ORTAM CAT6 METRAJINI " + newRequest.Caat6Dis + ", ";
+            }
+            if (newRequest.Cat6Panel != exRequest.Cat6Panel)
+            {
+                difference += exRequest.Cat6Panel + " CAT6 PANEL SAYISINI " + newRequest.Cat6Panel + ", ";
+            }
+            if (newRequest.FoSingle != exRequest.FoSingle)
+            {
+                difference += exRequest.FoSingle + " FİBER OPTİK METRAJINI " + newRequest.FoSingle + ", ";
+            }
+            if (newRequest.FoPanel != exRequest.FoPanel)
+            {
+                difference += exRequest.FoPanel + " FİBER PANEL SAYISINI " + newRequest.FoPanel + ", ";
+            }
+            if (newRequest.EnerjiKablo != exRequest.EnerjiKablo)
+            {
+                difference += exRequest.EnerjiKablo + " ENERJİ KABLOSU METRAJINI " + newRequest.EnerjiKablo + ", ";
+            }
+            if (newRequest.DataPriz != exRequest.DataPriz)
+            {
+                difference += exRequest.DataPriz + " DATA PRİZ SETİ " + newRequest.DataPriz + ", ";
+            }
+            if (newRequest.EnerjiPriz != exRequest.EnerjiPriz)
+            {
+                difference += exRequest.EnerjiPriz + " ENERJİ PRİZ SETİ " + newRequest.EnerjiPriz + ", ";
+            }
+            if (newRequest.Kanalet != exRequest.Kanalet)
+            {
+                difference += exRequest.Kanalet + " KANALET METRAJINI " + newRequest.Kanalet + ", ";
+            }
+            if (newRequest.MetakKanal != exRequest.MetakKanal)
+            {
+                difference += exRequest.MetakKanal + " METAL KANAL METRAJINI " + newRequest.MetakKanal + ", ";
+            }
+            if (newRequest.EnerjiPano != exRequest.EnerjiPano)
+            {
+                difference += exRequest.EnerjiPano + " ENERJİ PANOSU SAYISINI " + newRequest.EnerjiPano + ", ";
+            }
+            if (newRequest.OtoSigorta != exRequest.OtoSigorta)
+            {
+                difference += exRequest.OtoSigorta + " ANAHTARLI OTOMATİK SİGORTA SAYISINI " + newRequest.EnerjiPano + ", ";
+            }
+            if (newRequest.KaziToprak != exRequest.KaziToprak)
+            {
+                difference += exRequest.KaziToprak + " TOPRAK KAZI METRAJINI " + newRequest.KaziToprak + ", ";
+            }
+            if (newRequest.KaziAsfalt != exRequest.KaziAsfalt)
+            {
+                difference += exRequest.KaziAsfalt + " ASFALT KAZI METRAJINI " + newRequest.KaziAsfalt + ", ";
+            }
+            if (newRequest.BoruEnerji != exRequest.BoruEnerji)
+            {
+                difference += exRequest.BoruEnerji + " ENERJİ BORUSU METRAJINI " + newRequest.BoruEnerji + ", ";
+            }
+            if (newRequest.BoruData != exRequest.BoruData)
+            {
+                difference += exRequest.BoruData + " DATA BORUSU METRAJINI " + newRequest.BoruData + ", ";
+            }
+            if (newRequest.KameraDirek3M != exRequest.KameraDirek3M)
+            {
+                difference += exRequest.KameraDirek3M + " 3M DİREK SAYISI " + newRequest.KameraDirek3M + ", ";
+            }
+            if (newRequest.KameraDirek4M != exRequest.KameraDirek4M)
+            {
+                difference += exRequest.KameraDirek4M + " 4M DİREK SAYISI " + newRequest.KameraDirek4M + ", ";
+            }
+            if (newRequest.KameraDirek5M != exRequest.KameraDirek5M)
+            {
+                difference += exRequest.KameraDirek5M + " 5M DİREK SAYISI " + newRequest.KameraDirek5M + ", ";
+            }
+            if (newRequest.KameraDirek6M != exRequest.KameraDirek6M)
+            {
+                difference += exRequest.KameraDirek6M + " 6M DİREK SAYISI " + newRequest.KameraDirek6M + ", ";
+            }
+            if (newRequest.KameraDirek7M != exRequest.KameraDirek7M)
+            {
+                difference += exRequest.KameraDirek7M + " 7M DİREK SAYISI " + newRequest.KameraDirek7M + ", ";
+            }
+            if (newRequest.KameraDirek8M != exRequest.KameraDirek8M)
+            {
+                difference += exRequest.KameraDirek8M + " 8M DİREK SAYISI " + newRequest.KameraDirek8M + ", ";
+            }
+            if (newRequest.KameraDirek9M != exRequest.KameraDirek9M)
+            {
+                difference += exRequest.KameraDirek9M + " 9M DİREK SAYISI " + newRequest.KameraDirek9M + ", ";
+            }
+            if (newRequest.KameraDirek10M != exRequest.KameraDirek10M)
+            {
+                difference += exRequest.KameraDirek10M + " 10M DİREK SAYISI " + newRequest.KameraDirek10M + ", ";
+            }
+            if (newRequest.UyariLevha != exRequest.UyariLevha)
+            {
+                difference += exRequest.UyariLevha + " UYARI LEVHA SAYISI " + newRequest.UyariLevha + ", ";
+            }
+            if (newRequest.SistemPerformans != exRequest.SistemPerformans)
+            {
+                difference += exRequest.SistemPerformans + " SİSTEM PERFORMANSI ARTTIRIMI KAPSAMINDA YAPILACAK İŞ VE İŞLEMLER SETİ SAYISINI " + newRequest.SistemPerformans + ", ";
+            }
+            difference += "bilgileri olacak şekilde Cctv Projesi EK-1 malzeme bilgilerini güncelledi.";
+            return difference;
+        }
     }
 }

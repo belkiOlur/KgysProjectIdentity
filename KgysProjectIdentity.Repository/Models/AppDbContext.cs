@@ -73,7 +73,9 @@ namespace KgysProjectIdentity.Repository.Models
         public DbSet<CctvProjectModel> CctvProjects { get; set; }
         public DbSet<CctvModel> CctvProjectDetail { get; set; }
         public DbSet<CctvProductsModel> CctvProducts { get; set; }
-
+        public DbSet<ProductsOfCctvProjectModel> ProductsOfCctv { get; set; }
+        public DbSet<ModelForCctvProjectModel> ModelForCctv { get; set; }
+        public DbSet<CctvEk1Model> CctvEk1 { get; set; }
     }
 
 }

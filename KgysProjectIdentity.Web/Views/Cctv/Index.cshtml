@@ -10,7 +10,7 @@
         align-items: center; /* Dikeyde merkezle */
     }
 </style>
-<div class="col-md-4 offset-md-4 text-center">
+<div class="text-center">
     <h1>CCTV @ViewBag.ProjectName Kurulum Projesi</h1>
     <div class="col-md-4 offset-md-4 text-center">
         @if (TempData["Status"] != null)
@@ -101,7 +101,7 @@
                     <td>@item.Status</td>
                     <td>
                         <a class="btn btn-outline-primary d-md-block mb-1" role="button" asp-controller="Cctv" asp-action="Products" asp-route-id="@item.Id">Malzemeler</a>
-                        <a class="btn btn-outline-primary d-md-block mb-1" role="button" asp-controller="" asp-action="" asp-route-id="@item.Id">Ek-1</a>
+                        <a class="btn btn-outline-primary d-md-block mb-1" role="button" asp-controller="Cctv" asp-action="Ek1" asp-route-id="@item.Id">Ek-1</a>
                     </td>
                     <td>
                         @if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Silme" || x.Value == "Planlama"))

@@ -22,12 +22,16 @@
         </div>
         <div class="mb-2">
             <label asp-for="ProductName" class="form-label">Ürün Adı :</label>
-            <input type="text" class="form-control" asp-for="ProductName">
+            <select class="form-select" asp-for="ProductName" asp-items="@ViewBag.ProductsOfCctv" id="Product">
+                <option>@Model.ProductName</option>
+            </select>
             <span class="text-danger" asp-validation-for="ProductName"></span>
         </div>
         <div class="mb-2">
             <label asp-for="ProductModel" class="form-label">Model :</label>
-            <input type="text" class="form-control" asp-for="ProductModel">
+            <select class="form-select" asp-for="ProductModel" asp-items="@Enumerable.Empty<SelectListItem>()" id="ModelsOfProducts">
+                <option>@Model.ProductModel</option>
+            </select>
             <span class="text-danger" asp-validation-for="ProductModel"></span>
         </div>
         <div class="mb-2">
@@ -52,6 +56,46 @@
 </div>
 
 
+@*Malzeme seçince model gelmesi için konuldu*@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#Product').change(function () {
+
+            var productName = $(this).val();
+
+            if (productName != null && productName != '') {
+                $.ajax({
+                    type: "post",
+                    url: '@Url.Action("GetProducts", "Cctv")',
+                    data: { productName: productName },
+                    success: function (getModels) {
+                        $('#ModelsOfProducts').empty();
+                        $.each(getModels, function (index, models) {
+                            $('#ModelsOfProducts').append($('<option/>', {
+                                value: models.productsModel,
+                                text: models.productsModel
+                            }));
+                        });
+                    },
+                    error: function () {
+                        /*Bu metod ile Ajax işlemi başarısız
+                        olursa eğer hata mesajı verebiliyoruz.*/
+                        alert("Hata");
+                    },
+                    beforeSend: function () {
+                        /*Burada ise Form Post edilmeden önce
+                        işlemler yapılabilir.Örnek olarak Loading, yükleniyor vs..*/
+                    },
+                    complete: function () {
+                        /*Burada ise Form Post edildikten sonra
+                        işlemler yapılabilir.Örnek olarak yükleme tamamlandı vs..*/
+                    }
+                });
+            }
+        });
+    });
+</script>
 @section Scripts
 {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

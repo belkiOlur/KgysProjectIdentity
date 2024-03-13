@@ -4,6 +4,7 @@ using KgysProjectIdentity.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KgysProjectIdentity.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240313055507_ProductsOfCctv")]
+    partial class ProductsOfCctv
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -284,157 +287,6 @@ namespace KgysProjectIdentity.Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PermissionCalender");
-                });
-
-            modelBuilder.Entity("KgysProjectIdentity.Repository.Models.CctvEk1Model", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BoruData")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BoruEnerji")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Caat6Dis")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Cat6Ic")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Cat6Panel")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DataPriz")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DetailId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DisBullet")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DomeTip1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DomeTip2")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DuvarKabin")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EnerjiKablo")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EnerjiPano")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EnerjiPriz")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FoPanel")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FoSingle")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IcSwitch")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KGK")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KameraDirek10M")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KameraDirek3M")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KameraDirek4M")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KameraDirek5M")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KameraDirek6M")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KameraDirek7M")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KameraDirek8M")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KameraDirek9M")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KameraKontrol")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KameraYazilim")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Kanalet")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KaziAsfalt")
-                        .HasColumnType("int");
-
-                    b.Property<int>("KaziToprak")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LedTv")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MetakKanal")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Mic")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Monitor")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NvrTip1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NvrTip2")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OtoSigorta")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PcTip1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PcTip2")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PtzKamera")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RackKabin")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SahaKabin")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SahaSwitch")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SistemPerformans")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UyariLevha")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CctvEk1");
                 });
 
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.CctvModel", b =>

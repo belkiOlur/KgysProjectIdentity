@@ -31,5 +31,6 @@ namespace KgysProjectIdentity.Service.Services
         string IpPhoneAdd(IpPhoneViewModel newRequest);
         string CctvProjectDetailUpdate(CctvModel newRequest);
         string CctvProjectProductUpdate(CctvProductsModel newRequest);
+        string CctvEk1Update(CctvEk1Model newRequest);
     }
 }
