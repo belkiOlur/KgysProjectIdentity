@@ -7,6 +7,12 @@
     th {
         font-size: 18px
     }
+
+    .centered-td {
+        display: flex; /* Flexbox kullanarak */
+        justify-content: center; /* Yatayda merkezle */
+        align-items: center; /* Dikeyde merkezle */
+    }
 </style>
 <div class="container">
     <table class="table table-bordered" style="border:2px;border-color:black">
@@ -27,9 +33,12 @@
             </tr>
         </thead>
         <tbody>
-            @{
-                i++;
-            }
+            <form asp-area="" asp-controller="Cctv" asp-action="CctvEk1Update" method="post">
+                <input type="hidden" asp-for="DetailId" value="@ViewBag.DetailId" />
+                <input type="hidden" asp-for="Id" value="@Model.Id"/>
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.2.1</th>
@@ -40,9 +49,9 @@
                 <td>@Model.KameraYazilim</td>
                 <td><input type="number" class="form-control" asp-for="KameraYazilim"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.2.2</th>
@@ -53,9 +62,9 @@
                 <td>@Model.NvrTip1</td>
                 <td><input type="number" class="form-control" asp-for="NvrTip1"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.2.3</th>
@@ -66,9 +75,9 @@
                 <td>@Model.NvrTip2</td>
                 <td><input type="number" class="form-control" asp-for="NvrTip2"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.2.4</th>
@@ -79,9 +88,9 @@
                 <td>@Model.DomeTip1</td>
                 <td><input type="number" class="form-control" asp-for="DomeTip1"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.2.5</th>
@@ -92,9 +101,9 @@
                 <td>@Model.DomeTip2</td>
                 <td><input type="number" class="form-control" asp-for="DomeTip2"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.2.5.28</th>
@@ -105,9 +114,9 @@
                 <td>@Model.Mic</td>
                 <td><input type="number" class="form-control" asp-for="Mic"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.2.6</th>
@@ -118,9 +127,9 @@
                 <td>@Model.DisBullet</td>
                 <td><input type="number" class="form-control" asp-for="DisBullet"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.2.7</th>
@@ -131,9 +140,9 @@
                 <td>@Model.PtzKamera</td>
                 <td><input type="number" class="form-control" asp-for="PtzKamera"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.2.8</th>
@@ -144,9 +153,9 @@
                 <td>@Model.KameraKontrol</td>
                 <td><input type="number" class="form-control" asp-for="KameraKontrol"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.3</th>
@@ -157,9 +166,9 @@
                 <td>@Model.SahaSwitch</td>
                 <td><input type="number" class="form-control" asp-for="SahaSwitch"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.4</th>
@@ -170,9 +179,9 @@
                 <td>@Model.IcSwitch</td>
                 <td><input type="number" class="form-control" asp-for="IcSwitch"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.5</th>
@@ -183,9 +192,9 @@
                 <td>@Model.PcTip1</td>
                 <td><input type="number" class="form-control" asp-for="PcTip1"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.6</th>
@@ -196,9 +205,9 @@
                 <td>@Model.PcTip2</td>
                 <td><input type="number" class="form-control" asp-for="PcTip2"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.7</th>
@@ -210,9 +219,9 @@
                 <td>@Model.Monitor</td>
                 <td><input type="number" class="form-control" asp-for="Monitor"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.8</th>
@@ -223,9 +232,9 @@
                 <td>@Model.LedTv</td>
                 <td><input type="number" class="form-control" asp-for="LedTv"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.9</th>
@@ -236,9 +245,9 @@
                 <td>@Model.DuvarKabin</td>
                 <td><input type="number" class="form-control" asp-for="DuvarKabin"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.10</th>
@@ -249,9 +258,9 @@
                 <td>@Model.RackKabin</td>
                 <td><input type="number" class="form-control" asp-for="RackKabin"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.11</th>
@@ -262,9 +271,9 @@
                 <td>@Model.SahaKabin</td>
                 <td><input type="number" class="form-control" asp-for="SahaKabin"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.12.1</th>
@@ -275,36 +284,340 @@
                 <td>@Model.KGK</td>
                 <td><input type="number" class="form-control" asp-for="KGK"></td>
             </tr>
-            @{
-                i++;
-            }
+                @{
+                    i++;
+                }
             <tr>
                 <th scope="row">@i</th>
                 <th>3.13.2</th>
                 <td style="margin:0;padding:0">
-                    <table style="width:100%; max-width:100%;height:100%;max-height:100%">
+                    <table class="table table-bordered" style="width:100%; max-width:100%;height:100%;max-height:100%;margin:0;padding:0;">
                         <tr>
-                            <td rowspan=2 style="border-right:2px;border-right-color:black">
+                            <td rowspan=2>
                                 CAT 6 UTP KABLO
                             </td>
-                            <td>İç Ortam</td>
+                            <td>İÇ ORTAM</td>
                         </tr>
                         <tr>
 
-                            <td>Dış Ortam</td>
+                            <td>DIŞ ORTAM</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>METRE</td>
+                <td style="margin:0;padding:0">
+                    <table class="table table-bordered" style="width:100%; max-width:100%;height:100%;max-height:100%;margin:0;padding:0;">
+                        <tr><td>@Model.Cat6Ic</td></tr>
+                        <tr><td>@Model.Caat6Dis</td></tr>
+                    </table>
+                </td>
+
+                <td style="margin:0;padding:0">
+                    <table style="display:flex;height:100%;max-height:100%;align-items:center;justify-content:center;">
+                        <tr><td><input type="number" class="form-control" asp-for="Cat6Ic" style="max-height:41px;"></td></tr>
+                        <tr><td><input type="number" class="form-control" asp-for="Caat6Dis" style="max-height:41px;"></td></tr>
+                    </table>
+                </td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.13.3</th>
+                <td>
+                    CAT6 PATCH PANEL
+                </td>
+                <td>ADET</td>
+                <td>@Model.Cat6Panel</td>
+                <td><input type="number" class="form-control" asp-for="Cat6Panel"></td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.13.5</th>
+                <td>
+                    SİNGLE MOD FİBER OPTİK (F/O) KABLO
+                </td>
+                <td>METRE</td>
+                <td>@Model.FoSingle</td>
+                <td><input type="number" class="form-control" asp-for="FoPanel"></td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.13.6</th>
+                <td>
+                    FİBER PATCH PANEL
+                </td>
+                <td>ADET</td>
+                <td>@Model.FoPanel/td>
+                <td><input type="number" class="form-control" asp-for="FoPanel"></td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.13.11</th>
+                <td>
+                    ENERJİ BESLEME KABLOLARI
+                </td>
+                <td>METRE</td>
+                <td>@Model.EnerjiKablo</td>
+                <td><input type="number" class="form-control" asp-for="EnerjiKablo"></td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.13.12</th>
+                <td>
+                    DATA PRİZİ VE BAĞLANTI MODÜLLERİ
+                </td>
+                <td>SET</td>
+                <td>@Model.DataPriz</td>
+                <td><input type="number" class="form-control" asp-for="DataPriz"></td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.13.13</th>
+                <td>
+                    ENERJİ PRİZİ VE BAĞLANTI MODÜLLERİ
+                </td>
+                <td>SET</td>
+                <td>@Model.EnerjiPriz</td>
+                <td><input type="number" class="form-control" asp-for="EnerjiPriz"></td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.13.14</th>
+                <td>KABLO KANALETLERİ</td>
+                <td>METRE</td>
+                <td>@Model.Kanalet</td>
+                <td><input type="number" class="form-control" asp-for="Kanalet"></td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.13.15</th>
+                <td>
+                    METAL KABLO KANALI
+                </td>
+                <td>METRE</td>
+                <td>@Model.MetakKanal</td>
+                <td><input type="number" class="form-control" asp-for="MetakKanal"></td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.13.16</th>
+                <td>
+                    ELEKTRİK PANOSU
+                </td>
+                <td>ADET</td>
+                <td>@Model.EnerjiPano</td>
+                <td><input type="number" class="form-control" asp-for="EnerjiPano"></td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.13.17</th>
+                <td>ANAHTARLI OTOMATİK SİGORTA</td>
+                <td>ADET</td>
+                <td>@Model.OtoSigorta</td>
+                <td><input type="number" class="form-control" asp-for="OtoSigorta"></td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.14.2</th>
+                <td style="margin:0;padding:0">
+                    <table class="table table-bordered" style="width:100%; max-width:100%;height:100%;max-height:100%;margin:0;padding:0;">
+                        <tr>
+                            <td rowspan=2>
+                                KAZI İŞLEMLERİ
+                            </td>
+                            <td>TOPRAK</td>
+                        </tr>
+                        <tr>
+
+                            <td>ASFALT</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>METRE</td>
+                <td style="margin:0;padding:0">
+                    <table class="table table-bordered" style="width:100%; max-width:100%;height:100%;max-height:100%;margin:0;padding:0;">
+                        <tr><td>@Model.KaziToprak</td></tr>
+                        <tr><td>@Model.KaziAsfalt</td></tr>
+                    </table>
+                </td>
+
+                <td style="margin:0;padding:0">
+                    <table style="display:flex;height:100%;max-height:100%;align-items:center;justify-content:center;">
+                        <tr><td><input type="number" class="form-control" asp-for="KaziToprak" style="max-height:41px;"></td></tr>
+                        <tr><td><input type="number" class="form-control" asp-for="KaziAsfalt" style="max-height:41px;"></td></tr>
+                    </table>
+                </td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.14.3.1</th>
+                <td style="margin:0;padding:0">
+                    <table class="table table-bordered" style="width:100%; max-width:100%;height:100%;max-height:100%;margin:0;padding:0;">
+                        <tr>
+                            <td rowspan=2>
+                                BORU
+                            </td>
+                            <td>ENERJİ</td>
+                        </tr>
+                        <tr>
+
+                            <td>DATA</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>METRE</td>
+                <td style="margin:0;padding:0">
+                    <table class="table table-bordered" style="width:100%; max-width:100%;height:100%;max-height:100%;margin:0;padding:0;">
+                        <tr><td>@Model.BoruEnerji</td></tr>
+                        <tr><td>@Model.BoruData</td></tr>
+                    </table>
+                </td>
+
+                <td style="margin:0;padding:0">
+                    <table style="display:flex;height:100%;max-height:100%;align-items:center;justify-content:center;">
+                        <tr><td><input type="number" class="form-control" asp-for="BoruEnerji" style="max-height:41px;"></td></tr>
+                        <tr><td><input type="number" class="form-control" asp-for="BoruData" style="max-height:41px;"></td></tr>
+                    </table>
+                </td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.15</th>
+                <td style="margin:0;padding:0">
+                    <table class="table table-bordered" style="width:100%; max-width:100%;height:100%;max-height:100%;margin:0;padding:0;">
+                        <tr>
+                            <td rowspan=8>
+                                KAMERA DİREĞİ
+                            </td>
+                            <td>3 METRE</td>
+                        </tr>
+                        <tr>
+                            <td>4 METRE</td>
+                        </tr>
+                        <tr>
+                            <td>5 METRE</td>
+                        </tr>
+                        <tr>
+                            <td>6 METRE</td>
+                        </tr>
+                        <tr>
+                            <td>7 METRE</td>
+                        </tr>
+                        <tr>
+                            <td>8 METRE</td>
+                        </tr>
+                        <tr>
+                            <td>9 METRE</td>
+                        </tr>
+                        <tr>
+                            <td>10 METRE</td>
                         </tr>
                     </table>
                 </td>
                 <td>ADET</td>
                 <td style="margin:0;padding:0">
-                    <table class="table table-bordered" style="width:100%; max-width:100%;height:100%;max-height:100%">
-                        <tr style="border-bottom:2px;border-bottom-color:black"><td>@Model.Cat6Ic</td></tr>
-                        <tr><td>@Model.Caat6Dis</td></tr>
+                    <table class="table table-bordered" style="width:100%; max-width:100%;height:100%;max-height:100%;margin:0;padding:0;">
+                        <tr><td>@Model.KameraDirek3M</td></tr>
+                        <tr><td>@Model.KameraDirek4M</td></tr>
+                        <tr><td>@Model.KameraDirek5M</td></tr>
+                        <tr><td>@Model.KameraDirek6M</td></tr>
+                        <tr><td>@Model.KameraDirek7M</td></tr>
+                        <tr><td>@Model.KameraDirek8M</td></tr>
+                        <tr><td>@Model.KameraDirek9M</td></tr>
+                        <tr><td>@Model.KameraDirek10M</td></tr>
                     </table>
                 </td>
 
-                <td><input type="number" class="form-control" asp-for="KGK"></td>
+                <td style="margin:0;padding:0">
+                    <table style="display:flex;height:100%;max-height:100%;align-items:center;justify-content:center;">
+                        <tr><td><input type="number" class="form-control" asp-for="KameraDirek3M" style="max-height:41px;"></td></tr>
+                        <tr><td><input type="number" class="form-control" asp-for="KameraDirek4M" style="max-height:41px;"></td></tr>
+                        <tr><td><input type="number" class="form-control" asp-for="KameraDirek5M" style="max-height:41px;"></td></tr>
+                        <tr><td><input type="number" class="form-control" asp-for="KameraDirek6M" style="max-height:41px;"></td></tr>
+                        <tr><td><input type="number" class="form-control" asp-for="KameraDirek7M" style="max-height:41px;"></td></tr>
+                        <tr><td><input type="number" class="form-control" asp-for="KameraDirek8M" style="max-height:41px;"></td></tr>
+                        <tr><td><input type="number" class="form-control" asp-for="KameraDirek9M" style="max-height:41px;"></td></tr>
+                        <tr><td><input type="number" class="form-control" asp-for="KameraDirek10M" style="max-height:41px;"></td></tr>
+                    </table>
+                </td>
             </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.16</th>
+                <td>
+                    UYARICI LEVHA
+                </td>
+                <td>ADET</td>
+                <td>@Model.UyariLevha</td>
+                <td><input type="number" class="form-control" asp-for="UyariLevha"></td>
+            </tr>
+                @{
+                    i++;
+                }
+            <tr>
+                <th scope="row">@i</th>
+                <th>3.17</th>
+                <td>
+                    SİSTEM PERFORMANSI ARTTIRIMI KAPSAMINDA YAPILACAK İŞ VE İŞLEMLER
+                </td>
+                <td>SET</td>
+                <td>
+                        @Model.SistemPerformans
+                </td>
+                <td><input type="number" class="form-control" asp-for="SistemPerformans"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="display: flex;justify-content: center;align-items: center;">
+                    <button type="submit" class="btn btn-outline-primary d-md-block">GÜNCELLE</button>
+                </td>
+            </tr>
+            </form>
         </tbody>
     </table>
 </div>

@@ -1675,7 +1675,7 @@ namespace KgysProjectIdentity.Service.Services
         public string CctvEk1Update(CctvEk1Model newRequest)
         {
             var exRequest = _context.CctvEk1.AsNoTracking().Where(x => x.Id == newRequest.Id).FirstOrDefault()!;
-            var detail = _context.CctvProjectDetail.Find(exRequest.DetailId)!;
+            var detail = _context.CctvProjectDetail.Find(newRequest.DetailId)!;
             string difference = DateTime.Now + " tarihinde, " + detail.ProjectName + " projesinde" + detail.ProjectDistrict + " ilçesi " + detail.Unit + " projesi ";
             if (newRequest.KameraYazilim != exRequest.KameraYazilim)
             {

@@ -248,19 +248,20 @@ namespace KgysProjectIdentity.Web.Controllers
             var detail = _context.CctvProjectDetail.Find(id)!;
             ViewBag.ProjectName = detail.ProjectName!.ToUpper() + " " + detail.ProjectDistrict!.ToUpper() + " " + detail.Unit!.ToUpper();
             ViewBag.ProductsOfCctv = ProductsSelectList;
+            ViewBag.DetailId = id;
             return View(project);
         }
         [HttpPost]
         public IActionResult CctvEk1Update(CctvEk1Model project)
         {
-
+            var Ek1DetailId = project.DetailId;
             if (!_cctv.CctvEk1Update(project, UserName))
             {
                 TempData["Error"] = "CCTV Projesi Ek-1 Detayı Güncelleme İşlemi Tamamlanamadı.";
-                return RedirectToAction("CctvEk1", new { id = project.DetailId });
+                return RedirectToAction("Ek1", new { id = Ek1DetailId });
             }
             TempData["Status"] = "CCTV Proje Ek-1 Detayı Güncelleme İşlemi Tamamlandı.";
-            return RedirectToAction("CctvEk1", new { id = project.DetailId });
+            return RedirectToAction("Ek1", new { id = Ek1DetailId });
         }
         public IActionResult CreateExcel(int id)
         {
