@@ -263,11 +263,21 @@ namespace KgysProjectIdentity.Web.Controllers
             TempData["Status"] = "CCTV Proje Ek-1 Detayı Güncelleme İşlemi Tamamlandı.";
             return RedirectToAction("Ek1", new { id = Ek1DetailId });
         }
+
         public IActionResult CreateExcel(int id)
         {
             ViewBag.Detail = _context.CctvProjectDetail.Find(id);
             ViewBag.Products = _context.CctvProducts.AsNoTracking().Where(x => x.DetailId == id);
             return View();
+        }
+        public IActionResult CreateExcelEk1(int id)
+        {
+            var project = _context.CctvEk1.FirstOrDefault(x => x.DetailId == id)!;
+            var detail = _context.CctvProjectDetail.Find(id)!;
+            ViewBag.ProjectName = detail.ProjectName!.ToUpper() + " " + detail.ProjectDistrict!.ToUpper() + " " + detail.Unit!.ToUpper();
+            ViewBag.ProductsOfCctv = ProductsSelectList;
+            ViewBag.DetailId = id;
+            return View(project);
         }
 
         public ActionResult GetProducts(string productName)

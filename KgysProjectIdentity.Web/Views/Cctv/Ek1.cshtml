@@ -343,7 +343,7 @@
                 </td>
                 <td>METRE</td>
                 <td>@Model.FoSingle</td>
-                <td><input type="number" class="form-control" asp-for="FoPanel"></td>
+                <td><input type="number" class="form-control" asp-for="FoSingle"></td>
             </tr>
                 @{
                     i++;
@@ -355,7 +355,7 @@
                     FİBER PATCH PANEL
                 </td>
                 <td>ADET</td>
-                <td>@Model.FoPanel/td>
+                <td>@Model.FoPanel</td>
                 <td><input type="number" class="form-control" asp-for="FoPanel"></td>
             </tr>
                 @{
@@ -609,7 +609,7 @@
             </tr>
             <tr>
                 <th></th>
-                <th></th>
+                <th><a class="btn btn-outline-secondary" asp-controller="Cctv" asp-action="CreateExcelEk1" asp-route-id="@ViewBag.DetailId">Excel'e Aktar</a></th>
                 <td></td>
                 <td></td>
                 <td></td>
