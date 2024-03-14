@@ -88,7 +88,6 @@
                         </li>
                     </ul>
                 </li>
-
                 <li>
                     <a class="nav-link text-light " asp-area="" asp-controller="IpPhone" asp-action="Index">Ip Telefon Projesi</a>
                 </li>
@@ -99,7 +98,15 @@
                         <ul class="submenu dropdown-menu" style="background-color:black">
                             <li><a class="nav-link text-light " asp-area="" asp-controller="Projects" asp-action="ProjectAdd">KGYS Proje Ekleme</a></li>
                             <li><a class="nav-link text-light " asp-area="" asp-controller="IpPhone" asp-action="Project">IP Telefon Projesi Ekleme</a></li>
-                            <li><a class="nav-link text-light " asp-area="" asp-controller="Cctv" asp-action="Project">CCTV Proje Fazı Ekleme</a></li>
+                            <li>
+                                <a class="nav-link text-light" href="#">  CCCTV Proje İşlemleri &raquo; </a>
+                                <ul class="submenu dropdown-menu" style="background-color:black">
+                                    <li><a class="nav-link text-light " asp-area="" asp-controller="Cctv" asp-action="Project">CCTV Proje Fazı Ekleme</a></li>
+                                    <li><a class="nav-link text-light " asp-area="" asp-controller="Cctv" asp-action="ProductOfCctv">CCTV Malzeme İşlemleri</a></li>
+                                    <li><a class="nav-link text-light " asp-area="" asp-controller="Cctv" asp-action="ModelsForCctv">CCTV Model İşlemleri</a></li>
+                                </ul>
+                            </li>
+                            
                         </ul>
                     </li>
                 }

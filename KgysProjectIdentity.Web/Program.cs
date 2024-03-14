@@ -5,6 +5,7 @@ using KgysProjectIdentity.Web.Areas.Admin.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
+using OfficeOpenXml;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +40,8 @@ builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.
 
 //Automapper.Dependcyinjection nuget yükledikten sonra aktif oldu
 builder.Services.AddAutoMapper(typeof(ViewModelMapping));
-
+//Epplus Excel ücretsiz kullaným için
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 //Cookie ayaralarý için
 builder.Services.ConfigureApplicationCookie(options =>
 {

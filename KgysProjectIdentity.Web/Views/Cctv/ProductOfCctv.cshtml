@@ -1,0 +1,155 @@
+﻿
+@{
+    ViewData["Title"] = "ProductOfCctv";
+    int i = 0;
+}
+@model CctvProductsViewModel
+<style type="text/css">
+    .button-container {
+        display: flex;
+        flex-direction: row; /* Butonları yatay olarak hizalar */
+        align-items: center; /* Butonları dikey olarak ortalar */
+        gap: 10px; /* Butonlar arası boşluk */
+    }
+</style>
+<div class="text-center">
+    <h1>CCTV Malzeme İşlemleri</h1>
+    <div class="col-md-4 offset-md-4 text-center">
+        @if (TempData["Status"] != null)
+        {
+            <div class="alert alert-success text-center" role="alert">
+                @TempData["Status"]
+            </div>
+
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @TempData["Error"]
+            </div>
+
+        }
+    </div>
+</div>
+<div class="button-container">
+    <a data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-secondary d-md-block mb-1">Malzeme Ekle</a>
+    <a data-bs-toggle="modal" data-bs-target="#staticBackdroppp" class="btn btn-secondary d-md-block mb-1">Model Ekle</a>
+</div>
+<div class="offset-10 form-group pull-right mb-3">
+    <input type="text" class="search form-control" placeholder="Aranılacak Kelimeyi Giriniz" style="width:300px">
+    <span class="counter pull-right"></span>
+</div>
+<div class="container-fluid">
+    <table class="table table-striped table-hover text-center table-bordered results" style="width:100%" id="dataTable">
+        <thead>
+            <tr class="table-light">
+                <th>Sıra No</th>
+                <th>Malzeme Adı</th>
+                <th>İşlem</th>
+            </tr>
+            <tr class="warning no-result">
+                <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in ViewBag.Products)
+            {
+                i++;
+                <tr class="table-light">
+                    <th scope="row">@i</th>
+                    <td>@item.ProductName</td>
+                    <td>
+                        @if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Silme" || x.Value == "Planlama"))
+                        {
+                            @if (User.HasClaim(x => x.Value == "Silme"))
+                            {
+                                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-danger d-md-block mb-1" data-bs-id="@item.Id">Sil</a>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@*Modal*@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Silmek İstediğinize Emin Misiniz?
+                <form asp-area="" asp-controller="Cctv" asp-action="ProductOfCctvRemove" method="post">
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <input type="hidden" class="form-control" asp-for="PlannedPlace" value="ProductOfCctv">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@*Modal malzeme ekle*@
+<div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Malzeme Ekleme</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Malzeme Adını Giriniz
+                <form asp-area="" asp-controller="Cctv" asp-action="ProductOfCctvAdd" method="post">
+                    <input type="hidden" class="form-control" asp-for="PlannedPlace" value="ProductOfCctv">
+                    <input type="text" class="form-control" asp-for="ProductName" required>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-primary d-md-block">Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@*Modal model ekle*@
+<div class="modal fade" id="staticBackdroppp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Model</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Eklemek İstediğiniz Modeli Giriniz
+                <form asp-area="" asp-controller="Cctv" asp-action="ModelsForCctvAdd" method="post">
+                    <input type="hidden" class="form-control" asp-for="PlannedPlace" value="ProductOfCctv">
+                    <div class="mb-2">
+                        <select class="form-select" asp-for="ProductName" asp-items="@ViewBag.ProductsOfCctv" required>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <input type="text" class="form-control" asp-for="ProductModel" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-primary d-md-block">Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/messages_tr.js"></script>
+}

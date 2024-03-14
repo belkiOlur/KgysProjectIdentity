@@ -14,8 +14,6 @@ namespace KgysProjectIdentity.Repository.Models
             _context = context;
 
         }
-
-
         public List<ProjectsModel> GettingProjects()
         {
             List<ProjectsModel> projects = _context.ProjectsModels.ToList();
@@ -129,8 +127,24 @@ namespace KgysProjectIdentity.Repository.Models
                 return 1;
             }
         }
-
-
+        public string ProductOfCctvName(int id)
+        {
+            string productName = _context.ProductsOfCctv.Find(id)!.ProductName!;
+            return productName;
+        }
+        public int CctvEk1KameraCount(CctvEk1Model ek1)
+        {
+            int count = -1;
+            if (ek1.KameraDirek3M != 0) { count++; }
+            if (ek1.KameraDirek4M != 0) { count++; }
+            if (ek1.KameraDirek5M != 0) { count++; }
+            if (ek1.KameraDirek6M != 0) { count++; }
+            if (ek1.KameraDirek7M != 0) { count++; }
+            if (ek1.KameraDirek8M != 0) { count++; }
+            if (ek1.KameraDirek9M != 0) { count++; }
+            if (ek1.KameraDirek10M != 0) { count++; }          
+            return count;
+        }
 
     }
 

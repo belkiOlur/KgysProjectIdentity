@@ -161,6 +161,7 @@
                 Malzeme Adını Giriniz
                 <form asp-area="" asp-controller="Cctv" asp-action="ProductOfCctvAdd" method="post">
                     <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <input type="hidden" class="form-control" asp-for="PlannedPlace" value="Products">
                     <input type="text" class="form-control" asp-for="ProductName" required>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
@@ -184,6 +185,7 @@
                 <form asp-area="" asp-controller="Cctv" asp-action="ModelsForCctvAdd" method="post">
                     <div class="mb-2">
                         <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                        <input type="hidden" class="form-control" asp-for="PlannedPlace" value="Products">
                         <select class="form-select" asp-for="ProductName" asp-items="@ViewBag.ProductsOfCctv" required>
                             <option></option>
                         </select>
