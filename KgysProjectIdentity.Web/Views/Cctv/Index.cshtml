@@ -44,6 +44,7 @@
                 <th>Mevcuttaki Sistem</th>
                 <th>Planlanan Proje Türü</th>
                 <th>Durumu</th>
+                <th>Fotoğraf</th>
                 <th>Proje Detayı</th>
                 <th>İşlem</th>
             </tr>
@@ -97,8 +98,12 @@
                     <td>@item.ProjectDistrict</td>
                     <td><a role="button" asp-controller="Cctv" asp-action="ProjectFullDetail" asp-route-id="@item.Id" style="color:black">@item.Unit</a></td>
                     <td>@item.ExProjectName</td>
-                    <td>@item.ProjectReason</td>
+                    <td>@item.ProjectReason</td>                    
                     <td>@item.Status</td>
+                    <td>
+                        <a data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-outline-danger d-md-block mb-1" data-bs-id="@item.Id">Resim Ekle</a>
+                        <a class="btn btn-outline-secondary d-md-block" role="button" asp-controller="Cctv" asp-action="ViewPicture" asp-route-id="@item.Id">Resimleri Gör</a>
+                    </td>
                     <td>
                         <a class="btn btn-outline-primary d-md-block mb-1" role="button" asp-controller="Cctv" asp-action="Products" asp-route-id="@item.Id">Malzemeler</a>
                         <a class="btn btn-outline-primary d-md-block mb-1" role="button" asp-controller="Cctv" asp-action="Ek1" asp-route-id="@item.Id">Ek-1</a>
@@ -134,6 +139,31 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
                         <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@*Modal*@
+<div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdroppLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form asp-area="" asp-controller="ProjectEightyImagedModels" asp-action="CctvAddPicture" method="post" enctype="multipart/form-data">
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <div class="mb-3">
+                        <label asp-for="Images" class="control-label">Foroğraf Seçiniz :</label>
+                        <input class="form-control" asp-for="Images" multiple required>
+                        <span class="text-danger" asp-validation-for="Images"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-primary d-md-block">Ekle</button>
                     </div>
                 </form>
             </div>

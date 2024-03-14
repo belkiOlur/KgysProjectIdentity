@@ -288,6 +288,13 @@ namespace KgysProjectIdentity.Web.Controllers
             var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             return File(fileContent, contentType, fileName);
         }
+        public IActionResult ViewPicture(int id)
+        {
+            var detail = _context.CctvProjectDetail.Find(id)!;
+            ViewBag.ProjectName = detail.ProjectName+" "+detail.ProjectDistrict+" "+detail.Unit;
+            var project = _context.CctvPictures.Where(x=>x.CctvDetailId==id).ToList();
+            return View(project);
+        }
         public ActionResult GetProducts(string productName)
         {
             var productID = _context.ProductsOfCctv.FirstOrDefault(x => x.ProductName == productName)!.Id;

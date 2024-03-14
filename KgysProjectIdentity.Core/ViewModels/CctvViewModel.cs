@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace KgysProjectIdentity.Core.ViewModels
     public class CctvViewModel
     {
         public int Id { get; set; }
-        [Required(ErrorMessage ="Boş Bıraklılamaz")]
+        [Required(ErrorMessage = "Boş Bıraklılamaz")]
         public string? ProjectName { get; set; }
         [Required(ErrorMessage = "Boş Bıraklılamaz")]
         public string? ProjectDistrict { get; set; }
@@ -19,5 +20,6 @@ namespace KgysProjectIdentity.Core.ViewModels
         public string? ExProjectName { get; set; }
         public string? ProjectReason { get; set; }
         public string? Status { get; set; }
+        public List<IFormFile>? Images { get; set; }
     }
 }

@@ -174,7 +174,7 @@
                         <td>
                             @if (User.HasClaim(x => x.Value == "Silme"))
                             {
-                                <a type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id">Sil</a>
+                                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id">Sil</a>
                             }
                             <a class="btn btn-outline-secondary d-md-block" role="button" asp-controller="Projects" asp-action="Update" asp-route-id="@item.Id">Güncelle</a>
                         </td>

@@ -64,7 +64,6 @@ namespace KgysProjectIdentity.Web.Controllers
 
         public IActionResult KgysRequestIndex()
         {
-
             ViewBag.District = _district.GetDistrict();
             ViewBag.Request = _kgysRequest.GetOrderRequest();
             return View();
@@ -89,7 +88,6 @@ namespace KgysProjectIdentity.Web.Controllers
             ViewBag.KgysPlanned = _kgysRequest.GetDistrictPlannedAll(district);
             var request = _kgysRequest.GetDistrictRequestAll(district);
             return View(_mapper.Map<List<KgysRequestViewModel>>(request));
-
         }
         [Authorize(Roles = "Admin,Planlama,KGYS,PlanlamaAmiri")]
         public IActionResult KGYS(int id)
@@ -102,7 +100,6 @@ namespace KgysProjectIdentity.Web.Controllers
             ViewBag.KgysPlanned = _kgysRequest.GetDistrictPlannedStatusNotRequest(district);
             ViewBag.Request = _kgysRequest.GetDistrictRequestStatusRequest(district);
             return View();
-
         }
         [Authorize(Roles = "Admin,Planlama,KGYS,PlanlamaAmiri")]
         public IActionResult KgysRequestDetails(int id)
@@ -137,13 +134,10 @@ namespace KgysProjectIdentity.Web.Controllers
                 TempData["status"] = "İstenilen Veri Bulunamadı";
                 return View("Index");
             }
-
         }
-
         [Authorize(Roles = "Admin,Planlama,KGYS,PlanlamaAmiri")]
         public IActionResult KgysPlannedDetails(int id)
         {
-
             try
             {
                 var requestId = _context.KgysPlanned.Find(id)!.KgysRequestId;

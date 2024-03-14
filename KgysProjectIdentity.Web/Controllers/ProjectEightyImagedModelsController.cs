@@ -71,6 +71,23 @@ namespace KgysProjectIdentity.Web.Controllers
             var projectId = _context.ProjectsModels.Where(x => x.Project == projectName).FirstOrDefault()!.Id;
             return RedirectToAction("Index", "Projects", new { id = projectId });
         }
+        [HttpPost]
+        public IActionResult CctvAddPicture(CctvViewModel vm)
+        {
+            var project = _context.CctvProjectDetail.Find(vm.Id)!;
+            foreach (var item in vm.Images!)
+            {
+                string log = User.Identity!.Name + " kullanıcısı " + project.ProjectName +" " +project.ProjectDistrict +" "+project.Unit+ " projesi içerisine resim ekledi.";
+                string stringFileName = UploadFile(item);
+
+                _context.CctvPictures.Add(new CctvProjectPictureModel() { PictureUrl = stringFileName, CctvDetailId = vm.Id });
+                _context.LogModel.Add(new LogModel { Log = log });
+
+            }
+            _context.SaveChanges();
+            var projectId = _context.CctvProjects.Where(x => x.ProjectName == project.ProjectName).FirstOrDefault()!.Id;
+            return RedirectToAction("Index", "Cctv", new { id = projectId });
+        }
         //************************************************************************************************************************************************
         private string UploadFile(IFormFile file)
         {
@@ -85,7 +102,9 @@ namespace KgysProjectIdentity.Web.Controllers
             }
             return fileName!;
         }
-
+        
+        //************************************************************************************************************************************************
+       
         // GET: ProjectEightyImagedModels/Create
         public IActionResult Create()
         {
