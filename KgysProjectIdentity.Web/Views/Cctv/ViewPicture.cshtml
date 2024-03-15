@@ -2,7 +2,7 @@
     ViewData["Title"] = "ViewPicture";
 }
 
-@model List<CctvProjectPictureModel>
+@model CctvProjectPictureModel
 
 <style>
     .foto {
@@ -59,18 +59,35 @@
 
 </style>
 <div class="container">
+
     <div class="jumbotron">
         <h1 class="fw-light text-center text-lg-start mt-4 mb-0">@ViewBag.ProjectName "@ViewBag.Name" Noktasına Ait Resimler</h1>
+    </div>
+    <div class="col-md-4 offset-md-4 text-center">
+        @if (TempData["Status"] != null)
+        {
+            <div class="alert alert-success text-center" role="alert">
+                @TempData["Status"]
+            </div>
+
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @TempData["Error"]
+            </div>
+
+        }
     </div>
     <hr class="mt-2 mb-5">
 
     <div class="row gallery">
 
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.Pictures)
         {
             <div class="col-sm-6 col-md-4 col-lg-3 mt-2">
 
-                <a role="button" asp-controller="ProjectEightyImagedModels" asp-action="delete" asp-route-id="@item.Id">Sil</a>
+                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-danger d-md-block mb-1" data-bs-id="@item.Id" data-bs-Name="@item.CctvDetailId">Sil</a>
                 <a href="~/uploads/@item.PictureUrl" class="d-block h-100">
                     <img src="~/uploads/@item.PictureUrl" class="foto hover-shadow">
                 </a>
@@ -80,6 +97,28 @@
 
     </div>
 
+</div>
+@*Modal*@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Silmek İstediğinize Emin Misiniz?
+                <form asp-area="" asp-controller="Cctv" asp-action="CctvPictureRemove" method="post">
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <input type="hidden" class="form-control" asp-for="CctvDetailId" id="recipients-name">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 <script src="~/js/baguettebox.min.js"></script>

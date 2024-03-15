@@ -292,8 +292,19 @@ namespace KgysProjectIdentity.Web.Controllers
         {
             var detail = _context.CctvProjectDetail.Find(id)!;
             ViewBag.ProjectName = detail.ProjectName+" "+detail.ProjectDistrict+" "+detail.Unit;
-            var project = _context.CctvPictures.Where(x=>x.CctvDetailId==id).ToList();
-            return View(project);
+            ViewBag.Pictures= _context.CctvPictures.Where(x => x.CctvDetailId == id).ToList();
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CctvPictureRemove(CctvProjectPictureModel project)
+        {
+            if (!_cctv.CctvPictureRemove(project, UserName))
+            {
+                TempData["Error"] = "CCTV Keşif Resmi Silinemedi.";
+                return RedirectToAction("ViewPicture", new { id = project.CctvDetailId });
+            }
+            TempData["Status"] = "CCTV Keşif Resmi Model Silindi.";
+            return RedirectToAction("ViewPicture",new {id=project.CctvDetailId});
         }
         public ActionResult GetProducts(string productName)
         {

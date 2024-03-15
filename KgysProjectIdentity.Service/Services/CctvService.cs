@@ -754,5 +754,23 @@ namespace KgysProjectIdentity.Service.Services
                 return package.GetAsByteArray();
             }
         }
+
+        public bool CctvPictureRemove(CctvProjectPictureModel project, string UserName)
+        {
+            try
+            {
+                var detail = _context.CctvProjectDetail.Find(project.CctvDetailId)!;
+                var picture = _context.CctvPictures.Find(project.Id)!;
+                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + detail.ProjectName + " projesinde" + detail.ProjectDistrict + " ilçesi " + detail.Unit + " projesinedeki "+ picture.PictureUrl+" isimli resmi sildi.";
+                _context.CctvPictures.Remove(picture);
+                _context.SaveChanges();
+                _log.LogForAdd(log);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }
