@@ -2,6 +2,7 @@
 using KgysProjectIdentity.Repository.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Evaluation;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
@@ -74,19 +75,30 @@ namespace KgysProjectIdentity.Web.Controllers
         [HttpPost]
         public IActionResult CctvAddPicture(CctvViewModel vm)
         {
-            var project = _context.CctvProjectDetail.Find(vm.Id)!;
-            foreach (var item in vm.Images!)
+            try
             {
-                string log = User.Identity!.Name + " kullanıcısı " + project.ProjectName +" " +project.ProjectDistrict +" "+project.Unit+ " projesi içerisine resim ekledi.";
-                string stringFileName = UploadFile(item);
+                var project = _context.CctvProjectDetail.Find(vm.Id)!;
+                foreach (var item in vm.Images!)
+                {
+                    string log = User.Identity!.Name + " kullanıcısı " + project.ProjectName + " " + project.ProjectDistrict + " " + project.Unit + " projesi içerisine resim ekledi.";
+                    string stringFileName = UploadFile(item);
 
-                _context.CctvPictures.Add(new CctvProjectPictureModel() { PictureUrl = stringFileName, CctvDetailId = vm.Id });
-                _context.LogModel.Add(new LogModel { Log = log });
+                    _context.CctvPictures.Add(new CctvProjectPictureModel() { PictureUrl = stringFileName, CctvDetailId = vm.Id });
+                    _context.LogModel.Add(new LogModel { Log = log });
 
+                }
+                _context.SaveChanges();
+                TempData["Status"] = "CCTV Keşif Resmi Eklendi.";
+                var projectId = _context.CctvProjects.Where(x => x.ProjectName == project.ProjectName).FirstOrDefault()!.Id;
+                return RedirectToAction("Index", "Cctv", new { id = projectId });
             }
-            _context.SaveChanges();
-            var projectId = _context.CctvProjects.Where(x => x.ProjectName == project.ProjectName).FirstOrDefault()!.Id;
-            return RedirectToAction("Index", "Cctv", new { id = projectId });
+            catch
+            {
+                TempData["Error"] = "CCTV Keşif Resmi Eklenemedi.";
+                var project = _context.CctvProjectDetail.Find(vm.Id)!;
+                var projectId = _context.CctvProjects.Where(x => x.ProjectName == project.ProjectName).FirstOrDefault()!.Id;
+                return RedirectToAction("Index", "Cctv", new { id = projectId });
+            }
         }
         //************************************************************************************************************************************************
         private string UploadFile(IFormFile file)

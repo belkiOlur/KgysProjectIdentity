@@ -85,6 +85,7 @@
                     <span class="text-danger" asp-validation-for="Status"></span>
                 </td>
                 <td></td>
+                <td></td>
                 <td class="centered-td">
                     <button type="submit" class="btn btn-outline-success d-md-block">Kaydet</button>
                 </td>
@@ -101,7 +102,7 @@
                     <td>@item.ProjectReason</td>                    
                     <td>@item.Status</td>
                     <td>
-                        <a data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-outline-danger d-md-block mb-1" data-bs-id="@item.Id">Resim Ekle</a>
+                        <a data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-outline-success d-md-block mb-1" data-bs-id="@item.Id">Resim Ekle</a>
                         <a class="btn btn-outline-secondary d-md-block" role="button" asp-controller="Cctv" asp-action="ViewPicture" asp-route-id="@item.Id">Resimleri Gör</a>
                     </td>
                     <td>

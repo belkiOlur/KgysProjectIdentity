@@ -303,7 +303,7 @@ namespace KgysProjectIdentity.Web.Controllers
                 TempData["Error"] = "CCTV Keşif Resmi Silinemedi.";
                 return RedirectToAction("ViewPicture", new { id = project.CctvDetailId });
             }
-            TempData["Status"] = "CCTV Keşif Resmi Model Silindi.";
+            TempData["Status"] = "CCTV Keşif Resmi Silindi.";
             return RedirectToAction("ViewPicture",new {id=project.CctvDetailId});
         }
         public ActionResult GetProducts(string productName)
