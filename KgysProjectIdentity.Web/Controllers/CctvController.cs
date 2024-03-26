@@ -66,6 +66,15 @@ namespace KgysProjectIdentity.Web.Controllers
         {
             var projectName = _context.CctvProjects.Find(id)!.ProjectName;
             var projectDetail = _context.CctvProjectDetail.Where(x => x.ProjectName == projectName);
+            List<CctvEbysNumbersModel> ebysNumbers = new();
+            foreach (var detail in projectDetail)
+            {
+                var details = _context.CctvEbysNumbers.Where(x => x.DetailId == detail.Id);
+                foreach (var item in details) 
+                {
+                    ebysNumbers.Add(item);
+                }
+            }
             if (projectDetail != null)
             {
                 ViewBag.CctvProjects = CctvProjectSelectList;
@@ -74,6 +83,7 @@ namespace KgysProjectIdentity.Web.Controllers
                 ViewBag.CctvStatus = CctvStatusSelectList;
                 ViewBag.ProjectName = projectName;
                 ViewBag.ProjectDetail = projectDetail;
+                ViewBag.EbysNumbers = ebysNumbers;
                 return View();
             }
             ViewBag.ProjectName = null;
@@ -139,6 +149,7 @@ namespace KgysProjectIdentity.Web.Controllers
             ViewBag.ProjectName = detail.ProjectName + " " + detail.ProjectDistrict + " " + detail.Unit;
             ViewBag.ProductsOfCctv = ProductsSelectList;
             ViewBag.DetailId = id;
+            ViewBag.ProjectId = _context.CctvProjects.Where(x => x.ProjectName == detail.ProjectName).FirstOrDefault()!.Id;
             return View();
         }
 
@@ -272,12 +283,41 @@ namespace KgysProjectIdentity.Web.Controllers
             TempData["Status"] = "CCTV Proje Ek-1 Detayı Güncelleme İşlemi Tamamlandı.";
             return RedirectToAction("Ek1", new { id = Ek1DetailId });
         }
+        [HttpPost]
+        public IActionResult EbysNumberAdd(CctvViewModel project)
+        {
+            var projectName = _context.CctvProjectDetail.Where(x=>x.Id==project.Id!).FirstOrDefault()!.ProjectName;
+            var projectId = _context.CctvProjects.AsNoTracking().Where(x => x.ProjectName == projectName).FirstOrDefault()!.Id;
+            
+            if (!_cctv.EbysNumberAdd(project, UserName))
+            {
+                TempData["Error"] = "CCTV Projesine Ebys Numarası Ekleme İşlemi Tamamlanamadı.";
+                return RedirectToAction("Index", new { id = projectId });
+            }
+            TempData["Status"] = "CCTV Projene Ebys Numarası Ekleme İşlemi Tamamlandı.";
+            return RedirectToAction("Index", new { id = projectId });
+        }
+        [HttpPost]
+        public IActionResult EbysNumberRemove(CctvViewModel project)
+        {
+            var ebys = _context.CctvEbysNumbers.AsNoTracking().Where(x => x.EbysNumber == project.EbysNumber).FirstOrDefault()!;
+            var detail = _context.CctvProjectDetail.Find(ebys.DetailId)!;
+            var projectId = _context.CctvProjects.AsNoTracking().Where(x => x.ProjectName == detail.ProjectName).FirstOrDefault()!.Id;
+            if (!_cctv.EbysNumberRemove(ebys, detail, UserName))
+            {
+                TempData["Error"] = "CCTV Projesine Ebys Numarası Bulunamadı.";
+                return RedirectToAction("Index", new { id = projectId });
+            }
+            TempData["Status"] = "CCTV Projene Ebys Numarası Silme İşlemi Tamamlandı.";
+            return RedirectToAction("Index", new { id = projectId });
+        }
         public IActionResult CreateExcel(int id)
         {
             ViewBag.Detail = _context.CctvProjectDetail.Find(id);
             ViewBag.Products = _context.CctvProducts.AsNoTracking().Where(x => x.DetailId == id);
             return View();
         }
+
         public ActionResult ExcelEk1(int id)
         {
             var project = _context.CctvEk1.FirstOrDefault(x => x.DetailId == id)!;

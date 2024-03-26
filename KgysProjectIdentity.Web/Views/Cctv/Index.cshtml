@@ -44,6 +44,7 @@
                 <th>Mevcuttaki Sistem</th>
                 <th>Planlanan Proje Türü</th>
                 <th>Durumu</th>
+                <th style="min-width:300px">Talep EBYS No</th>
                 <th>Fotoğraf</th>
                 <th>Proje Detayı</th>
                 <th>İşlem</th>
@@ -84,6 +85,10 @@
                     </select>
                     <span class="text-danger" asp-validation-for="Status"></span>
                 </td>
+                <td>
+                    <input type="text" class="form-control" asp-for="EbysNumber">
+                    <span class="text-danger" asp-validation-for="EbysNumber"></span>
+                </td>
                 <td></td>
                 <td></td>
                 <td class="centered-td">
@@ -99,8 +104,33 @@
                     <td>@item.ProjectDistrict</td>
                     <td><a role="button" asp-controller="Cctv" asp-action="ProjectFullDetail" asp-route-id="@item.Id" style="color:black">@item.Unit</a></td>
                     <td>@item.ExProjectName</td>
-                    <td>@item.ProjectReason</td>                    
+                    <td>@item.ProjectReason</td>
                     <td>@item.Status</td>
+                    <td style="min-width:300px">
+                        <div style="display:flex">
+                            <div style="width:80%;margin-right:1%;">
+                                @if(ViewBag.EbysNumbers != null)
+                                {
+                                    <ul style="width:100%;max-width:100%;align-items:center;justify-content:center">
+                                        @foreach(var ebysNumber in ViewBag.EbysNumbers)
+                                        {
+                                            if(ebysNumber.DetailId == item.Id && ebysNumber.DetailId != null)
+                                            {
+                                                <li style="list-style-type:none">@ebysNumber.EbysNumber</li>
+                                            }
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                            <div style="width:18%;min-width:34px;align-items:center;justify-content:center;display:flex;flex-direction:column">
+                                
+                                    <a data-bs-toggle="modal" data-bs-target="#staticBackdroppp" class="btn btn-outline-success mb-1" data-bs-id="@item.Id" style="width:100%;max-width:100%">+</a>
+                                    <a data-bs-toggle="modal" data-bs-target="#staticBackdropSil" class="btn btn-outline-danger" style="width:100%;max-width:100%">-</a>
+                              
+
+                            </div>
+                        </div>
+                    </td>
                     <td>
                         <a data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-outline-success d-md-block mb-1" data-bs-id="@item.Id">Resim Ekle</a>
                         <a class="btn btn-outline-secondary d-md-block" role="button" asp-controller="Cctv" asp-action="ViewPicture" asp-route-id="@item.Id">Resimleri Gör</a>
@@ -171,8 +201,56 @@
         </div>
     </div>
 </div>
+@*Modal Ebys silme*@
+<div class="modal fade" id="staticBackdropSil" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropDilLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Model</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Silmek İstediğiniz EBYS Numarası Giriniz
+                <form asp-area="" asp-controller="Cctv" asp-action="EbysNumberRemove" method="post">
+                    <div class="mb-2">
+                        <input type="text" class="form-control" asp-for="EbysNumber" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@*Modal Ebys Ekleme*@
+<div class="modal fade" id="staticBackdroppp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">EBSY Ekleme</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                EBYS Numarası Giriniz
+                <form asp-area="" asp-controller="Cctv" asp-action="EbysNumberAdd" method="post">
+                    <div class="mb-2">
+                        <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                        <input type="text" class="form-control" asp-for="EbysNumber" required>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-primary d-md-block">Ekle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts
-{
+    {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/lib/jquery-validation/dist/messages_tr.js"></script>

@@ -25,5 +25,7 @@ namespace KgysProjectIdentity.Service.Services
         bool CctvEk1Update(CctvEk1Model project, string UserName);
         byte[] CctvEk1CreateExcel(CctvEk1Model ek1, string projectName);
         bool CctvPictureRemove(CctvProjectPictureModel project, string UserName);
+        bool EbysNumberAdd(CctvViewModel project, string UserName);
+        bool EbysNumberRemove(CctvEbysNumbersModel ebys, CctvModel detail, string UserName);
     }
 }

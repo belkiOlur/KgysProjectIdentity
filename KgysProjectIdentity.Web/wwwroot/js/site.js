@@ -141,7 +141,7 @@ if (staticBackdropp) {
     })
 }
 
-const staticBackdroppp = document.getElementById('staticBackdropp')
+const staticBackdroppp = document.getElementById('staticBackdroppp')
 if (staticBackdroppp) {
     staticBackdroppp.addEventListener('show.bs.modal', event => {
         // Button that triggered the modal
@@ -163,7 +163,7 @@ if (staticBackdroppp) {
     })
 }
 
-const staticBackdropppp = document.getElementById('staticBackdropp')
+const staticBackdropppp = document.getElementById('staticBackdropppp')
 if (staticBackdropppp) {
     staticBackdropppp.addEventListener('show.bs.modal', event => {
         // Button that triggered the modal

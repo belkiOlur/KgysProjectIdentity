@@ -59,9 +59,17 @@ namespace KgysProjectIdentity.Service.Services
         {
             try
             {
-                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + project.ProjectName + " fazına " + project.ExProjectName + " eski projesi olan " + project.ProjectDistrict + project.Unit + " birimine " + project.ProjectReason + " nedeni ile proje ekledi.";
+                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + project.ProjectName + " fazına " + project.ExProjectName + " eski projesi olan " + project.ProjectDistrict + project.Unit + " birimine " + project.ProjectReason + " nedeni ";
                 _context.CctvProjectDetail.Add(_mapper.Map<CctvModel>(project));
                 _context.SaveChanges();
+                if (project.EbysNumber != null)
+                {
+                    var addDetailId = _context.CctvProjectDetail.OrderByDescending(x=>x.Id).FirstOrDefault()!.Id;
+                    _context.CctvEbysNumbers.Add(new CctvEbysNumbersModel { EbysNumber = project.EbysNumber, DetailId = addDetailId });
+                    _context.SaveChanges();
+                    log += project.EbysNumber + " talep EBYS numarası ";
+                }
+                log += "ile proje ekledi.";
                 _log.LogForAdd(log);
                 var detailId = _context.CctvProjectDetail.OrderByDescending(x => x.Id).FirstOrDefault()!.Id;
                 Ek1Add(detailId);
@@ -78,7 +86,17 @@ namespace KgysProjectIdentity.Service.Services
             try
             {
                 var detailId = project.Id;
-                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + project.ProjectName + " fazına " + project.ExProjectName + " eski projesi olan " + project.ProjectDistrict + project.Unit + " biriminin " + project.ProjectReason + " nedenli projeyi sildi.";
+                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + project.ProjectName + " fazına " + project.ExProjectName + " eski projesi olan " + project.ProjectDistrict + project.Unit + " biriminin " + project.ProjectReason + " nedenli ve ";
+                var ebysNumbers = _context.CctvEbysNumbers.Where(x => x.DetailId == project.Id);
+                if (ebysNumbers !=null)
+                {
+                    foreach (var ebys in ebysNumbers)
+                    {
+                        log += ebys.EbysNumber + " EBYS talep numaralı, ";
+                        _context.CctvEbysNumbers.Remove(ebys);
+                    }
+                }
+                    log+="projeyi sildi.";
                 _context.CctvProjectDetail.Remove(project);
                 _context.SaveChanges();
                 _log.LogForAdd(log);
@@ -180,7 +198,7 @@ namespace KgysProjectIdentity.Service.Services
 
                 var product = _context.ProductsOfCctv.Find(project.Id)!;
                 var modelOfProduct = _context.ModelForCctv.Where(x => x.ProductId == project.Id);
-                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde  CCTV Projelerinde kullanılan" + product.ProductName + " malzemesini ve ";  
+                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde  CCTV Projelerinde kullanılan" + product.ProductName + " malzemesini ve ";
                 _context.ProductsOfCctv.Remove(product);
                 if (modelOfProduct != null)
                 {
@@ -223,8 +241,8 @@ namespace KgysProjectIdentity.Service.Services
             try
             {
                 var modelOfProduct = _context.ModelForCctv.Find(project.Id)!;
-                var product = _context.ProductsOfCctv.Find(modelOfProduct.ProductId)!;                
-                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde  CCTV Projelerinde kullanılan" + product.ProductName + " malzemesine ait "+ modelOfProduct.ProductsModel+" modelini sildi.";
+                var product = _context.ProductsOfCctv.Find(modelOfProduct.ProductId)!;
+                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde  CCTV Projelerinde kullanılan" + product.ProductName + " malzemesine ait " + modelOfProduct.ProductsModel + " modelini sildi.";
                 _context.ModelForCctv.Remove(modelOfProduct);
                 _context.SaveChanges();
                 _log.LogForAdd(log);
@@ -248,6 +266,38 @@ namespace KgysProjectIdentity.Service.Services
             _context.SaveChanges();
             return Task.CompletedTask;
         }
+        public bool EbysNumberAdd(CctvViewModel project, string UserName)
+        {
+            try
+            {
+                var detail = _context.CctvProjectDetail.Find(project.Id)!;
+                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + detail.ProjectDistrict + " ilçesi " + detail.Unit + " birimine ait projeye" + project.EbysNumber + " EBYS numarasını ekledi";
+                _context.CctvEbysNumbers.Add(new CctvEbysNumbersModel { EbysNumber = project.EbysNumber, DetailId = project.Id });
+                _context.SaveChanges();
+                _log.LogForAdd(log);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool EbysNumberRemove(CctvEbysNumbersModel ebys, CctvModel detail, string UserName)
+        {
+            try
+            {                
+                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + detail.ProjectDistrict + " ilçesi " + detail.Unit + " birimine ait projeden" + ebys.EbysNumber + " EBYS numarasını sildi";
+                _context.CctvEbysNumbers.Remove(ebys);
+                _context.SaveChanges();
+                _log.LogForAdd(log);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+       
 
         public bool CctvEk1Update(CctvEk1Model project, string UserName)
         {
@@ -761,7 +811,7 @@ namespace KgysProjectIdentity.Service.Services
             {
                 var detail = _context.CctvProjectDetail.Find(project.CctvDetailId)!;
                 var picture = _context.CctvPictures.Find(project.Id)!;
-                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + detail.ProjectName + " projesinde" + detail.ProjectDistrict + " ilçesi " + detail.Unit + " projesinedeki "+ picture.PictureUrl+" isimli resmi sildi.";
+                string log = UserName + " isimli kullanıcı " + DateTime.Now + " tarihinde " + detail.ProjectName + " projesinde" + detail.ProjectDistrict + " ilçesi " + detail.Unit + " projesinedeki " + picture.PictureUrl + " isimli resmi sildi.";
                 _context.CctvPictures.Remove(picture);
                 _context.SaveChanges();
                 _log.LogForAdd(log);

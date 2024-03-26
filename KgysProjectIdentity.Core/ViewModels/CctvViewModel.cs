@@ -21,5 +21,6 @@ namespace KgysProjectIdentity.Core.ViewModels
         public string? ProjectReason { get; set; }
         public string? Status { get; set; }
         public List<IFormFile>? Images { get; set; }
+        public string? EbysNumber { get; set; }
     }
 }
