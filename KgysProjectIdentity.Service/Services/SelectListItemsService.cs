@@ -59,6 +59,7 @@ namespace KgysProjectIdentity.Service.Services
            {
                new(){Data="Başlanılmadı", Value="Başlanılmadı"},
                new(){Data="Devam Ediyor", Value="Devam Ediyor"},
+               new(){Data="Projesi Hazır", Value="Projesi Hazır"},
                new(){Data="Tamamlandı", Value="Tamamlandı"},
 
            };

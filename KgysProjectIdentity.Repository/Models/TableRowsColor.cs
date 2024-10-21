@@ -78,6 +78,10 @@
             {
                 typ = "table-dark";
             }
+            if (status == "Projesi Hazır")
+            {
+                typ = "table-info";
+            }
             if (status != null && status != "")
             {
                 if (status.Contains("İptal"))

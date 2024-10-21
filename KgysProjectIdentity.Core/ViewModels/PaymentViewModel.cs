@@ -10,7 +10,8 @@ namespace KgysProjectIdentity.Core.ViewModels
         public DateTime? PaymentDate { get; set; }
         [Required(ErrorMessage = "Ödenek Geliş - Harcama EBYS Numarası Boş Geçilemez.")]
         public string? PaymentEbysNumber { get; set; }
-       
+        public string? PaymentDescription { get; set; }
+
         [Required(ErrorMessage = "Ödenek Tipi Boş Geçilemez.")]
         public string? PaymentType { get; set; }
         [Required(ErrorMessage = "Gelen/Harcanan Ödenek Miktarı Boş Geçilemez.")]

@@ -41,6 +41,7 @@
                 <th>Sıra No</th>
                 <th>Odenek/Harcama Tarihi</th>
                 <th>Ödenek/Harcama EBYS No</th>
+                <th>Ödenek/Harcama Detayı</th>
                 <th>Ödenek/Harcama Türü</th>
                 <th>Ödenek/Harcama Miktarı</th>
                 <th>Sisteme Girildiği Tarih</th>
@@ -65,6 +66,7 @@
                         }
                     </td>
                     <td>@item.PaymentEbysNumber</td>
+                    <td>@item.PaymentDescription</td>
                     <td>@item.PaymentType</td>
                     <td>@item.PaymentPrice</td>
                     <td>@item.UpdateDate</td>
@@ -112,7 +114,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Dikkat</h1>
+                <h1 class="modal-title fs-5">Ödenek Ekleme Modülü</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -131,6 +133,11 @@
                         <label asp-for="PaymentEbysNumber" class="form-label">EBYS Numarası :</label>
                         <input type="text" class="form-control" asp-for="PaymentEbysNumber">
                         <span class="text-danger" asp-validation-for="PaymentEbysNumber"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PaymentDescription" class="form-label">Ödenek Detayı :</label>
+                        <input type="text" class="form-control" asp-for="PaymentDescription">
+                        <span class="text-danger" asp-validation-for="PaymentDescription"></span>
                     </div>
                     <div class="mb-3">
                         <label asp-for="PaymentCodeId" class="form-label">Ödenek/Harcama Kalemi :</label>

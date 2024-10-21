@@ -5,6 +5,7 @@
         public int Id { get; set; }
         public DateTime? PaymentDate { get; set; }
         public string? PaymentEbysNumber { get; set; }
+        public string? PaymentDescription { get; set; }
         public string? PaymentType { get; set; }
         public int PaymentPrice { get; set; }
         public int PaymentCodeId { get; set; }
