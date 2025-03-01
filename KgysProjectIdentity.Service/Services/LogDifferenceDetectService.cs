@@ -1860,5 +1860,45 @@ namespace KgysProjectIdentity.Service.Services
             difference += "bilgileri olacak şekilde Cctv Projesi EK-1 malzeme bilgilerini güncelledi.";
             return difference;
         }
+
+        public string SpareMaterialUpdate(SpareMaterialsModel newRequest)
+        {
+            var exRequest = _context.SpareMaterials.AsNoTracking().Where(x => x.Id == newRequest.Id).FirstOrDefault()!;
+            string difference = " ";
+            if (newRequest.Properties!= exRequest.Properties)
+            {
+                difference += exRequest.Properties + " özelliğini " + newRequest.Properties + ", ";
+            }
+            if (newRequest.MaterialDetails!= exRequest.MaterialDetails)
+            {
+                difference += exRequest.MaterialDetails + " birimin " + newRequest.MaterialDetails + ", ";
+            }
+            if (newRequest.Pieces != exRequest.Pieces)
+            {
+                difference += exRequest.Pieces + " adetini " + newRequest.Pieces + ", ";
+            }
+            if (newRequest.Measurement != exRequest.Measurement)
+            {
+                difference += exRequest.Measurement + " Ölçütünü, " + newRequest.Measurement + ", ";
+            }
+            if (newRequest.Descriptions!= exRequest.Descriptions)
+            {
+                difference += exRequest.Descriptions+ " açıklamasını," + newRequest.Descriptions+ ", ";
+            }
+            if (newRequest.UpdateDate != exRequest.UpdateDate)
+            {
+                difference += exRequest.UpdateDate + " talep/alım tarihini," + newRequest.UpdateDate + ", ";
+            }
+            if (newRequest.EBYSNo != exRequest.EBYSNo)
+            {
+                difference += exRequest.EBYSNo + " ebys numarasını," + newRequest.EBYSNo + ", ";
+            }
+            if (newRequest.WhoWantIt != exRequest.WhoWantIt)
+            {
+                difference += exRequest.WhoWantIt + " talep edeni," + newRequest.WhoWantIt + ", ";
+            }
+            difference += "bilgileri olacak şekilde güncelledi.";
+            return difference;
+        }
     }
 }

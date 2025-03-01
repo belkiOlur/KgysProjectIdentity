@@ -79,8 +79,9 @@ namespace KgysProjectIdentity.Repository.Models
         public DbSet<CctvProjectPictureModel> CctvPictures { get; set; }
         public DbSet<CctvEbysNumbersModel> CctvEbysNumbers { get; set; }
         public DbSet<SpareMaterialDefinationsModel> SpareMaterialDefinations { get; set; }
-
         public DbSet<SpareMaterialsModel> SpareMaterials { get; set; }
+        public DbSet<SpareMaterialDetailsModel> SpareMaterialDetails { get; set; }
+        public DbSet<SpareMaterialsMeasurementModel> SpareMaterialsMeasurement { get; set; }
 
     }
 

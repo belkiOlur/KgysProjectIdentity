@@ -7,16 +7,19 @@ namespace KgysProjectIdentity.Service.Services
     {
         IEnumerable<SpareMaterialsModel> GetSpareMaterials();
         IEnumerable<SpareMaterialsModel> GetSpareMaterialsDetail(int id);
+        SpareMaterialsModel GetSpareMaterialsById(int id);
         string AddSpareMaterialDefinations(SpareMaterialDefinationsViewModel spareMaterialDefinations, string UserName);
         string UpdateSpareMaterialDefinations(SpareMaterialDefinationsViewModel spareMaterials, string UserName);
         string RemoveSpareMaterialDefinations(int id, string UserName);
 
         string AddSpareMaterialDetail(SpareMaterialsViewModel spareMaterials, string UserName);
+        string UpdateSpareMaterialDetail(SpareMaterialsModel spareMaterials, string UserName);
         string RemoveSpareMaterialDetail(int id, string UserName);
         List<SpareMaterialDefinationsModel> GetTopMaterials();
         string GetMiddleMaterialsName(int materialCode);
         List<SpareMaterialDefinationsModel> GetMiddleMaterials(int id);
         string SpareMaterialDefinationsName(int id);
+        int GetSpareMatarialsCodeFromId(int id);
 
     }
 }

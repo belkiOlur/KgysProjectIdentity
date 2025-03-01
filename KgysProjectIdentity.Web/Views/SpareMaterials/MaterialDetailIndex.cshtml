@@ -1,0 +1,124 @@
+﻿@{
+    ViewData["Title"] = "MaterialDetailIndex";
+    int i = 0;
+    string talepMi = "";
+}
+@model SpareMaterialsViewModel
+
+<style>
+    td {
+        width: auto;
+    }
+</style>
+<div class="container d-flex flex-column justify-content-center text-center">
+    <h1>@ViewBag.PageName Yedek Malzeme Talepleri</h1>
+    <div class="col-md-8 text-center">
+        @if (TempData["status"] != null)
+        {
+            <div class="alert alert-success text-center" role="alert">
+                @TempData["status"]
+            </div>
+
+        }
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @TempData["error"]
+            </div>
+
+        }
+    </div>
+</div>
+<div class="container-fluid mt-lg-5">
+
+    <a class="btn btn-secondary" role="button" asp-controller="" asp-action="">Excele Aktar</a>
+    <a class="btn btn-secondary" role="button" asp-controller="SpareMaterials" asp-action="MaterialDetailAdd" asp-route-id="@ViewBag.SpareMaterialsCode">Talep/Alım Ekle</a>
+
+
+    <div id="content" class="offset-9 form-group pull-right mb-3">
+        <input type="text" class="search form-control" placeholder="Aranılacak Kelimeyi Giriniz" style="width:300px">
+        <span class="counter pull-right"></span>
+    </div>
+
+    <table class="table table-striped table-hover text-center table-bordered results" style="vertical-align:middle; text-transform:capitalize">
+        <thead>
+            <tr class="table-light">
+                <th>Sıra No</th>
+                <th>Özelliği</th>
+                <th>Birimi</th>
+                <th>Adet</th>
+                <th>Ölçütü</th>
+                <th>Açıklama</th>
+                <th>Talep/Alım</th>
+                <th>EBYS No</th>
+                <th>Talep Tarihi</th>
+                <th>Talep Eden</th>
+                <th style="width:150px">İşlem</th>
+            </tr>
+            <tr class="warning no-result">
+                <td colspan="5"><i class="fa fa-warning"></i> No result</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Materials)
+            {
+                i++;
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@item.Properties</td>
+                    <td>@item.MaterialDetails</td>
+                    <td>@item.Pieces</td>
+                    <td>@item.Measurement</td>
+                    <td>@item.Descriptions</td>
+                    <td>
+                        @if (item.RequestOrGet == 1)
+                        {
+                            talepMi = "Talep";
+                        }
+                        else
+                        {
+                            talepMi = "Alım";
+                        }
+                        @talepMi
+                    </td>
+                    <td>@item.EBYSNo</td>
+                    <td>@item.UpdateDate.ToString("dd.MM.yyyy")</td>
+                    <td>@item.WhoWantIt</td>
+                    <td style="width:150px">
+                        @if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Planlama" || x.Value == "Silme"))
+                        {
+                            @if (User.HasClaim(x => x.Value == "Silme"))
+                            {
+                                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id" data-bs-name="@item.SpareMaterialId">Sil</a>
+                            }
+                            <a class="btn btn-outline-secondary d-md-block" asp-controller="SpareMaterials" asp-action="MaterialDetailUpdate" asp-route-id="@item.Id">Güncelle</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@*Modal Silme*@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>Silmek İstediğinize Emin Misiniz?</h5>
+                <form asp-area="" asp-controller="SpareMaterials" asp-action="RemoveSpareMaterialDetail" method="post">
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <input type="hidden" class="form-control" asp-for="SpareMaterialId" id="recipients-name">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

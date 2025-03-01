@@ -25,7 +25,7 @@ namespace KgysProjectIdentity.Service.Services
             try
             {
                 var spareMaterials = _context.SpareMaterials;
-                return spareMaterials ?? Enumerable.Empty<SpareMaterialsModel>();
+                return spareMaterials;
             }
             catch
             {
@@ -36,7 +36,11 @@ namespace KgysProjectIdentity.Service.Services
         {
             try
             {
-                return _context.SpareMaterials.Where(x => x.Id == id).ToList();
+                return _context.SpareMaterials.Where(x => x.SpareMaterialId == id)
+                    .OrderByDescending(y=>y.UpdateDate)
+                    .ThenBy(z => z.Properties)
+                    .ThenBy(z=>z.MaterialDetails)
+                    .ToList();
             }
             catch
             {
@@ -47,6 +51,7 @@ namespace KgysProjectIdentity.Service.Services
         {
             try
             {
+                spareMaterials.Id=0;
                 _context.SpareMaterials.Add(_mapper.Map<SpareMaterialsModel>(spareMaterials));
                 _context.SaveChanges();
                 donusVerisi = "Yedek Malzeme Başarıyla Eklendi.";
@@ -213,7 +218,10 @@ namespace KgysProjectIdentity.Service.Services
         }
         public List<SpareMaterialsModel> GettingMaterialsProduct(int Id)
         {
-            List<SpareMaterialsModel> productGet = _context.SpareMaterials.Where(x => x.SpareMaterialId == Id).OrderBy(x => x.SpareMaterialId)
+            List<SpareMaterialsModel> productGet = _context.SpareMaterials.Where(x => x.SpareMaterialId == Id)
+                .OrderBy(x => x.SpareMaterialId)
+                .ThenBy(x => x.Properties)
+                .ThenBy(x => x.MaterialDetails)
                 .ToList();
             return productGet;
         }
@@ -287,6 +295,33 @@ namespace KgysProjectIdentity.Service.Services
             }
             name = CapitalizeAfterComma(name.ToLower());
             return name;
+        }
+
+        public int GetSpareMatarialsCodeFromId(int id)
+        {
+            return _context.SpareMaterialDefinations.Find(id)!.SpareMaterialCode;
+        }
+
+        public SpareMaterialsModel GetSpareMaterialsById(int id)
+        {
+           return _context.SpareMaterials.Find(id)!;
+        }
+
+        public string UpdateSpareMaterialDetail(SpareMaterialsModel spareMaterials, string UserName)
+        {
+            try
+            {
+                log = UserName + " kullanıcısı " + DateTime.Now + " tarihinde " + _detect.SpareMaterialUpdate(spareMaterials);
+                _context.SpareMaterials.Update(spareMaterials);
+                _context.SaveChanges();
+                _logService.LogForAdd(log);
+                donusVerisi = "Yedek Malzeme Başarıyla Güncellendi.";
+            }
+            catch
+            {
+                donusVerisi = "Yedek Malzeme Güncellenemedi.";
+            }
+            return donusVerisi;
         }
     }
 }

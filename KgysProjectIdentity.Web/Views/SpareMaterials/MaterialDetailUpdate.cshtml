@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewData["Title"] = "MaterialDetailUpdate";
+}
+
+@model SpareMaterialsModel
+<html>
+<head>
+    <style type="text/css">
+        #menu {
+            display: inline-block;
+            width: 40%;
+        }
+
+        #content {
+            display: inline-block;
+            width: 40%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="col-md-4 offset-md-4">
+        <h1>Detaylı Ürün Ekleme Sayfası</h1>
+        @if (TempData["status"] != null)
+        {
+            <div class="alert alert-success text-center" role="alert">
+                @TempData["status"]
+            </div>
+
+        }
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @TempData["error"]
+            </div>
+
+        }
+    </div>
+    <div class="container">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="SpareMaterials" asp-action="MaterialDetailUpdate" method="post">
+            <div id="menu">
+                <div class="mb-3">
+                    <label asp-for="SpareMaterialId" class="form-label">Ürün Seçiniz:</label>
+                    <select class="form-select" asp-for="SpareMaterialId" asp-items="ViewBag.Materials">
+                    </select>
+                    <span class="text-danger" asp-validation-for="SpareMaterialId"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Properties" class="form-label">Özellik :</label>
+                    <input type="number" class="form-control" asp-for="Properties">
+                    <span class="text-danger" asp-validation-for="Properties"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="MaterialDetails" class="form-label">Birim :</label>
+                    <select class="form-select" asp-for="MaterialDetails" asp-items="ViewBag.MaterialDetailSelectList">
+                    </select>
+                    <span class="text-danger" asp-validation-for="MaterialDetails"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Pieces" class="form-label">Adet :</label>
+                    <input type="number" class="form-control" asp-for="Pieces">
+                    <span class="text-danger" asp-validation-for="Pieces"></span>
+                </div>
+                <div class="mb-2">
+                    <label asp-for="Measurement" class="form-label">Ölçütü :</label>
+                    <select class="form-select" asp-for="Measurement" asp-items="ViewBag.MaterialMeasurementSelectList">
+                    </select>
+                    <span class="text-danger" asp-validation-for="Measurement"></span>
+                </div>
+            </div>
+            <div id="content">
+                <div class="mb-2">
+                    <label asp-for="RequestOrGet" class="form-label">Talep/Alım :</label>
+                    <select class="form-select" asp-for="RequestOrGet" required>
+                        <option></option>
+                        <option value="1">Talep</option>
+                        <option value="2">Alım</option>
+                    </select>
+                    <span class="text-danger" asp-validation-for="RequestOrGet"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="EBYSNo" class="form-label">EBYS No :</label>
+                    <input type="text" class="form-control" asp-for="EBYSNo">
+                    <span class="text-danger" asp-validation-for="EBYSNo"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="WhoWantIt" class="form-label">Talep Eden :</label>
+                    <input type="text" class="form-control" asp-for="WhoWantIt">
+                    <span class="text-danger" asp-validation-for="WhoWantIt"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="UpdateDate" class="form-label">Talep Tarihi :</label>
+                    <input type="datetime" class="form-control" asp-for="UpdateDate" required>
+                    <span class="text-danger" asp-validation-for="UpdateDate"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Descriptions" class="form-label">Açıklama :</label>
+                    <input type="text" class="form-control" asp-for="Descriptions">
+                    <span class="text-danger" asp-validation-for="Descriptions"></span>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <button type="submit" class="btn btn-outline-primary d-md-block">Kaydet</button>
+            </div>
+
+
+        </form>
+
+    </div>
+    @section Scripts {
+
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+        <script src="~/lib/jquery-validation/dist/messages_tr.js"></script>
+    }
+</body>
+</html>
+
+

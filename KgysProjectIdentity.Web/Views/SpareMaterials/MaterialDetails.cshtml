@@ -3,18 +3,19 @@
 @{
     ViewData["Title"] = "MaterialDetails";
     int i = 0;
+    string productName = "";
 }
 
 @inject SpareMaterialsService spareMateialsService
 @model SpareMaterialDefinationsViewModel
 <style>
     td {
-    width: auto;
+        width: auto;
     }
 </style>
-<div class="container d-flex flex-column justify-content-center">
-    <div class="col-md-8 text-center">
-        <h1>@ViewBag.PageName Yedek Malzeme Talepleri</h1>
+<div class="container d-flex flex-column justify-content-center text-center">
+    <h1>@ViewBag.PageName Yedek Malzeme Talepleri</h1>
+    <div class="col-md-8 text-center">        
         @if (TempData["status"] != null)
         {
             <div class="alert alert-success text-center" role="alert">
@@ -35,7 +36,7 @@
 
     <a class="btn btn-secondary" role="button" asp-controller="" asp-action="">Excele Aktar</a>
     <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="text-decoration:none;cursor:pointer">Y.Malzeme Ekle</a>
-    <a >Alım/Talep Ekle</a>
+    <a class="btn btn-secondary" role="button" asp-controller="SpareMaterials" asp-action="MaterialDetailAdd" asp-route-id="@ViewBag.SpareMaterialsCode">Talep/Alım Ekle</a>
 
 
     <div id="content" class="offset-9 form-group pull-right mb-3">
@@ -68,7 +69,7 @@
                     @{
                         string materialName = spareMateialsService.CapitalizeAfterComma(item.SpareMaterialName.ToLower());
                     }
-                    <td><a role="button" asp-controller="WareHouse" asp-action="MaterialsDetailIndex" asp-route-id="@item.Id">@materialName</a></td>
+                    <td><a role="button" asp-controller="SpareMaterials" asp-action="MaterialDetailIndex" asp-route-id="@item.Id">@materialName</a></td>
                     @{
                         List<SpareMaterialsModel> productGet = spareMateialsService.GettingMaterialsProduct(item.Id);
 
@@ -78,7 +79,11 @@
                             @foreach (var product in productGet)
                             {
                                 string materialsProducts = product.Properties + " " + product.MaterialDetails + " = " + Convert.ToString(spareMateialsService.GetMaterialsProductDetailCount(product.Properties, product.MaterialDetails!, item.Id)) + " " + product.Measurement;
-                                <li style="list-style-type:none">@materialsProducts</li>
+                                @if (productName != materialsProducts)
+                                {
+                                    productName = materialsProducts;
+                                    <li style="list-style-type:none">@materialsProducts</li>
+                                }
                             }
 
                         </ul>
@@ -97,7 +102,7 @@
                             {
                                 <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id">Sil</a>
                             }
-                            <a data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id">Güncelle</a>
+                            <a data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id" data-bs-name="@materialName">Güncelle</a>
                         }
                     </td>
                 </tr>
