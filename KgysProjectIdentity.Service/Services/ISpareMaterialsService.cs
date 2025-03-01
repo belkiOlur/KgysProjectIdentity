@@ -16,6 +16,7 @@ namespace KgysProjectIdentity.Service.Services
         List<SpareMaterialDefinationsModel> GetTopMaterials();
         string GetMiddleMaterialsName(int materialCode);
         List<SpareMaterialDefinationsModel> GetMiddleMaterials(int id);
+        string SpareMaterialDefinationsName(int id);
 
     }
 }

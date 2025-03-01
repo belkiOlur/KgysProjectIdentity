@@ -6,33 +6,36 @@
 }
 
 @inject SpareMaterialsService spareMateialsService
-@model SpareMaterialsViewModel
+@model SpareMaterialDefinationsViewModel
 <style>
     td {
-        width: auto;
+    width: auto;
     }
 </style>
-<div class="col-md-4 offset-md-4 text-center">
-    <h1>Hali Hazırda Bulunan Ürünler</h1>
-    @if (TempData["status"] != null)
-    {
-        <div class="alert alert-success text-center" role="alert">
-            @TempData["status"]
-        </div>
+<div class="container d-flex flex-column justify-content-center">
+    <div class="col-md-8 text-center">
+        <h1>@ViewBag.PageName Yedek Malzeme Talepleri</h1>
+        @if (TempData["status"] != null)
+        {
+            <div class="alert alert-success text-center" role="alert">
+                @TempData["status"]
+            </div>
 
-    }
-    @if (TempData["error"] != null)
-    {
-        <div class="alert alert-danger text-center" role="alert">
-            @TempData["error"]
-        </div>
+        }
+        @if (TempData["error"] != null)
+        {
+            <div class="alert alert-danger text-center" role="alert">
+                @TempData["error"]
+            </div>
 
-    }
+        }
+    </div>
 </div>
 <div class="container mt-lg-5">
 
-    <a class="btn btn-secondary" role="button" asp-controller="WareHouse" asp-action="CreateExcel">Excele Aktar</a>
-    <a id="btnSubmit" type="button" class="btn btn-secondary" asp-controller="WareHouse" asp-action="MaterialsDetailAdd">Ürün Ekle</a>
+    <a class="btn btn-secondary" role="button" asp-controller="" asp-action="">Excele Aktar</a>
+    <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="text-decoration:none;cursor:pointer">Y.Malzeme Ekle</a>
+    <a >Alım/Talep Ekle</a>
 
 
     <div id="content" class="offset-9 form-group pull-right mb-3">
@@ -62,8 +65,10 @@
                 rowspanCount = spareMateialsService.GetMaterialsProductCount(item.Id);
                 <tr>
                     <th scope="row">@i</th>
-
-                    <td><a role="button" asp-controller="WareHouse" asp-action="MaterialsDetailIndex" asp-route-id="@item.Id">@Char.ToUpper(item.SpareMaterialName[0])@item.SpareMaterialName.Substring(1)</a></td>
+                    @{
+                        string materialName = spareMateialsService.CapitalizeAfterComma(item.SpareMaterialName.ToLower());
+                    }
+                    <td><a role="button" asp-controller="WareHouse" asp-action="MaterialsDetailIndex" asp-route-id="@item.Id">@materialName</a></td>
                     @{
                         List<SpareMaterialsModel> productGet = spareMateialsService.GettingMaterialsProduct(item.Id);
 
@@ -72,7 +77,7 @@
                         <ul>
                             @foreach (var product in productGet)
                             {
-                                string materialsProducts = product.Properties + " " + product.MaterialDetails + " = " + Convert.ToString(spareMateialsService.GetMaterialsProductDetailCount(product.Properties, product.MaterialDetails!, item.Id)) + " "+product.Measurement;
+                                string materialsProducts = product.Properties + " " + product.MaterialDetails + " = " + Convert.ToString(spareMateialsService.GetMaterialsProductDetailCount(product.Properties, product.MaterialDetails!, item.Id)) + " " + product.Measurement;
                                 <li style="list-style-type:none">@materialsProducts</li>
                             }
 
@@ -83,7 +88,7 @@
                             count = spareMateialsService.GetMaterialsCount(item.Id);
                         }
                         @count
-                    </td>                 
+                    </td>
 
                     <td style="width:150px">
                         @if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Hat" || x.Value == "Silme"))
@@ -101,45 +106,48 @@
     </table>
 </div>
 
-@*Modal*@
+@*Modal Ürün Ekle*@
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Dikkat</h1>
+                <h1 class="modal-title fs-5">Ürün Ekleme </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
             <div class="modal-body">
-                Silmek İstediğinize Emin Misiniz?
-                <form asp-area="" asp-controller="WareHouse" asp-action="MaterialRemove" method="post">
-
-                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                <h5>Lütfen Yeni Ürün Adını Giriniz</h5>
+                <form asp-area="" asp-controller="SpareMaterials" asp-action="AddSpareMaterialDefinations" method="post">
+                    <div class="mb-2 mt-2">
+                        <label asp-for="SpareMaterialName">Malzeme Adı:</label>
+                        <input type="text" asp-for="SpareMaterialName" class="form-control" />
+                        <span class="text-danger" asp-validation-for="SpareMaterialName"></span>
+                    </div>
+                    <input asp-for="SpareMaterialCode" type="hidden" value="@ViewBag.SpareMaterialsCode" />
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
-                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                        <button type="submit" class="btn btn-primary d-md-block">Ekle</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-@*Modal*@
-<div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdroppLabel" aria-hidden="true">
+@*Modal Ürün Güncelle*@
+<div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Ürün İsmi Güncelleme</h1>
+                <h1 class="modal-title fs-5">Ürün Ekleme </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
             <div class="modal-body">
-                <h2>Lütfen Ürünün Yeni Adını Giriniz</h2>
-                <form asp-area="" asp-controller="WareHouse" asp-action="MaterialUpdate" method="post">
+                <h5>Lütfen Yeni Ürün Adını Giriniz</h5>
+                <form asp-area="" asp-controller="SpareMaterials" asp-action="UpdateSpareMaterialDefinations" method="post">
                     <div class="mb-2 mt-2">
-                        <input class="form-control" type="text" asp-for="Id" required />
+                        <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                        <input type="text" asp-for="SpareMaterialName" class="form-control" id="recipients-name" />
+                        <span class="text-danger" asp-validation-for="SpareMaterialName"></span>
                     </div>
-                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
@@ -150,13 +158,27 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
+@*Modal Silme*@
+<div class="modal fade" id="staticBackdropSil" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropSilLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Dikkat</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>Silmek İstediğinize Emin Misiniz?</h5>
+                <form asp-area="" asp-controller="SpareMaterials" asp-action="RemoveSpareMaterialDefinations" method="post">
+                    <input type="hidden" class="form-control" asp-for="Id" id="recipient-name">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeçtim</button>
+                        <button type="submit" class="btn btn-danger d-md-block">Sil</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts
 {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

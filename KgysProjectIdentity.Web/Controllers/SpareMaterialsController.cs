@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using KgysProjectIdentity.Core.ViewModels;
+using KgysProjectIdentity.Repository.Models;
 using KgysProjectIdentity.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace KgysProjectIdentity.Web.Controllers
 {
@@ -13,7 +15,6 @@ namespace KgysProjectIdentity.Web.Controllers
         private readonly ISelectListItemsService _selectItems;
         private readonly ISpareMaterialsService _spareMaterialsService;
         private string UserName => User.Identity!.Name!;
-
         private string donusVerisi = "";
         public SpareMaterialsController(IMapper mapper, ISelectListItemsService selectItems, ISpareMaterialsService spareMaterialsService)
         {
@@ -54,6 +55,7 @@ namespace KgysProjectIdentity.Web.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpPost]
         public IActionResult UpdateSpareMaterialDefinations(SpareMaterialDefinationsViewModel model)
         {
             donusVerisi = _spareMaterialsService.UpdateSpareMaterialDefinations(model, UserName);
@@ -69,9 +71,11 @@ namespace KgysProjectIdentity.Web.Controllers
         }
         public IActionResult MaterialDetails(int Id)
         {
+            ViewBag.PageName= _spareMaterialsService.SpareMaterialDefinationsName(Id);
             ViewBag.Materials = _spareMaterialsService.GetMiddleMaterials(Id);
+            ViewBag.SpareMaterialsCode = Id;
             return View();
         }
-
+      
     }
 }

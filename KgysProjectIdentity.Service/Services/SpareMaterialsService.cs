@@ -42,9 +42,9 @@ namespace KgysProjectIdentity.Service.Services
             {
                 return Enumerable.Empty<SpareMaterialsModel>();
             }
-        }       
+        }
         public string AddSpareMaterialDetail(SpareMaterialsViewModel spareMaterials, string UserName)
-        {            
+        {
             try
             {
                 _context.SpareMaterials.Add(_mapper.Map<SpareMaterialsModel>(spareMaterials));
@@ -121,7 +121,7 @@ namespace KgysProjectIdentity.Service.Services
             }
             return name;
         }
-        static string CapitalizeAfterComma(string input)
+        public string CapitalizeAfterComma(string input)
         {
             string donus = string.Join(", ", input
                 .Split(',')
@@ -129,15 +129,22 @@ namespace KgysProjectIdentity.Service.Services
             return donus;
         }
 
-        public string AddSpareMaterialDefinations(SpareMaterialDefinationsViewModel spareMaterialDefinations,string UserName)
+        public string AddSpareMaterialDefinations(SpareMaterialDefinationsViewModel spareMaterialDefinations, string UserName)
         {
             try
             {
-                spareMaterialDefinations.Sorted = 1;
-                spareMaterialDefinations.SpareMaterialCode = 0;
+                if (spareMaterialDefinations.SpareMaterialCode == 0)
+                {
+                    spareMaterialDefinations.Sorted = 1;
+                    spareMaterialDefinations.SpareMaterialCode = 0;
+                }
+                else
+                {
+                    spareMaterialDefinations.Sorted = 2;
+                }
                 _context.SpareMaterialDefinations.Add(_mapper.Map<SpareMaterialDefinationsModel>(spareMaterialDefinations));
                 _context.SaveChanges();
-                _logService.LogForAdd($"{UserName} tarafından {DateTime.Now} tarihinde {spareMaterialDefinations.SpareMaterialName} isimli Yedek Malzeme Ana Başlığı Eklendi");
+                _logService.LogForAdd($"{UserName} tarafından {DateTime.Now} tarihinde {spareMaterialDefinations.SpareMaterialName} isimli Yedek Malzeme Başlığı Eklendi");
                 donusVerisi = "Yedek Malzeme Başarıyla Eklendi.";
             }
             catch
@@ -152,12 +159,12 @@ namespace KgysProjectIdentity.Service.Services
         {
             try
             {
-                if (_context.SpareMaterialDefinations.Any(x => x.SpareMaterialCode == id))
+                if (_context.SpareMaterialDefinations.Any(x => x.SpareMaterialCode == id) || _context.SpareMaterials.Any(x => x.SpareMaterialId == id))
                 {
-                    return "Bu Yedek Malzeme Ana Başlığına Bağlı Yedek Malzemeler bulunmaktadır. Önce bu Yedek Malzemeleri Siliniz.";
+                    return "Bu Yedek Malzeme Başlığına Bağlı Yedek Malzemeler veya Talepler Bulunmaktadır. Önce Bu Yedek Malzemeleri veya Talepleri Siliniz.";
                 }
                 var request = _context.SpareMaterialDefinations.Find(id)!;
-                log = $"{UserName} tarafından {DateTime.Now} tarihinde {request.SpareMaterialName} isimli Yedek Malzeme Ana Başlığı Sildi";
+                log = $"{UserName} tarafından {DateTime.Now} tarihinde {request.SpareMaterialName} isimli Yedek Malzeme Başlığını Sildi";
                 _context.SpareMaterialDefinations.Remove(request!);
                 _context.SaveChanges();
                 _logService.LogForAdd(log);
@@ -165,16 +172,16 @@ namespace KgysProjectIdentity.Service.Services
             }
             catch
             {
-                donusVerisi = "Yedek MalzemeSilinemedi.";
+                donusVerisi = "Yedek Malzeme Silinemedi.";
             }
-            return donusVerisi;  
+            return donusVerisi;
         }
         public string UpdateSpareMaterialDefinations(SpareMaterialDefinationsViewModel spareMaterials, string UserName)
         {
             try
             {
                 var material = _context.SpareMaterialDefinations.Find(spareMaterials.Id)!;
-                log = UserName + " kullanıcısı " + DateTime.Now + " tarihinde " + material.SpareMaterialName + " isimli yedek malzeme ana başlığını " + spareMaterials.SpareMaterialName+" olarak güncelledi.";
+                log = UserName + " kullanıcısı " + DateTime.Now + " tarihinde " + material.SpareMaterialName + " isimli yedek malzeme ana başlığını " + spareMaterials.SpareMaterialName + " olarak güncelledi.";
                 material.SpareMaterialName = spareMaterials.SpareMaterialName;
                 _context.SpareMaterialDefinations.Update(material);
                 _context.SaveChanges();
@@ -183,7 +190,7 @@ namespace KgysProjectIdentity.Service.Services
             }
             catch
             {
-                donusVerisi= "Yedek Malzeme Güncellenemedi.";
+                donusVerisi = "Yedek Malzeme Güncellenemedi.";
             }
             return donusVerisi;
         }
@@ -210,17 +217,17 @@ namespace KgysProjectIdentity.Service.Services
                 .ToList();
             return productGet;
         }
-        public int GetMaterialsProductDetailCount(int properties,string materialDetails, int Id)
+        public int GetMaterialsProductDetailCount(int properties, string materialDetails, int Id)
         {
             try
             {
                 int pieces = 0;
-                var material = _context.SpareMaterials.Where(x => x.SpareMaterialId == Id && x.Properties == properties&& x.MaterialDetails==materialDetails).ToList();
-                foreach(var item in material)
+                var material = _context.SpareMaterials.Where(x => x.SpareMaterialId == Id && x.Properties == properties && x.MaterialDetails == materialDetails).ToList();
+                foreach (var item in material)
                 {
-                    if (item.RequestOrGet==1)
+                    if (item.RequestOrGet == 1)
                     {
-                        pieces= pieces + item.Pieces;
+                        pieces = pieces + item.Pieces;
                     }
                     else
                     {
@@ -265,6 +272,21 @@ namespace KgysProjectIdentity.Service.Services
             {
                 return 0;
             }
+        }
+
+        public string SpareMaterialDefinationsName(int id)
+        {
+            string name = "";
+            try
+            {
+                name = _context.SpareMaterialDefinations.Find(id)!.SpareMaterialName!;
+            }
+            catch
+            {
+                name = "";
+            }
+            name = CapitalizeAfterComma(name.ToLower());
+            return name;
         }
     }
 }

@@ -79,6 +79,7 @@
                 <form asp-area="" asp-controller="SpareMaterials" asp-action="AddSpareMaterialDefinations" method="post">
                     <div class="mb-2 mt-2">
                         <input type="text" asp-for="SpareMaterialName" class="form-control" />
+                        <input type="hidden" class="form-control" asp-for="SpareMaterialCode" value="0">
                         <span class="text-danger" asp-validation-for="SpareMaterialName"></span>
                     </div>
 
