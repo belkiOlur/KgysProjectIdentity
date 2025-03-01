@@ -13,6 +13,7 @@ namespace KgysProjectIdentity.Web.Areas.Admin.Extensions
             //Dependency Injection olması için yazıldı
             services.AddScoped<GetProject>();
             services.AddScoped<Telecom>();
+            services.AddTransient<SpareMaterialsService>();
             services.AddScoped<ILogDifferenceDetectService, LogDifferenceDetectService>();
             services.AddScoped<IEmailService, EmailService>(); //Email için konuldu
             services.AddScoped<IMemberService, MemberService>();
@@ -31,6 +32,7 @@ namespace KgysProjectIdentity.Web.Areas.Admin.Extensions
             services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<IIpPhoneService, IpPhoneService>();
             services.AddScoped<ICctvService, CctvService>();
+            services.AddScoped<ISpareMaterialsService, SpareMaterialsService>();
             services.Configure<DataProtectionTokenProviderOptions>(options =>
             {
                 options.TokenLifespan = TimeSpan.FromMinutes(30);

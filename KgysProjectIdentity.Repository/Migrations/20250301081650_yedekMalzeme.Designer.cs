@@ -4,6 +4,7 @@ using KgysProjectIdentity.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KgysProjectIdentity.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250301081650_yedekMalzeme")]
+    partial class yedekMalzeme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1450,7 +1453,7 @@ namespace KgysProjectIdentity.Repository.Migrations
                     b.ToTable("SecurityCode");
                 });
 
-            modelBuilder.Entity("KgysProjectIdentity.Repository.Models.SpareMaterialDefinationsModel", b =>
+            modelBuilder.Entity("KgysProjectIdentity.Repository.Models.SpareMaterialDefinations", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1458,11 +1461,8 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Sorted")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SpareMaterialCode")
-                        .HasColumnType("int");
+                    b.Property<string>("Sorted")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SpareMaterialName")
                         .HasColumnType("nvarchar(max)");
@@ -1472,7 +1472,7 @@ namespace KgysProjectIdentity.Repository.Migrations
                     b.ToTable("SpareMaterialDefinations");
                 });
 
-            modelBuilder.Entity("KgysProjectIdentity.Repository.Models.SpareMaterialsModel", b =>
+            modelBuilder.Entity("KgysProjectIdentity.Repository.Models.SpareMaterials", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1483,26 +1483,11 @@ namespace KgysProjectIdentity.Repository.Migrations
                     b.Property<string>("MaterialDetails")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Measurement")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Pieces")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Properties")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RequestOrGet")
                         .HasColumnType("int");
 
                     b.Property<int>("SpareMaterialId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdateUser")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

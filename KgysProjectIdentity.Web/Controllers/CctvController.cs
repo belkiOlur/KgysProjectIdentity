@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace KgysProjectIdentity.Web.Controllers
 {

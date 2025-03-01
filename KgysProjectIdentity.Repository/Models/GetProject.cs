@@ -105,7 +105,6 @@ namespace KgysProjectIdentity.Repository.Models
         public int GetMaterialsProductCount(string value)
         {
             var id = _context.Materials.Where(x => x.Material == value).FirstOrDefault()!.Id;
-
             var count = _context.MaterialsProductsModels.Where(x => x.ProductId == id).ToList();
             return (count.Count);
         }

@@ -4,6 +4,7 @@ using KgysProjectIdentity.Repository.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KgysProjectIdentity.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250301093747_yedekMalzemeDuzenlme2")]
+    partial class yedekMalzemeDuzenlme2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1483,16 +1486,7 @@ namespace KgysProjectIdentity.Repository.Migrations
                     b.Property<string>("MaterialDetails")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Measurement")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Pieces")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Properties")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RequestOrGet")
                         .HasColumnType("int");
 
                     b.Property<int>("SpareMaterialId")

@@ -29,7 +29,8 @@ namespace KgysProjectIdentity.Service.Mapping
             CreateMap<CctvModel, CctvViewModel>().ReverseMap();
             CreateMap<CctvProjectModel, CctvProjectViewModel>().ReverseMap();
             CreateMap<CctvProductsModel, CctvProductsViewModel>().ReverseMap();
-
+            CreateMap<SpareMaterialDefinationsModel, SpareMaterialDefinationsViewModel>().ReverseMap();
+            CreateMap<SpareMaterialsModel, SpareMaterialsViewModel>().ReverseMap();
         }
     }
 }

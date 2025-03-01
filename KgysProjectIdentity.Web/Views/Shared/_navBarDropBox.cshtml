@@ -159,15 +159,25 @@
         }
     </li>
     <li class="nav-item dropdown" id="myDropdown">
-        @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "Admin" || x.Value == "PlanlamaAmiri" || x.Value == "Depo" || x.Value == "Yönetici"))
+        @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "Admin" || x.Value == "PlanlamaAmiri" || x.Value == "Depo" || x.Value == "Planlama" || x.Value == "Yönetici"))
         {
             <button class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown"> Malzemeler </button>
             <ul class="dropdown-menu" style="background-color:black">
+            @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "Admin" || x.Value == "PlanlamaAmiri" || x.Value == "Depo" || x.Value == "Yönetici"))
+            {
                 <li class="nav-item">
                     <a id="btnSubmit" type="button" class="nav-link text-light " asp-area="" asp-controller="WareHouse" asp-action="Index">İşlemler</a>
                 </li>
+            }
+                @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "Admin" || x.Value == "Planlama" || x.Value == "PlanlamaAmiri" || x.Value == "Yönetici"))
+            {
+                <li class="nav-item">
+                    <a id="btnSubmit" type="button" class="nav-link text-light " asp-area="" asp-controller="SpareMaterials" asp-action="Index">Yedek Malzeme</a>
+                </li>
+            }
             </ul>
-        }
+        }      
+        
     </li>
     <a class="nav-link text-light " asp-area="" asp-controller="Calender" asp-action="Index">İzin Modülü</a>
 }

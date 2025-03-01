@@ -1,6 +1,4 @@
 ﻿using KgysProjectIdentity.Repository.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Web.Mvc;
 
 namespace KgysProjectIdentity.Service.Services
 {

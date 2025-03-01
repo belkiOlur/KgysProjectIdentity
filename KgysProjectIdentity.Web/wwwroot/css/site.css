@@ -162,7 +162,24 @@ td {
         opacity: 0;
     }
 }
+/*Dönen Kutu*/
+.animated-box {
+    width: 100px;
+    height: 100px;
+    background-color: #3498db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: transform 0.5s ease-in-out;
+}
 
+    .animated-box:hover {
+        transform: rotate(360deg);
+    }
 
 /*.dropdown*/
 @media all and (min-width: 992px) {
