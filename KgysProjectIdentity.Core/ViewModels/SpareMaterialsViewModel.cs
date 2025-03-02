@@ -16,12 +16,13 @@ namespace KgysProjectIdentity.Core.ViewModels
         public int Pieces { get; set; }
         [Required(ErrorMessage = "Malzeme Ölçütü Boş Geçilemez.")]
         public string? Measurement { get; set; }
+        public string? Descriptions { get; set; }
         [Required(ErrorMessage = "Talep/Alım Boş Geçilemez.")]
         public int RequestOrGet { get; set; }
         [Required(ErrorMessage = "Talep Tarihi Boş Geçilemez.")]
         public DateTime? UpdateDate { get; set; }
         public string? EBYSNo { get; set; }
         public string? WhoWantIt { get; set; }
-        public string? Descriptions { get; set; }
+        public int TenderId { get; set; }
     }
 }

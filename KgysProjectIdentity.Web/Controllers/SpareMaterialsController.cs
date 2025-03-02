@@ -27,6 +27,7 @@ namespace KgysProjectIdentity.Web.Controllers
         private SelectList MaterialDefinationsSelectList => new(_context.SpareMaterialDefinations, "Id", "SpareMaterialName");
         private SelectList MaterialDetailSelectList => new(_context.SpareMaterialDetails, "Detail", "Detail");
         private SelectList MaterialMeasurementSelectList => new(_context.SpareMaterialsMeasurement, "Measurement", "Measurement");
+        private SelectList TenderSelectList => new(_context.TenderProjects.OrderByDescending(x=>x.UpdatedTime), "Id", "ProjectName");
         public IActionResult Index()
         {
             ViewBag.TopMaterials = _spareMaterialsService.GetTopMaterials();
@@ -86,6 +87,7 @@ namespace KgysProjectIdentity.Web.Controllers
             ViewBag.MaterialDetailSelectList = MaterialDetailSelectList;
             ViewBag.MaterialMeasurementSelectList = MaterialMeasurementSelectList;
             ViewBag.Materials = new SelectList(_context.SpareMaterialDefinations.Where(x=>x.SpareMaterialCode==Id), "Id", "SpareMaterialName");
+            ViewBag.TenderSelectList = TenderSelectList;
             return View();
         }
         [HttpPost]

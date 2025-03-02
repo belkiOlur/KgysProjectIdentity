@@ -14,6 +14,7 @@ namespace KgysProjectIdentity.Web.Areas.Admin.Extensions
             services.AddScoped<GetProject>();
             services.AddScoped<Telecom>();
             services.AddTransient<SpareMaterialsService>();
+            services.AddTransient<TenderService>();
             services.AddScoped<ILogDifferenceDetectService, LogDifferenceDetectService>();
             services.AddScoped<IEmailService, EmailService>(); //Email için konuldu
             services.AddScoped<IMemberService, MemberService>();

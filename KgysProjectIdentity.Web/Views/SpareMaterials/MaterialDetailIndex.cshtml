@@ -1,10 +1,12 @@
-﻿@{
+﻿@using KgysProjectIdentity.Service.Services
+@{
     ViewData["Title"] = "MaterialDetailIndex";
     int i = 0;
     string talepMi = "";
+    string tenderName = "";
 }
 @model SpareMaterialsViewModel
-
+@inject TenderService _tender;
 <style>
     td {
         width: auto;
@@ -51,8 +53,9 @@
                 <th>Açıklama</th>
                 <th>Talep/Alım</th>
                 <th>EBYS No</th>
-                <th>Talep Tarihi</th>
-                <th>Talep Eden</th>
+                <th>Talep/Alım Tarihi</th>
+                <th>Talep/Alım Aypan</th>
+                <th>Alınan İhale</th>
                 <th style="width:150px">İşlem</th>
             </tr>
             <tr class="warning no-result">
@@ -84,6 +87,17 @@
                     <td>@item.EBYSNo</td>
                     <td>@item.UpdateDate.ToString("dd.MM.yyyy")</td>
                     <td>@item.WhoWantIt</td>
+                    <td>
+                        @if(item.TenderId==0)
+                        {
+                            tenderName = "-";
+                        }
+                        else
+                        {
+                            tenderName = _tender.FindTendersName(item.TenderId);
+                        }
+                        <a>@tenderName</a>
+                    </td>
                     <td style="width:150px">
                         @if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Planlama" || x.Value == "Silme"))
                         {
