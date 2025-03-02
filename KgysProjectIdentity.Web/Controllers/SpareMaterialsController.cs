@@ -129,9 +129,9 @@ namespace KgysProjectIdentity.Web.Controllers
             }
             return RedirectToAction("MaterialDetailIndex", new { Id = newId });
         }
-        public IActionResult MaterialDetailUpdate(int Id)
+        public IActionResult MaterialDetailUpdate(int Id,int spareMaterialId)
         {
-            int spareCode = _spareMaterialsService.GetSpareMatarialsCodeFromId(Id);
+            int spareCode = _spareMaterialsService.GetSpareMatarialsCodeFromId(spareMaterialId);
             ViewBag.MaterialDetailSelectList = MaterialDetailSelectList;
             ViewBag.MaterialMeasurementSelectList = MaterialMeasurementSelectList;
             ViewBag.Materials = new SelectList(_context.SpareMaterialDefinations.Where(x => x.SpareMaterialCode == spareCode), "Id", "SpareMaterialName");

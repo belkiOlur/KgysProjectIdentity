@@ -52,6 +52,8 @@ namespace KgysProjectIdentity.Service.Services
             try
             {
                 spareMaterials.Id=0;
+                spareMaterials.WhoWantIt=CapitalizeAfterComma(spareMaterials.WhoWantIt!.ToLower());
+                spareMaterials.Descriptions = CapitalizeAfterComma(spareMaterials.Descriptions!.ToLower());
                 _context.SpareMaterials.Add(_mapper.Map<SpareMaterialsModel>(spareMaterials));
                 _context.SaveChanges();
                 donusVerisi = "Yedek Malzeme Başarıyla Eklendi.";
@@ -147,6 +149,7 @@ namespace KgysProjectIdentity.Service.Services
                 {
                     spareMaterialDefinations.Sorted = 2;
                 }
+                spareMaterialDefinations.SpareMaterialName = CapitalizeAfterComma(spareMaterialDefinations.SpareMaterialName!.ToLower());
                 _context.SpareMaterialDefinations.Add(_mapper.Map<SpareMaterialDefinationsModel>(spareMaterialDefinations));
                 _context.SaveChanges();
                 _logService.LogForAdd($"{UserName} tarafından {DateTime.Now} tarihinde {spareMaterialDefinations.SpareMaterialName} isimli Yedek Malzeme Başlığı Eklendi");
@@ -187,7 +190,7 @@ namespace KgysProjectIdentity.Service.Services
             {
                 var material = _context.SpareMaterialDefinations.Find(spareMaterials.Id)!;
                 log = UserName + " kullanıcısı " + DateTime.Now + " tarihinde " + material.SpareMaterialName + " isimli yedek malzeme ana başlığını " + spareMaterials.SpareMaterialName + " olarak güncelledi.";
-                material.SpareMaterialName = spareMaterials.SpareMaterialName;
+                material.SpareMaterialName =CapitalizeAfterComma(spareMaterials.SpareMaterialName!.ToLower());
                 _context.SpareMaterialDefinations.Update(material);
                 _context.SaveChanges();
                 _logService.LogForAdd(log);
@@ -312,6 +315,8 @@ namespace KgysProjectIdentity.Service.Services
             try
             {
                 log = UserName + " kullanıcısı " + DateTime.Now + " tarihinde " + _detect.SpareMaterialUpdate(spareMaterials);
+                spareMaterials.WhoWantIt = CapitalizeAfterComma(spareMaterials.WhoWantIt!.ToLower());
+                spareMaterials.Descriptions = CapitalizeAfterComma(spareMaterials.Descriptions!.ToLower());
                 _context.SpareMaterials.Update(spareMaterials);
                 _context.SaveChanges();
                 _logService.LogForAdd(log);

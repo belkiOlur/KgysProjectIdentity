@@ -107,8 +107,7 @@
                         {
                             tenderName = _tender.FindTendersName(item.TenderId);
                             <a asp-Controller="TenderProjects" asp-action="ProjectIndex" asp-route-id="@item.TenderId" style="cursor:pointer">@tenderName</a>
-                        }
-                        
+                        }                       
                        
                     </td>
                     <td style="width:150px">
@@ -118,7 +117,7 @@
                             {
                                 <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id" data-bs-name="@item.SpareMaterialId">Sil</a>
                             }
-                            <a class="btn btn-outline-secondary d-md-block" asp-controller="SpareMaterials" asp-action="MaterialDetailUpdate" asp-route-id="@item.Id">Güncelle</a>
+                            <a class="btn btn-outline-secondary d-md-block" asp-controller="SpareMaterials" asp-action="MaterialDetailUpdate" asp-route-id="@item.Id" asp-route-spareMaterialId="@item.SpareMaterialId">Güncelle</a>
                         }
                     </td>
                 </tr>
