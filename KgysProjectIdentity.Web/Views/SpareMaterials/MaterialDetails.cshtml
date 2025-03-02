@@ -34,7 +34,7 @@
 </div>
 <div class="container mt-lg-5">
 
-    <a class="btn btn-secondary" role="button" asp-controller="" asp-action="">Excele Aktar</a>
+    <a class="btn btn-secondary" role="button" asp-controller="SpareMaterials" asp-action="MaterialDetailsExcelCreate" asp-route-id="@ViewBag.SpareMaterialsCode ">Excele Aktar</a>
     <a class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="text-decoration:none;cursor:pointer">Y.Malzeme Ekle</a>
     <a class="btn btn-secondary" role="button" asp-controller="SpareMaterials" asp-action="MaterialDetailAdd" asp-route-id="@ViewBag.SpareMaterialsCode">Talep/Alım Ekle</a>
 
@@ -72,7 +72,6 @@
                     <td><a role="button" asp-controller="SpareMaterials" asp-action="MaterialDetailIndex" asp-route-id="@item.Id">@materialName</a></td>
                     @{
                         List<SpareMaterialsModel> productGet = spareMateialsService.GettingMaterialsProduct(item.Id);
-
                     }
                     <td>
                         <ul>
@@ -85,7 +84,6 @@
                                     <li style="list-style-type:none">@materialsProducts</li>
                                 }
                             }
-
                         </ul>
                     </td>
                     <td>

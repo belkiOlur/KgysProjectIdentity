@@ -88,15 +88,28 @@
                     <td>@item.UpdateDate.ToString("dd.MM.yyyy")</td>
                     <td>@item.WhoWantIt</td>
                     <td>
-                        @if(item.TenderId==0)
+                        @if(item.TenderId==0 || item.TenderId==null)
                         {
                             tenderName = "-";
+                            @tenderName
+                        }
+                        else if (item.TenderId == 1)
+                        {
+                            tenderName = "İhalesiz";
+                            @tenderName
+                        }
+                        else if (item.TenderId == 2)
+                        {
+                            tenderName = "Sıfırlama";
+                            @tenderName
                         }
                         else
                         {
                             tenderName = _tender.FindTendersName(item.TenderId);
+                            <a asp-Controller="TenderProjects" asp-action="ProjectIndex" asp-route-id="@item.TenderId" style="cursor:pointer">@tenderName</a>
                         }
-                        <a>@tenderName</a>
+                        
+                       
                     </td>
                     <td style="width:150px">
                         @if (User.HasClaim(x => x.Value == "Admin" || x.Value == "Planlama" || x.Value == "Silme"))
@@ -136,3 +149,8 @@
         </div>
     </div>
 </div>
+@section Scripts {
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/lib/jquery-validation/dist/messages_tr.js"></script>
+}

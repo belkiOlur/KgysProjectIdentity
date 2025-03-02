@@ -23,6 +23,6 @@ namespace KgysProjectIdentity.Core.ViewModels
         public DateTime? UpdateDate { get; set; }
         public string? EBYSNo { get; set; }
         public string? WhoWantIt { get; set; }
-        public int TenderId { get; set; }
+        public int? TenderId { get; set; }
     }
 }

@@ -10,34 +10,31 @@
             width: 40%;
             min-width: 400px;
         }
-
         #content {
             display: inline-block;
             width: 40%;
             min-width: 400px;
         }
-
         .container {
             display: flex;
             justify-content: center;
-            align-items: center;
             gap: 20px; 
         }
     </style>
 </head>
 <body>
-    <div class="text-center">
+    <div class="container text-center" style="flex-direction:column;align-items:center">
         <h1>Detaylı Ürün Ekleme Sayfası</h1>
         @if (TempData["status"] != null)
         {
-            <div class="alert alert-success text-center" role="alert">
+            <div class="col-md-6 alert alert-success text-center" role="alert">
                 @TempData["status"]
             </div>
 
         }
         @if (TempData["error"] != null)
         {
-            <div class="alert alert-danger text-center" role="alert">
+            <div class="col-md-6 alert alert-danger text-center" role="alert">
                 @TempData["error"]
             </div>
 
@@ -45,7 +42,7 @@
     </div>
     <div class="container">
         <div asp-validation-summary="ModelOnly"></div>
-        <form asp-controller="SpareMaterials" asp-action="MaterialDetailAdd" method="post">
+        <form asp-controller="SpareMaterials" asp-action="MaterialDetailAdd" class="container" method="post">
             <div id="menu">
                 <div class="mb-3">
                     <label asp-for="SpareMaterialId" class="form-label">Ürün Seçiniz:</label>
@@ -111,6 +108,8 @@
                     <label asp-for="TenderId" class="form-label">Alım İhale :</label>
                     <select class="form-select" asp-for="TenderId" asp-items="ViewBag.TenderSelectList">
                         <option></option>
+                        <option value="1">İhalesiz</option>
+                        <option value="2">Sıfırlama</option>
                     </select>
                     <span class="text-danger" asp-validation-for="TenderId"></span>
                 </div>

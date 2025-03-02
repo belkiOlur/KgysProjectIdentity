@@ -67,9 +67,16 @@ namespace KgysProjectIdentity.Repository.Models
 
         public string GetUserName(string value)
         {
-            string name = _context.UserAndValue.Where(x => x.Value == value).FirstOrDefault()!.Name!; 
-            System.Threading.Thread.Sleep(5);
-
+            string name = "";
+            try
+            {
+                name = _context.UserAndValue.Where(x => x.Value == value).FirstOrDefault()!.Name!;
+                System.Threading.Thread.Sleep(5);
+            }
+            catch
+            {
+                name = "Kullanıcı Bulunamadı";
+            }
             return (name);
         }
         public int GetMaterialsCount(string value)

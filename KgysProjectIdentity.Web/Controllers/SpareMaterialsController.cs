@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using KgysProjectIdentity.Core.ViewModels;
 using KgysProjectIdentity.Repository.Models;
 using KgysProjectIdentity.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace KgysProjectIdentity.Web.Controllers
 {
@@ -133,6 +135,7 @@ namespace KgysProjectIdentity.Web.Controllers
             ViewBag.MaterialDetailSelectList = MaterialDetailSelectList;
             ViewBag.MaterialMeasurementSelectList = MaterialMeasurementSelectList;
             ViewBag.Materials = new SelectList(_context.SpareMaterialDefinations.Where(x => x.SpareMaterialCode == spareCode), "Id", "SpareMaterialName");
+            ViewBag.TenderSelectList = TenderSelectList;
             var model = _spareMaterialsService.GetSpareMaterialsById(Id);
             return View(model);
         }
@@ -151,5 +154,12 @@ namespace KgysProjectIdentity.Web.Controllers
             }
             return RedirectToAction("MaterialDetailIndex", new { Id = newId });
         }
+        [HttpGet]
+        public IActionResult MaterialDetailsExcelCreate(int Id)
+        {
+            ViewBag.PageName = _spareMaterialsService.SpareMaterialDefinationsName(Id);
+            ViewBag.Materials = _spareMaterialsService.GetMiddleMaterials(Id);
+            return View();
+        }       
     }
 }
