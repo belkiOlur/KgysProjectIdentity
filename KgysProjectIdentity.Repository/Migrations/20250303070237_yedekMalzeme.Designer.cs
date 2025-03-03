@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KgysProjectIdentity.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250301093747_yedekMalzemeDuzenlme2")]
-    partial class yedekMalzemeDuzenlme2
+    [Migration("20250303070237_yedekMalzeme")]
+    partial class yedekMalzeme
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1475,6 +1475,38 @@ namespace KgysProjectIdentity.Repository.Migrations
                     b.ToTable("SpareMaterialDefinations");
                 });
 
+            modelBuilder.Entity("KgysProjectIdentity.Repository.Models.SpareMaterialDetailsModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Detail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SpareMaterialDetails");
+                });
+
+            modelBuilder.Entity("KgysProjectIdentity.Repository.Models.SpareMaterialsMeasurementModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Measurement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SpareMaterialsMeasurement");
+                });
+
             modelBuilder.Entity("KgysProjectIdentity.Repository.Models.SpareMaterialsModel", b =>
                 {
                     b.Property<int>("Id")
@@ -1483,19 +1515,37 @@ namespace KgysProjectIdentity.Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Descriptions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EBYSNo")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("MaterialDetails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Measurement")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Pieces")
                         .HasColumnType("int");
 
+                    b.Property<int>("Properties")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RequestOrGet")
+                        .HasColumnType("int");
+
                     b.Property<int>("SpareMaterialId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TenderId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UpdateUser")
+                    b.Property<string>("WhoWantIt")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

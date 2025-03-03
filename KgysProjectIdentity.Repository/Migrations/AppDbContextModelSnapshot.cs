@@ -1536,7 +1536,7 @@ namespace KgysProjectIdentity.Repository.Migrations
                     b.Property<int>("SpareMaterialId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TenderId")
+                    b.Property<int?>("TenderId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdateDate")
