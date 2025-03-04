@@ -98,7 +98,7 @@
                         {
                             @if (User.HasClaim(x => x.Value == "Silme"))
                             {
-                                <a data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id">Sil</a>
+                                <a data-bs-toggle="modal" data-bs-target="#staticBackdropSil" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id">Sil</a>
                             }
                             <a data-bs-toggle="modal" data-bs-target="#staticBackdropp" class="btn btn-outline-secondary d-md-block" data-bs-id="@item.Id" data-bs-name="@materialName">Güncelle</a>
                         }
